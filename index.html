@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. Vivek Kumar | Neonatologist · LHMC New Delhi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    :root {
+      --bg: #f9f8f5;
+      --white: #ffffff;
+      --ink: #1c1c1e;
+      --ink-mid: #4a4a52;
+      --ink-light: #8a8a95;
+      --rule: #e2e0da;
+      --accent: #2c5f8a;
+      --accent-light: #d6e8f5;
+      --gold: #b8892a;
+      --sidebar-w: 220px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--white);
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 50;
+    }
+
+    .site-id {
+      padding: 0 1.8rem 2rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 2rem;
+    }
+    .site-id .name {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--ink); line-height: 1.3; margin-bottom: 0.25rem;
+    }
+    .site-id .role {
+      font-size: 0.72rem; color: var(--ink-light); line-height: 1.5;
+    }
+    .site-id .domain {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; color: var(--accent);
+      margin-top: 0.5rem; display: block;
+    }
+
+    nav ul { list-style: none; padding: 0 0.8rem; }
+    nav ul li { margin-bottom: 0.1rem; }
+
+    nav a {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.55rem 1rem; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 400;
+      color: var(--ink-mid); text-decoration: none;
+      cursor: pointer; background: none; border: none;
+      width: 100%; text-align: left;
+      transition: background 0.15s, color 0.15s;
+    }
+    nav a:hover { background: var(--bg); color: var(--ink); }
+    nav a.active { background: var(--accent-light); color: var(--accent); font-weight: 500; }
+
+    .nav-icon { width: 16px; height: 16px; opacity: 0.5; flex-shrink: 0; fill: currentColor; }
+    nav a.active .nav-icon, nav a:hover .nav-icon { opacity: 1; }
+
+    .sidebar-footer {
+      margin-top: auto; padding: 1.5rem 1.8rem 0;
+      border-top: 1px solid var(--rule);
+    }
+    .contact-pill { display: flex; flex-direction: column; gap: 0.4rem; }
+    .contact-pill a {
+      font-size: 0.7rem; color: var(--ink-light);
+      text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.15s;
+    }
+    .contact-pill a:hover { color: var(--accent); }
+
+    /* ── MAIN ── */
+    main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+
+    .page { display: none; padding: 3.5rem 4rem; max-width: 100%; }
+    .page.active { display: block; }
+
+    .page-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .page-title {
+      font-family: 'Lora', serif;
+      font-size: 2rem; font-weight: 500;
+      color: var(--ink); line-height: 1.2; margin-bottom: 1rem;
+    }
+    .page-title em { font-style: italic; color: var(--accent); }
+    hr.divider { border: none; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
+
+    .section-subhead {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-light);
+      margin: 2rem 0 1rem;
+    }
+
+    /* ── HOME ── */
+    .home-top { display: flex; gap: 3rem; align-items: center; margin-bottom: 2.5rem; }
+    .home-photo {
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--accent-light); border: 3px solid var(--rule);
+      flex-shrink: 0; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .home-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .home-photo-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .home-photo-placeholder svg { width: 40px; height: 40px; fill: var(--accent); opacity: 0.3; }
+    .home-photo-placeholder span { font-size: 0.6rem; color: var(--ink-light); font-family: 'JetBrains Mono', monospace; }
+    .home-bio h1 { font-family: 'Lora', serif; font-size: 1.7rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+    .home-bio .subtitle { font-size: 0.88rem; color: var(--accent); font-weight: 400; margin-bottom: 1rem; }
+    .home-bio p { font-size: 0.9rem; line-height: 1.8; color: var(--ink-mid); margin-bottom: 0.8rem; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .tag { font-size: 0.7rem; background: var(--white); border: 1px solid var(--rule); color: var(--ink-mid); padding: 0.25rem 0.65rem; border-radius: 20px; }
+    .tag.accent { background: var(--accent-light); border-color: #b8d4ec; color: var(--accent); }
+
+    .cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .cred-box { background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 1.1rem 1.2rem; }
+    .cred-box .label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.35rem; }
+    .cred-box .value { font-family: 'Lora', serif; font-size: 0.95rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+    .cred-box .sub { font-size: 0.72rem; color: var(--ink-light); margin-top: 0.2rem; }
+
+    /* ── RESEARCH ── */
+    .pub-entry { padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+    .pub-entry:first-of-type { padding-top: 0; }
+    .pub-meta-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+    .pub-year { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); }
+    .pub-badge { font-size: 0.62rem; font-family: 'JetBrains Mono', monospace; background: var(--accent-light); color: var(--accent); padding: 0.1rem 0.45rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .pub-journal { font-size: 0.75rem; color: var(--ink-light); font-style: italic; }
+    .pub-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 500; color: var(--ink); line-height: 1.45; margin-bottom: 0.3rem; }
+    .pub-authors { font-size: 0.78rem; color: var(--ink-light); }
+    .pub-doi { display: inline-block; margin-top: 0.4rem; font-size: 0.72rem; color: var(--accent); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+    .pub-doi:hover { text-decoration: underline; }
+
+    /* ── TEACHING ── */
+    .teaching-item { background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .teaching-item h4 { font-family: 'Lora', serif; font-size: 0.98rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
+    .teaching-item p { font-size: 0.8rem; color: var(--ink-light); line-height: 1.6; }
+    .teaching-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; background: var(--bg); border: 1px solid var(--rule); color: var(--ink-light); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+
+    /* ── IDEAS ── */
+    .blog-entry { padding: 1.4rem 0; border-bottom: 1px solid var(--rule); cursor: pointer; }
+    .blog-entry:hover .blog-entry-title { color: var(--accent); }
+    .blog-entry-cat { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.35rem; }
+    .blog-entry-title { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 500; color: var(--ink); line-height: 1.4; margin-bottom: 0.4rem; transition: color 0.15s; }
+    .blog-entry-desc { font-size: 0.82rem; color: var(--ink-light); line-height: 1.7; margin-bottom: 0.5rem; }
+    .coming-soon { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; background: #fef3c7; color: #92400e; padding: 0.15rem 0.5rem; border-radius: 3px; }
+
+    /* ── NEOTOOLS ── */
+    .tool-card {
+      background: var(--white); border: 1px solid var(--rule);
+      border-radius: 10px; padding: 1.6rem 2rem; margin-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem;
+    }
+    .tool-card-body h3 { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+    .tool-card-body .tool-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .tool-card-body p { font-size: 0.82rem; color: var(--ink-light); line-height: 1.7; }
+    .tool-features { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
+    .tool-features span { font-size: 0.75rem; background: var(--accent-light); color: var(--accent); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 500; }
+    .tool-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent); color: var(--white); font-size: 0.8rem; font-weight: 500; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; white-space: nowrap; flex-shrink: 0; align-self: center; transition: background 0.15s; }
+    .tool-btn:hover { background: #234d72; }
+    .soon-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--bg); color: var(--ink-light); border: 1px solid var(--rule); padding: 0.2rem 0.6rem; border-radius: 4px; align-self: center; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start; margin-top: 1.5rem; }
+    .about-photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .about-photo {
+      width: 180px; height: 180px; border-radius: 50%;
+      background: var(--accent-light); border: 4px solid var(--rule);
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .about-photo-placeholder svg { width: 60px; height: 60px; fill: var(--accent); opacity: 0.25; }
+    .about-stat-stack { width: 100%; display: flex; flex-direction: column; gap: 0.75rem; }
+    .about-stat { background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.2rem; }
+    .about-stat .stat-num { font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 600; color: var(--accent); line-height: 1; }
+    .about-stat .stat-label { font-size: 0.72rem; color: var(--ink-light); margin-top: 0.2rem; }
+    .about-text p { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.9; margin-bottom: 1rem; }
+    .edu-timeline { list-style: none; padding: 0; }
+    .edu-timeline li { padding: 0.9rem 0 0.9rem 1.5rem; border-left: 2px solid var(--rule); position: relative; margin-left: 0.5rem; }
+    .edu-timeline li::before { content: ''; position: absolute; left: -5px; top: 1.15rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .edu-timeline li:last-child { border-left-color: transparent; }
+    .edu-timeline .edu-deg { font-family: 'Lora', serif; font-size: 0.97rem; font-weight: 500; color: var(--ink); }
+    .edu-timeline .edu-inst { font-size: 0.78rem; color: var(--accent); margin-top: 0.15rem; }
+    .edu-timeline .edu-year { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--ink-light); margin-top: 0.1rem; }
+    .interest-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .interest-chip { font-size: 0.78rem; background: var(--white); border: 1px solid var(--rule); color: var(--ink-mid); padding: 0.3rem 0.75rem; border-radius: 20px; display: flex; align-items: center; gap: 0.35rem; }
+    .interest-chip.primary { background: var(--accent-light); border-color: #b8d4ec; color: var(--accent); }
+
+    /* ── RESEARCH SECTION HEADINGS ── */
+    .research-section-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2.5rem 0 1.25rem;
+    }
+    .research-section-heading h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .research-section-heading .rsh-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid #b8d4ec;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .research-section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── ANCHOR NAV ── */
+    .research-anchor-nav {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+    }
+    .research-anchor-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-mid);
+      text-decoration: none;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .research-anchor-nav a:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    /* ── RESEARCH RESPONSIVE GRIDS ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+    }
+    .metric-val {
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      min-height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .metric-val.loading::after {
+      content: '';
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2px solid var(--accent-light);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .metric-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-light);
+      margin-top: 0.3rem;
+    }
+    .grants-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .awards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .scholar-updated {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--ink-light);
+      text-align: right;
+      margin-bottom: 1.5rem;
+      margin-top: -0.25rem;
+    }
+
+    /* ── MOBILE ── */
+    .mobile-menu-btn { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 100; background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 0.5rem 0.7rem; cursor: pointer; font-size: 1rem; }
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
+      #sidebar { transform: translateX(-100%); transition: transform 0.25s ease; }
+      #sidebar.open { transform: translateX(0); }
+      main { margin-left: 0; }
+      .page { padding: 4rem 1.5rem 2rem; }
+      .home-top { flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+      .cred-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .tool-card { flex-direction: column; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .grants-grid { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .pub-meta-row { flex-wrap: wrap; }
+      .page-title { font-size: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .page { padding: 4rem 1rem 2rem; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+      .metric-val { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<aside id="sidebar">
+  <div class="site-id">
+    <div class="name">Dr. Vivek Kumar</div>
+    <div class="role">Neonatologist · Builder · Thinker<br/>New Delhi</div>
+    <span class="domain">vivekneoaiims.com</span>
+  </div>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="#" class="active" onclick="showPage('home',this);return false;">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="showPage('research',this);return false;">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Research
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="showPage('teaching',this);return false;">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+          Teaching
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="showPage('ideas',this);return false;">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+          Ideas
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="showPage('neotools',this);return false;">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          NeoTools
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="showPage('about',this);return false;">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          About
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="contact-pill">
+      <a href="/cdn-cgi/l/email-protection#c1b7a8b7a4aa81b7a8b7a4aaafa4aea0a8a8acb2efa2aeac">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span class="__cf_email__" data-cfemail="4e3827382b250e3827382b25202b212f2727233d602d2123">[email&#160;protected]</span>
+      </a>
+      <a href="https://twitter.com/vivekneoaiims" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+        @vivekneoaiims
+      </a>
+    </div>
+  </div>
+</aside>
+
+<main>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="home-top">
+      <div class="home-photo">
+        <img src="images/profile.jpg" alt="Vivek" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="home-photo-placeholder" style="display:none">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          <span>Add profile.jpg</span>
+        </div>
+      </div>
+      <div class="home-bio">
+        <h1>Vivek Kumar</h1>
+        <p>I'm a neonatologist by training, but curiosity is really my full-time job. I spend my days in the NICU and my evenings reading about artificial intelligence, complex systems, decision-making, and ideas that have nothing to do with medicine — and somehow it all connects. This site is my thinking out loud in public.</p>
+        <p>Sometimes that thinking becomes writing. Sometimes it becomes tools when I can't find ones that work the way clinicians actually need them to.</p>
+        <p>Everything here sits somewhere at the intersection of neonatology, technology, and curiosity.</p>
+      </div>
+    </div>
+    <hr class="divider"/>
+    <div style="background:#2c5f8a;border-radius:10px;padding:2rem 2.5rem;margin-bottom:0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Featured Tool</div>
+      <div style="font-family:'Lora',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:0.8rem;">NeoFORT</div>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.8);line-height:1.8;margin-bottom:1rem;">
+        NeoFORT (Neonatal Fluid Optimization & Review Tool) is a clinician-designed digital platform developed to support evidence-based neonatal nutrition and bedside decision-making in NICU settings.
+      </p>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-bottom:0.75rem;">Version 1.0 currently includes:</p>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.3rem;">
+        <span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:0.8rem;font-weight:500;padding:0.45rem 1rem;border-radius:6px;">30 sec TPN</span>
+        <span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:0.8rem;font-weight:500;padding:0.45rem 1rem;border-radius:6px;">GIR Calculator</span>
+        <span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:0.8rem;font-weight:500;padding:0.45rem 1rem;border-radius:6px;">Nutrition Audit</span>
+      </div>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:1.5rem;">
+        NeoFORT is designed to reduce calculation errors, save bedside time, and promote structured documentation in neonatal units.
+      </p>
+      <a href="https://neonest-india.vercel.app/" target="_blank" style="display:inline-block;background:#fff;color:#2c5f8a;font-size:0.82rem;font-weight:600;padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;">Open NeoFORT →</a>
+
+      <!-- Developer Note — inside same card -->
+      <div style="margin-top:2rem;padding-top:1.8rem;border-top:1px solid rgba(255,255,255,0.15);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.1rem;">A Note from the Developer</div>
+      <p style="font-family:'Lora',serif;font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.95;font-style:italic;margin-bottom:1rem;">
+        "In neonatal care, small numbers carry great weight. A minor miscalculation can affect a life measured in grams. NeoFORT was first conceptualised during my DM training at AIIMS, New Delhi, where I developed Excel-based calculators that continue to be used in clinical practice at AIIMS and other centres.
+      </p>
+      <p style="font-family:'Lora',serif;font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.95;font-style:italic;margin-bottom:1rem;">
+        Over time, it became clear that thoughtfully designed digital tools could further enhance safety, efficiency, and standardisation in the NICU. NeoFORT represents the evolution of that early work into a clinician-friendly application, developed with the assistance of modern digital technologies.
+      </p>
+      <p style="font-family:'Lora',serif;font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.95;font-style:italic;margin-bottom:1.4rem;">
+        It is my hope that this platform supports colleagues in delivering precise, efficient, and compassionate care to the smallest patients we serve."
+      </p>
+      <div style="font-family:'Lora',serif;font-size:0.88rem;font-weight:600;color:rgba(201,168,76,0.85);">— Dr. Vivek Kumar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RESEARCH ═══ -->
+  <div class="page" id="page-research">
+
+    <div class="page-eyebrow">Scholarship</div>
+    <h1 class="page-title">Research & <em>Publications</em></h1>
+
+    <!-- Intro + identity badges in one natural row -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+      <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.85;max-width:560px;margin:0;">Clinician-researcher working at the intersection of neonatal sepsis, digital health infrastructure, and AI-assisted decision-making. Published across national and international indexed journals with a focus on evidence that can change practice in Indian NICUs.</p>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;flex-shrink:0;">
+        <a href="https://scholar.google.com/citations?user=DnsOngMAAAAJ&hl=en" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:0.45rem 0.9rem;text-decoration:none;font-size:0.75rem;font-weight:500;color:#4285f4;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#4285f4'" onmouseout="this.style.borderColor='var(--rule)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5h3.5V20h4v-6h5v6h4V9.5H24L12 0z" fill="#4285f4"/></svg>
+          Google Scholar
+        </a>
+        <a href="https://orcid.org/0000-0002-7252-0617" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:0.45rem 0.9rem;text-decoration:none;font-size:0.75rem;font-weight:500;color:#5a8a00;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#a6ce39'" onmouseout="this.style.borderColor='var(--rule)'">
+          <svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#a6ce39"/><text x="12" y="16" text-anchor="middle" font-size="10" font-family="Arial" font-weight="bold" fill="white">iD</text></svg>
+          ORCID &nbsp;<span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--ink-light);font-weight:400;">0000-0002-7252-0617</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-val" id="pub-count">20</div>
+        <div class="metric-label">Publications</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">127</div>
+        <div class="metric-label">Citations</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">7</div>
+        <div class="metric-label">h-index</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">5</div>
+        <div class="metric-label">i10-index</div>
+      </div>
+    </div>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink-light);text-align:right;margin-top:-0.25rem;margin-bottom:1.5rem;">Last updated: March 2026 · Source: Google Scholar</p>
+
+    <hr class="divider" style="margin-top:0;"/>
+
+    <!-- ── SECTION 1: ONGOING PROJECTS ── -->
+    <div class="research-section-heading" id="r-ongoing">
+      <h2>Ongoing Projects</h2>
+      <span class="rsh-num">Active</span>
+      <div class="research-section-line"></div>
+    </div>
+
+    <div style="border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:1rem;">
+      <div style="background:var(--accent);padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+        <div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Dept. of Biotechnology, Govt. of India · 2021–2026</span>
+          <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:#fff;margin-top:0.3rem;line-height:1.35;">Sepsis-related Mortality in Neonates in India — A Multi-disciplinary Program</div>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.25);padding:0.3rem 0.75rem;border-radius:4px;white-space:nowrap;">₹ 45.5 Crore</span>
+      </div>
+      <div style="background:var(--white);padding:1rem 1.5rem;">
+        <div style="display:flex;flex-wrap:wrap;gap:2rem;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);margin-bottom:0.2rem;">Role</div>
+            <div style="font-size:0.82rem;color:var(--ink);font-weight:500;">Lead Coordinator &amp; Co-PI</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);margin-bottom:0.2rem;">Type</div>
+            <div style="font-size:0.82rem;color:var(--ink);">Multi-site, multi-institutional</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);margin-bottom:0.2rem;">Centre</div>
+            <div style="font-size:0.82rem;color:var(--ink);">AIIMS, New Delhi</div>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.8;margin-top:0.85rem;">A multi-disciplinary national program studying the biology, epidemiology, and outcomes of neonatal sepsis across tertiary centres in India. The project encompasses biomarker profiling, antimicrobial resistance patterns, clinical phenotyping, and the construction of an AI-ready digital sepsis registry to power future machine-learning applications.</p>
+      </div>
+    </div>
+
+    <hr class="divider"/>
+
+    <!-- ── SECTION 2: PAST PROJECTS ── -->
+    <div class="research-section-heading" id="r-past">
+      <h2>Past Projects</h2>
+      <span class="rsh-num">Completed</span>
+      <div class="research-section-line"></div>
+    </div>
+
+    <div style="border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:1rem;">
+      <div style="background:#f5f0e8;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+        <div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">Bill &amp; Melinda Gates Foundation · 2019–2024</span>
+          <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-top:0.3rem;line-height:1.35;">Burden of Multidrug-Resistant Neonatal Sepsis in District Hospitals in India</div>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:#fef3c7;color:#92400e;border:1px solid #f6d860;padding:0.3rem 0.75rem;border-radius:4px;white-space:nowrap;">$ 1.25 Million</span>
+      </div>
+      <div style="background:var(--white);padding:1rem 1.5rem;">
+        <div style="display:flex;flex-wrap:wrap;gap:2rem;margin-bottom:0.85rem;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);margin-bottom:0.2rem;">Role</div>
+            <div style="font-size:0.82rem;color:var(--ink);font-weight:500;">Co-Investigator</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);margin-bottom:0.2rem;">Type</div>
+            <div style="font-size:0.82rem;color:var(--ink);">Multi-site national study · Level-II NICUs</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);margin-bottom:0.2rem;">Status</div>
+            <div style="font-size:0.82rem;color:#16a34a;font-weight:500;">Completed · Published</div>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.8;">A landmark multi-site study examining the epidemiology and antimicrobial resistance burden of neonatal sepsis across district-level hospitals in India — a setting largely understudied in existing literature. Results published in <em>Lancet Global Health</em> (2025).</p>
+      </div>
+    </div>
+
+    <div style="border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:1rem;">
+      <div style="background:#f5f0e8;padding:1rem 1.5rem;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">AIIMS New Delhi · During DM Training</span>
+        <div style="font-family:'Lora',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-top:0.3rem;line-height:1.35;">30-Sec TPN &amp; Nutrition Audit Made Easy — Excel-based NICU Tools</div>
+      </div>
+      <div style="background:var(--white);padding:1rem 1.5rem;">
+        <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.8;">Innovated and built Excel-based tools for rapid TPN calculation and nutrition compliance auditing during DM residency at AIIMS. Tools adopted in 12+ NICUs across India including AIIMS Delhi, and formed the conceptual foundation for NeoFORT.</p>
+      </div>
+    </div>
+
+    <hr class="divider"/>
+
+    <!-- ── SECTION 3: PUBLICATIONS ── -->
+    <div class="research-section-heading" id="r-publications">
+      <h2>Selected Publications</h2>
+      <span class="rsh-num">Top 5</span>
+      <div class="research-section-line"></div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--ink-light);margin-bottom:1.5rem;margin-top:-0.75rem;">Chosen by the author · <a href="https://scholar.google.com/citations?user=DnsOngMAAAAJ&hl=en" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:500;">See all <span id="pub-count-scholar"></span> on Google Scholar →</a></p>
+
+    <div class="pub-entry">
+      <div class="pub-meta-row">
+        <span class="pub-year">2025</span>
+        <span class="pub-badge" style="background:#fce7f3;color:#831843;">Lancet Global Health</span>
+        <span class="pub-badge">Original Article</span>
+      </div>
+      <div class="pub-title">Multidrug-resistant sepsis in special newborn care units in five district hospitals in India: a prospective cohort study</div>
+      <div class="pub-authors">Jain K, <strong>Kumar V</strong>, Plakkal N, Chawla D, Jindal A, Bora R, Gupta N, Sastry A, Singla N, Bhargava A, Nath R, Nag VL, Mohapatra S, Wadhwa N, Agarwal R, Sankar MJ; DH study collaborators.</div>
+      <div style="margin-top:0.6rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/40023188/" target="_blank" class="pub-doi" style="background:var(--accent-light);padding:0.25rem 0.75rem;border-radius:4px;">PubMed →</a>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink-light);">10.1016/S2214-109X(24)00564-3</span>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-meta-row">
+        <span class="pub-year">2024</span>
+        <span class="pub-badge">Original Article</span>
+        <span class="pub-journal">Indian Journal of Pediatrics</span>
+      </div>
+      <div class="pub-title">Need for repeat-hospitalization in very low birth weight or very preterm infants: a prospective cohort study</div>
+      <div class="pub-authors"><strong>Kumar V</strong>, Anand P, Verma A, Thukral A, Sankar MJ, Agarwal R.</div>
+      <div style="margin-top:0.6rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+        <a href="https://doi.org/10.1007/s12098-023-04999-7" target="_blank" class="pub-doi" style="background:var(--accent-light);padding:0.25rem 0.75rem;border-radius:4px;">PubMed →</a>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink-light);">10.1007/s12098-023-04999-7</span>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-meta-row">
+        <span class="pub-year">2024</span>
+        <span class="pub-badge">Original Article</span>
+        <span class="pub-journal">Indian Pediatrics</span>
+      </div>
+      <div class="pub-title">Use of paracetamol for treatment of patent ductus arteriosus in preterm neonates: a 5-year experience from a tertiary hospital in India</div>
+      <div class="pub-authors">Kainth D, Prakash S, <strong>Kumar V</strong>, Dhinakaran R, Verma A, Agarwal R.</div>
+      <div style="margin-top:0.6rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+        <a href="https://doi.org/10.1007/s13312-024-3231-z" target="_blank" class="pub-doi" style="background:var(--accent-light);padding:0.25rem 0.75rem;border-radius:4px;">PubMed →</a>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink-light);">10.1007/s13312-024-3231-z</span>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-meta-row">
+        <span class="pub-year">2025</span>
+        <span class="pub-badge">Original Article</span>
+        <span class="pub-journal">Journal of Perinatology</span>
+      </div>
+      <div class="pub-title">Post-procedure pain in preterm neonates undergoing retinopathy of prematurity (ROP) screening: a prospective cohort study</div>
+      <div class="pub-authors">Singla R, Verma A, <strong>Kumar V</strong>, Chandra P, Thukral A, Sankar MJ, Agarwal R.</div>
+      <div style="margin-top:0.6rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+        <a href="https://doi.org/10.1038/s41372-024-02107-x" target="_blank" class="pub-doi" style="background:var(--accent-light);padding:0.25rem 0.75rem;border-radius:4px;">PubMed →</a>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink-light);">10.1038/s41372-024-02107-x</span>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-meta-row">
+        <span class="pub-year">2023</span>
+        <span class="pub-badge" style="background:#fce7f3;color:#831843;">Lancet Oncology</span>
+        <span class="pub-badge">Original Article</span>
+      </div>
+      <div class="pub-title">Sex disparity in childhood cancer in India: a multi-centre, individual patient data analysis</div>
+      <div class="pub-authors">Bhatia KP, Ganguly S, Sasi A, <strong>Kumar V</strong>, Deo S, Agarwala S, Radhakrishnan V, Swaminathan R, Kapoor G, Manoharan N, Malhotra S, Pushpam D, Bakhshi S.</div>
+      <div style="margin-top:0.6rem;display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+        <a href="https://doi.org/10.1016/S1470-2045(22)00688-X" target="_blank" class="pub-doi" style="background:var(--accent-light);padding:0.25rem 0.75rem;border-radius:4px;">PubMed →</a>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink-light);">10.1016/S1470-2045(22)00688-X</span>
+      </div>
+    </div>
+
+    <!-- See all -->
+    <div style="margin-top:1.25rem;padding:1.2rem 1.6rem;background:var(--white);border:1px solid var(--rule);border-radius:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <div style="font-size:0.84rem;font-weight:500;color:var(--ink);margin-bottom:0.15rem;"><span id="pub-count-cta"></span> peer-reviewed publications</div>
+        <div style="font-size:0.75rem;color:var(--ink-light);">Complete list on Google Scholar and PubMed</div>
+      </div>
+      <a href="https://scholar.google.com/citations?user=DnsOngMAAAAJ&hl=en" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:#fff;font-size:0.8rem;font-weight:500;padding:0.6rem 1.2rem;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background 0.15s;" onmouseover="this.style.background='#234d72'" onmouseout="this.style.background='var(--accent)'">View all on Google Scholar →</a>
+    </div>
+
+    <hr class="divider"/>
+
+    <!-- ── SECTION 4: BOOK CHAPTERS ── -->
+    <div class="research-section-heading" id="r-books">
+      <h2>Book chapters</h2>
+      <span class="rsh-num">5 chapters</span>
+      <div class="research-section-line"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:0.5rem;">
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;">
+        <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div style="flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent);background:var(--accent-light);border:1px solid #b8d4ec;border-radius:4px;padding:0.2rem 0.5rem;margin-top:0.1rem;white-space:nowrap;">2025</div>
+          <div style="flex:1;">
+            <div style="font-size:0.85rem;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:0.25rem;">Approach to anaemia</div>
+            <div style="font-size:0.78rem;color:var(--ink-mid);line-height:1.6;">In: Parthasarathy A, Menon PSN, Nair MKC (eds). <em>IAP Textbook of Pediatrics</em>, 8th edn. Jaypee Brothers Medical Publishers, 2025. Chapter 14.2.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;">
+        <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div style="flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent);background:var(--accent-light);border:1px solid #b8d4ec;border-radius:4px;padding:0.2rem 0.5rem;margin-top:0.1rem;white-space:nowrap;">2023</div>
+          <div style="flex:1;">
+            <div style="font-size:0.85rem;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:0.25rem;">AIIMS protocols in neonatology</div>
+            <div style="font-size:0.78rem;color:var(--ink-mid);line-height:1.6;">In: Agarwal R, Deorari AK, Paul VK, Sankar MJ, Sachdeva A (eds). <em>AIIMS Protocols in Neonatology</em>, 3rd edn. CBS Publishers, New Delhi, 2023.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;">
+        <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div style="flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent);background:var(--accent-light);border:1px solid #b8d4ec;border-radius:4px;padding:0.2rem 0.5rem;margin-top:0.1rem;white-space:nowrap;">2021</div>
+          <div style="flex:1;">
+            <div style="font-size:0.85rem;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:0.25rem;">Enteral Nutrition</div>
+            <div style="font-size:0.78rem;color:var(--ink-mid);line-height:1.6;">In: Pejaver RK, Thakre R (eds). <em>Textbook of Clinical Neonatology</em>, 1st edn. Jaypee Brothers Medical Publishers, 2021. Chapter 5.29, pp. 179–184.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;">
+        <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div style="flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent);background:var(--accent-light);border:1px solid #b8d4ec;border-radius:4px;padding:0.2rem 0.5rem;margin-top:0.1rem;white-space:nowrap;">2020</div>
+          <div style="flex:1;">
+            <div style="font-size:0.85rem;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:0.25rem;">Humidification</div>
+            <div style="font-size:0.78rem;color:var(--ink-mid);line-height:1.6;">In: Deorari AK, Kumar P, Murki S (eds). <em>Workbook on CPAP Science, Evidence &amp; Practice</em>, 5th edn. Noble Vision Medical Books Publishers, 2020. Chapter 7, pp. 109–112.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;">
+        <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div style="flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--accent);background:var(--accent-light);border:1px solid #b8d4ec;border-radius:4px;padding:0.2rem 0.5rem;margin-top:0.1rem;white-space:nowrap;">—</div>
+          <div style="flex:1;">
+            <div style="font-size:0.85rem;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:0.25rem;">Sepsis signs</div>
+            <div style="font-size:0.78rem;color:var(--ink-mid);line-height:1.6;">In: Dutta S (ed). <em>[Book title to be added]</em>.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider"/>
+    <div class="research-section-heading" id="r-awards">
+      <h2>Awards &amp; Recognition</h2>
+      <div class="research-section-line"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;">
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="flex-shrink:0;width:36px;height:36px;background:#fef9ec;border:1px solid #f6e5b0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🏆</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.2rem;">
+            <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">K.P. Sinha–P.S. Krishnan Award for Best Paper</div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--gold);white-space:nowrap;">2024</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--ink-light);">Association of Clinical Biochemists of India · Co-author</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="flex-shrink:0;width:36px;height:36px;background:#f0f7ff;border:1px solid #bcd6f0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🥇</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.2rem;">
+            <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">NNF PG Quiz — National Champion</div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--gold);white-space:nowrap;">2017</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--ink-light);">National Neonatology Forum, India · National first prize</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="flex-shrink:0;width:36px;height:36px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">📜</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.2rem;">
+            <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Special Appreciation Certificate — Govt. of India</div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--gold);white-space:nowrap;">2019</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--ink-light);">Meritorious service during Acute Encephalitis Syndrome outbreak · Muzaffarpur, Bihar</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="flex-shrink:0;width:36px;height:36px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🌐</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.2rem;">
+            <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Life Member — NNF &amp; IAP</div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--gold);white-space:nowrap;">2019</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--ink-light);">National Neonatology Forum &amp; Indian Academy of Pediatrics</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Collab nudge -->
+    <div style="padding:1.2rem 1.5rem;background:var(--accent-light);border:1px solid #b8d4ec;border-radius:8px;margin-bottom:1rem;">
+      <p style="font-size:0.82rem;color:var(--accent);line-height:1.75;"><strong>Open to collaboration</strong> on neonatal sepsis, digital health infrastructure, or AI in the NICU. If your work intersects with any of these, <a href="/cdn-cgi/l/email-protection#a4d2cdd2c1cfe4d2cdd2c1cfcac1cbc5cdcdc9d78ac7cbc9" style="color:var(--accent);font-weight:600;text-decoration:underline;">get in touch</a>.</p>
+    </div>
+
+  </div>
+
+  <!-- ═══ TEACHING ═══ -->
+  <div class="page" id="page-teaching">
+    <div class="page-eyebrow">Education</div>
+    <h1 class="page-title">Teaching & <em>Training</em></h1>
+    <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.8;max-width:620px">Undergraduate and postgraduate teaching at LHMC, New Delhi. Committed to evidence-based neonatal education, research methodology, and building the next generation of clinical scientists — doctors who can read data, question assumptions, and build tools.</p>
+    <hr class="divider"/>
+
+    <div class="section-subhead">Current Responsibilities</div>
+    <div class="teaching-item">
+      <div>
+        <h4>DM Neonatology Supervision</h4>
+        <p>Thesis supervision and clinical training for DM Neonatology fellows. Emphasis on research methodology, biostatistics, data literacy, and building good clinical questions. Trainees are encouraged to engage with digital tools and AI literature early.</p>
+      </div>
+      <span class="teaching-badge">Postgraduate</span>
+    </div>
+    <div class="teaching-item">
+      <div>
+        <h4>MD Pediatrics Teaching</h4>
+        <p>Neonatology module lectures and bedside clinics for MD Pediatrics residents — covering resuscitation, neonatal sepsis, respiratory distress, nutrition, and neurodevelopment. Special focus on rational antibiotic use and sepsis workup.</p>
+      </div>
+      <span class="teaching-badge">Postgraduate</span>
+    </div>
+    <div class="teaching-item">
+      <div>
+        <h4>MBBS Undergraduate Clinics</h4>
+        <p>Bedside teaching and clinical demonstration for MBBS students in the NICU and neonatal ward at LHMC. Emphasis on observation, clinical reasoning, and understanding neonatal physiology from first principles.</p>
+      </div>
+      <span class="teaching-badge">Undergraduate</span>
+    </div>
+
+    <div class="section-subhead">Workshops & Courses</div>
+    <div class="teaching-item">
+      <div>
+        <h4>Neonatal Resuscitation Program (NRP)</h4>
+        <p>Instructor for NRP workshops at LHMC. Simulation-based training for pediatric residents and NICU nursing staff. Focus on team communication and algorithmic thinking under pressure.</p>
+      </div>
+      <span class="teaching-badge">Workshop</span>
+    </div>
+    <div class="teaching-item">
+      <div>
+        <h4>Introduction to AI for Clinicians</h4>
+        <p>Seminar series on ML fundamentals, clinical AI tools, and how doctors can critically evaluate AI/ML research. Designed for residents and fellows who want to engage with — not just consume — the AI literature.</p>
+      </div>
+      <span class="teaching-badge">Seminar</span>
+    </div>
+    <div class="teaching-item">
+      <div>
+        <h4>Research Methodology for Neonatology Fellows</h4>
+        <p>Structured sessions on study design, data collection, SPSS/R basics, and scientific writing. Born from supervising DM theses and noticing the same gaps appear year after year.</p>
+      </div>
+      <span class="teaching-badge">Workshop</span>
+    </div>
+
+    <div class="section-subhead">Teaching Philosophy</div>
+    <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1.4rem 1.8rem;margin-top:0.5rem;">
+      <p style="font-family:'Lora',serif;font-size:0.97rem;color:var(--ink-mid);line-height:1.95;font-style:italic;">"The best clinical teachers I had didn't just teach me what to do — they showed me how to think. My goal is to train doctors who can reason carefully, question the evidence, and ask the next good question. In neonatology, precision matters. We should never be comfortable with 'good enough.'"</p>
+      <p style="font-size:0.78rem;color:var(--ink-light);margin-top:0.75rem;font-family:'Lora',serif;font-weight:500;">— Dr. Vivek Kumar</p>
+    </div>
+  </div>
+
+  <!-- ═══ IDEAS ═══ -->
+  <div class="page" id="page-ideas">
+    <div class="page-eyebrow">Writing</div>
+    <h1 class="page-title">Ideas & <em>Perspectives</em></h1>
+    <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.8;max-width:620px">Thoughts on neonatal medicine, AI in healthcare, building clinical tools, and the future of neonatal care in India. Written for curious clinicians — not academic journals. Opinions are my own and not that of any institution.</p>
+    <hr class="divider"/>
+
+    <div class="blog-entry">
+      <div class="blog-entry-cat">AI & Digital Health</div>
+      <div class="blog-entry-title">Why Every NICU Needs a Digital Database — and How to Build One</div>
+      <div class="blog-entry-desc">The argument for structured neonatal registries: what data to collect from day one, how to make it AI-ready, and how a well-designed database can power a decade of research without ever applying for another grant.</div>
+      <div><span class="coming-soon">Coming Soon</span></div>
+    </div>
+
+    <div class="blog-entry">
+      <div class="blog-entry-cat">Sepsis Research</div>
+      <div class="blog-entry-title">AI in Neonatal Sepsis: Where We Are and Where We're Headed</div>
+      <div class="blog-entry-desc">An honest assessment of current ML models for sepsis prediction — the promising work, the replication failures, and what it will actually take to bring a sepsis alert to the Indian NICU bedside.</div>
+      <div><span class="coming-soon">Coming Soon</span></div>
+    </div>
+
+    <div class="blog-entry">
+      <div class="blog-entry-cat">Clinical Innovation</div>
+      <div class="blog-entry-title">How I Built NeoFORT: A Clinician's Guide to Building Medical Apps</div>
+      <div class="blog-entry-desc">The story of building a neonatal clinical tool from inside the NICU — starting with an Excel sheet at AIIMS, working through what a "version 1.0" actually needs, and what other doctor-builders should know before writing a line of code.</div>
+      <div><span class="coming-soon">Coming Soon</span></div>
+    </div>
+
+    <div class="blog-entry">
+      <div class="blog-entry-cat">Medical Education</div>
+      <div class="blog-entry-title">Teaching Residents to Read AI Research Without Getting Fooled</div>
+      <div class="blog-entry-desc">A practical guide for clinicians on critically appraising AI/ML papers — the things medical school never taught you about AUROC, validation cohorts, and why "98% accuracy" is almost never what it seems.</div>
+      <div><span class="coming-soon">Coming Soon</span></div>
+    </div>
+
+    <div class="blog-entry">
+      <div class="blog-entry-cat">Neonatology</div>
+      <div class="blog-entry-title">The Biomarker Problem in Neonatal Sepsis: Why We Still Don't Have a Good Test</div>
+      <div class="blog-entry-desc">CRP, PCT, IL-6, NLR — four years into a DBT-funded sepsis study, here is an honest accounting of what bedside biomarkers can and cannot tell us, and why the problem is harder than it looks.</div>
+      <div><span class="coming-soon">Coming Soon</span></div>
+    </div>
+
+    <div class="blog-entry">
+      <div class="blog-entry-cat">Reflections</div>
+      <div class="blog-entry-title">What AIIMS Teaches You That No Curriculum Can</div>
+      <div class="blog-entry-desc">MBBS, MD, and DM at AIIMS Delhi: the clinical density, the research culture, and the strange feeling of emerging from the same institution three times — each time slightly less certain about things you thought you knew.</div>
+      <div><span class="coming-soon">Coming Soon</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ NEOTOOLS ═══ -->
+  <div class="page" id="page-neotools">
+    <div class="page-eyebrow">NeoTools</div>
+    <h1 class="page-title">Clinical <em>Tools</em></h1>
+    <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.8;max-width:620px">Digital tools designed by a clinician, for clinicians. Built to reduce errors, save bedside time, and close the gap between what we know and what we do in the NICU.</p>
+    <hr class="divider"/>
+
+    <div class="section-subhead">Available Now</div>
+
+    <div class="tool-card">
+      <div class="tool-card-body" style="flex:1;">
+        <div class="tool-tag">Neonatal Nutrition</div>
+        <h3>NeoFORT</h3>
+        <p>Neonatal Fluid Optimization &amp; Review Tool. A clinician-designed platform for evidence-based neonatal nutrition and bedside TPN calculation — born from Excel sheets at AIIMS, refined through years of NICU practice at LHMC. Reduces calculation errors and supports structured documentation.</p>
+        <div class="tool-features">
+          <span>30-sec TPN</span>
+          <span>GIR Calculator</span>
+          <span>Nutrition Audit</span>
+        </div>
+      </div>
+      <a href="https://neonest-india.vercel.app/" target="_blank" class="tool-btn">Open NeoFORT →</a>
+    </div>
+
+    <div style="background:#fffdf7;border:1px solid #e8d8b8;border-radius:10px;padding:1.8rem 2rem;margin-bottom:1rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#b8892a;margin-bottom:1.1rem;">A Note from the Developer</div>
+      <p style="font-family:'Lora',serif;font-size:0.93rem;color:#3a2e1a;line-height:2;font-style:italic;margin-bottom:1rem;">
+        "In neonatal care, small numbers carry great weight. A minor miscalculation can affect a life measured in grams. NeoFORT was first conceptualised during my DM training at AIIMS, New Delhi, where I developed Excel-based calculators that continue to be used in clinical practice at AIIMS and other centres across India."
+      </p>
+      <p style="font-family:'Lora',serif;font-size:0.93rem;color:#3a2e1a;line-height:2;font-style:italic;">
+        "Over time, it became clear that thoughtfully designed digital tools could further enhance safety, efficiency, and standardisation. NeoFORT represents the evolution of that early work — developed with modern digital technologies, shaped entirely by bedside need."
+      </p>
+      <div style="font-family:'Lora',serif;font-size:0.9rem;font-weight:600;color:#b8892a;margin-top:1.2rem;">— Dr. Vivek Kumar</div>
+    </div>
+
+    <div class="section-subhead">In Development</div>
+
+    <div class="tool-card" style="opacity:0.75;">
+      <div class="tool-card-body" style="flex:1;">
+        <div class="tool-tag">Sepsis · AI</div>
+        <h3>NeoSepsis Score</h3>
+        <p>An AI-assisted sepsis risk stratification tool for the NICU, built on the biomarker and clinical data from the DBT-funded sepsis registry at LHMC. Designed to support early recognition without replacing clinical judgment.</p>
+        <div class="tool-features">
+          <span>Risk Scoring</span>
+          <span>Biomarker Input</span>
+          <span>Trend Analysis</span>
+        </div>
+      </div>
+      <span class="soon-badge">In Development</span>
+    </div>
+
+    <div class="tool-card" style="opacity:0.75;">
+      <div class="tool-card-body" style="flex:1;">
+        <div class="tool-tag">Digital Registry</div>
+        <h3>NeoREG</h3>
+        <p>A structured digital registry platform for NICUs — designed with AI-readiness from day one. Captures standardised sepsis episodes, treatment decisions, and outcomes in a format compatible with downstream ML pipelines.</p>
+        <div class="tool-features">
+          <span>Structured Entry</span>
+          <span>Sepsis Module</span>
+          <span>Export-ready</span>
+        </div>
+      </div>
+      <span class="soon-badge">In Development</span>
+    </div>
+
+    <hr class="divider"/>
+    <p style="font-size:0.78rem;color:var(--ink-light);line-height:1.7;"><strong>Citation:</strong> If you use NeoFORT in clinical or research settings, please cite: <em>Vivek Kumar et al., "NeoFORT: A digital tool for neonatal TPN and nutrition audit," [Journal], [Year].</em></p>
+  </div>
+
+  <!-- ═══ ABOUT ═══ -->
+  <div class="page" id="page-about">
+    <div class="page-eyebrow">Profile</div>
+    <h1 class="page-title">About <em>Dr. Vivek Kumar</em></h1>
+    <hr class="divider"/>
+
+    <div class="about-grid">
+      <!-- Left: photo + stats -->
+      <div>
+        <div class="about-photo-wrap" style="align-items:flex-start;flex-direction:row;gap:2rem;margin-bottom:2rem;">
+          <div class="about-photo" style="flex-shrink:0;">
+            <img src="images/profile.jpg" alt="Dr. Vivek Kumar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="about-photo-placeholder" style="display:none;align-items:center;justify-content:center;width:100%;height:100%;">
+              <svg viewBox="0 0 24 24" style="width:60px;height:60px;fill:var(--accent);opacity:0.25;"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'Lora',serif;font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:0.2rem;">Dr. Vivek Kumar</div>
+            <div style="font-size:0.83rem;color:var(--accent);margin-bottom:0.75rem;">DM (Neonatology) · AIIMS, New Delhi</div>
+            <div style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;">Assistant Professor<br/>Department of Neonatology<br/>LHMC & Associated Hospitals<br/>New Delhi</div>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <p>I am a neonatologist at LHMC, New Delhi, where I combine clinical care with research and digital health. My MBBS, MD (Pediatrics), and DM (Neonatology) are all from AIIMS New Delhi — an institution that shaped how I think about medicine as much as it trained me in it.</p>
+
+          <p>For four years, I led a Dept. of Biotechnology-funded project on neonatal sepsis at LHMC — one of the largest studies of its kind at a tertiary care centre in North India. The project was never just about counting organisms. It was about building the kind of structured, high-quality database that can eventually train a machine to see what a clinician sees at 3am.</p>
+
+          <p>My three obsessions are sepsis, digital databases, and artificial intelligence. These aren't separate interests — they are, in my view, one long project. The sepsis problem in Indian NICUs will not be solved by a better antibiotic. It will be solved by better recognition, earlier decisions, and smarter tools. That is the work.</p>
+
+          <p>Outside the NICU, I build clinical software, think in public about medicine and technology, and teach residents to question everything — including me.</p>
+        </div>
+
+        <div class="interest-chips">
+          <span class="interest-chip primary">🔬 Neonatal Sepsis</span>
+          <span class="interest-chip primary">🤖 AI & Machine Learning</span>
+          <span class="interest-chip primary">🗄️ Digital Databases</span>
+          <span class="interest-chip">⚗️ Biomarkers</span>
+          <span class="interest-chip">📊 Clinical Research</span>
+          <span class="interest-chip">🛠️ Medical Software</span>
+          <span class="interest-chip">🎓 Medical Education</span>
+        </div>
+      </div>
+
+      <!-- Right: education + timeline -->
+      <div>
+        <div class="section-subhead" style="margin-top:0;">Education</div>
+        <ul class="edu-timeline">
+          <li>
+            <div class="edu-deg">DM Neonatology</div>
+            <div class="edu-inst">All India Institute of Medical Sciences, New Delhi</div>
+            <div class="edu-year">AIIMS Delhi</div>
+          </li>
+          <li>
+            <div class="edu-deg">MD Pediatrics</div>
+            <div class="edu-inst">All India Institute of Medical Sciences, New Delhi</div>
+            <div class="edu-year">AIIMS Delhi</div>
+          </li>
+          <li>
+            <div class="edu-deg">MBBS</div>
+            <div class="edu-inst">All India Institute of Medical Sciences, New Delhi</div>
+            <div class="edu-year">AIIMS Delhi</div>
+          </li>
+        </ul>
+
+        <div class="section-subhead">Positions Held</div>
+        <ul class="edu-timeline">
+          <li>
+            <div class="edu-deg">Assistant Professor, Neonatology</div>
+            <div class="edu-inst">LHMC & Associated Hospitals, New Delhi</div>
+            <div class="edu-year">2021 – Present</div>
+          </li>
+          <li>
+            <div class="edu-deg">Principal Investigator — DBT Sepsis Project</div>
+            <div class="edu-inst">Dept. of Biotechnology, Govt. of India</div>
+            <div class="edu-year">2021 – 2025</div>
+          </li>
+          <li>
+            <div class="edu-deg">Senior Resident, Neonatology</div>
+            <div class="edu-inst">AIIMS, New Delhi</div>
+            <div class="edu-year">During DM Training</div>
+          </li>
+        </ul>
+
+        <div class="section-subhead">Key Statistics</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="about-stat">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">Years of DBT-funded neonatal sepsis research</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">3×</div>
+            <div class="stat-label">AIIMS degree holder — MBBS, MD, DM</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">1,000+</div>
+            <div class="stat-label">Sepsis cases in the research registry</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">v1.0</div>
+            <div class="stat-label">NeoFORT live in NICUs across India</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1.2rem 1.5rem;background:var(--white);border:1px solid var(--rule);border-radius:8px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.6rem;">Get in Touch</div>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;margin-bottom:0.75rem;">For research collaborations, tool feedback, speaking invitations, or clinical AI discussions — I'm always interested in connecting with people working at the intersection of medicine and technology.</p>
+          <a href="/cdn-cgi/l/email-protection#73051a05161833051a0516181d161c121a1a1e005d101c1e" style="font-size:0.8rem;color:var(--accent);text-decoration:none;font-family:'JetBrains Mono',monospace;"><span class="__cf_email__" data-cfemail="5c2a352a39371c2a352a39373239333d3535312f723f3331">[email&#160;protected]</span> →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // ── PUBLICATION COUNT — change this one number to update everywhere ──
+  const PUB_COUNT = 20;
+  document.getElementById('pub-count').textContent        = PUB_COUNT;
+  document.getElementById('pub-count-cta').textContent    = PUB_COUNT;
+  document.getElementById('pub-count-scholar').textContent = PUB_COUNT;
+
+  // ── PAGE NAVIGATION ──
+  function showPage(id, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    if (el) el.classList.add('active');
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  // ── SMOOTH SCROLL FOR RESEARCH ANCHORS ──
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href^="#r-"]');
+    if (!link) return;
+    e.preventDefault();
+    const target = document.getElementById(link.getAttribute('href').slice(1));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+</body>
+</html>
