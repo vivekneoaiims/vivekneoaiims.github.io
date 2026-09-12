@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MXJPK9PP');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dr. Vivek Kumar | Neonatologist · LHMC New Delhi</title>
@@ -162,6 +169,137 @@
     .teaching-item h4 { font-family: 'Lora', serif; font-size: 0.98rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
     .teaching-item p { font-size: 0.8rem; color: var(--ink-light); line-height: 1.6; }
     .teaching-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; background: var(--bg); border: 1px solid var(--rule); color: var(--ink-light); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+
+    /* ── TEACHING v2 ── */
+    .teach-major-section { margin: 2.2rem 0 0; }
+    .teach-major-heading {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+    .teach-major-heading h2 {
+      font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink);
+    }
+    .teach-major-line { flex:1; height:1px; background: var(--rule); }
+    .teach-major-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--accent-light); color: var(--accent);
+      border: 1px solid #b8d4ec; padding: 0.15rem 0.5rem; border-radius: 4px; white-space: nowrap;
+    }
+
+    /* Accordion card */
+    .teach-card {
+      background: var(--white); border: 1px solid var(--rule);
+      border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden;
+    }
+    .teach-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.4rem; cursor: pointer; gap: 1rem;
+      transition: background 0.15s;
+    }
+    .teach-card-header:hover { background: var(--bg); }
+    .teach-card-header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .teach-card-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .teach-card-title { font-family: 'Lora', serif; font-size: 0.97rem; font-weight: 500; color: var(--ink); }
+    .teach-card-subtitle { font-size: 0.75rem; color: var(--ink-light); margin-top: 0.1rem; }
+    .teach-card-meta { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .teach-count-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+      background: var(--bg); border: 1px solid var(--rule);
+      color: var(--ink-light); padding: 0.15rem 0.45rem; border-radius: 4px;
+    }
+    .teach-chevron {
+      width: 16px; height: 16px; fill: var(--ink-light);
+      transition: transform 0.25s ease; flex-shrink: 0;
+    }
+    .teach-card.open .teach-chevron { transform: rotate(180deg); }
+
+    .teach-card-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease;
+      border-top: 0px solid var(--rule);
+    }
+    .teach-card.open .teach-card-body {
+      max-height: 2000px;
+      border-top: 1px solid var(--rule);
+    }
+    .teach-card-inner { padding: 1rem 1.4rem 1.2rem; }
+
+    /* Article list inside accordion */
+    .teach-article-list { list-style: none; padding: 0; margin: 0; }
+    .teach-article-list li {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.7rem 0;
+    }
+    .teach-article-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .teach-article-link {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      text-decoration: none; color: var(--ink);
+      transition: color 0.15s;
+    }
+    .teach-article-link:hover { color: var(--accent); }
+    .teach-article-link:hover .teach-art-title { text-decoration: underline; }
+    .teach-art-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      margin-top: 0.45rem; flex-shrink: 0; opacity: 0.6;
+    }
+    .teach-art-body { flex: 1; }
+    .teach-art-title { font-size: 0.85rem; font-weight: 400; line-height: 1.5; color: inherit; }
+    .teach-art-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--ink-light); margin-top: 0.15rem; }
+    .teach-art-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 0.1rem 0.35rem; border-radius: 3px;
+      margin-right: 0.3rem;
+    }
+    .tag-article { background: var(--accent-light); color: var(--accent); }
+    .tag-video { background: #fce7f3; color: #831843; }
+    .tag-link { background: #fef3c7; color: #92400e; }
+    .tag-book { background: #f0fdf4; color: #166534; }
+    .tag-soon { background: var(--bg); color: var(--ink-light); border: 1px solid var(--rule); }
+
+    .teach-empty {
+      font-size: 0.8rem; color: var(--ink-light); font-style: italic;
+      padding: 0.5rem 0;
+    }
+
+    /* Philosophy banner */
+    .teach-philosophy {
+      background: linear-gradient(135deg, var(--accent) 0%, #1a4060 100%);
+      border-radius: 10px; padding: 1.4rem 1.8rem; margin-bottom: 1.8rem;
+      color: #fff;
+    }
+    .teach-philosophy .phil-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); margin-bottom: 0.5rem;
+    }
+    .teach-philosophy .phil-text {
+      font-family: 'Lora', serif; font-size: 1.1rem;
+      font-style: italic; color: #fff; line-height: 1.6;
+    }
+    .teach-philosophy .phil-attr {
+      font-size: 0.72rem; color: rgba(255,255,255,0.55);
+      margin-top: 0.6rem;
+    }
+
+    .teach-quote-box {
+      border-left: 3px solid var(--gold); padding: 0.75rem 1.2rem;
+      background: var(--white); border-radius: 0 8px 8px 0;
+      margin-bottom: 1.8rem;
+    }
+    .teach-quote-box p {
+      font-family: 'Lora', serif; font-size: 0.9rem; font-style: italic;
+      color: var(--ink-mid); line-height: 1.7;
+    }
+    .teach-quote-box cite {
+      font-size: 0.72rem; color: var(--gold); font-family: 'JetBrains Mono', monospace;
+      font-style: normal; display: block; margin-top: 0.4rem;
+    }
 
     /* ── IDEAS ── */
     .blog-entry { padding: 1.4rem 0; border-bottom: 1px solid var(--rule); cursor: pointer; }
@@ -400,6 +538,10 @@
   </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXJPK9PP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
 
@@ -862,65 +1004,195 @@
   <!-- ═══ TEACHING ═══ -->
   <div class="page" id="page-teaching">
     <div class="page-eyebrow">Education</div>
-    <h1 class="page-title">Teaching & <em>Training</em></h1>
-    <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.8;">Undergraduate and postgraduate teaching at LHMC, New Delhi. Committed to evidence-based neonatal education, research methodology, and building the next generation of clinical scientists — doctors who can read data, question assumptions, and build tools.</p>
+    <h1 class="page-title">Teaching &amp; <em>Learning</em></h1>
+
+    <!-- Philosophy banner -->
+    <div class="teach-philosophy">
+      <div class="phil-label">Learning Philosophy</div>
+      <div class="phil-text">"We teach best what we need to learn."</div>
+      <div class="phil-attr">— Richard Bach · adopted as a personal teaching principle</div>
+    </div>
+
+    <!-- Quote -->
+    <div class="teach-quote-box">
+      <p>"Teaching is the final test of understanding."</p>
+      <cite>— on the discipline of teaching</cite>
+    </div>
+
     <hr class="divider"/>
 
-    <div class="section-subhead">Current Responsibilities</div>
-    <div class="teaching-grid">
-    <div class="teaching-item">
-      <div>
-        <h4>DM Neonatology Supervision</h4>
-        <p>Thesis supervision and clinical training for DM Neonatology fellows. Emphasis on research methodology, biostatistics, data literacy, and building good clinical questions. Trainees are encouraged to engage with digital tools and AI literature early.</p>
+    <!-- ══ SECTION 1: NEWBORN TEACHING ══ -->
+    <div class="teach-major-section">
+      <div class="teach-major-heading">
+        <h2>Newborn Teaching</h2>
+        <span class="teach-major-badge">Neonatology</span>
+        <div class="teach-major-line"></div>
       </div>
-      <span class="teaching-badge">Postgraduate</span>
-    </div>
-    <div class="teaching-item">
-      <div>
-        <h4>MD Pediatrics Teaching</h4>
-        <p>Neonatology module lectures and bedside clinics for MD Pediatrics residents — covering resuscitation, neonatal sepsis, respiratory distress, nutrition, and neurodevelopment. Special focus on rational antibiotic use and sepsis workup.</p>
+
+      <!-- 1.1 Basics of Neonatology -->
+      <div class="teach-card" id="card-basics">
+        <div class="teach-card-header" onclick="toggleCard('card-basics')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#e8f4fd;border:1px solid #b8d4ec;">🍼</div>
+            <div>
+              <div class="teach-card-title">Basics of Neonatology</div>
+              <div class="teach-card-subtitle">For MBBS undergraduates &amp; MD / MS postgraduates</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-basics">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-basics"></ul>
+          </div>
+        </div>
       </div>
-      <span class="teaching-badge">Postgraduate</span>
-    </div>
-    <div class="teaching-item">
-      <div>
-        <h4>MBBS Undergraduate Clinics</h4>
-        <p>Bedside teaching and clinical demonstration for MBBS students in the NICU and neonatal ward at LHMC. Emphasis on observation, clinical reasoning, and understanding neonatal physiology from first principles.</p>
+
+      <!-- 1.2 Advanced Neonatology -->
+      <div class="teach-card" id="card-advanced">
+        <div class="teach-card-header" onclick="toggleCard('card-advanced')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#fce7f3;border:1px solid #f9a8d4;">🔬</div>
+            <div>
+              <div class="teach-card-title">Advanced Neonatology</div>
+              <div class="teach-card-subtitle">For DM Neonatology fellows &amp; senior trainees</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-advanced">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-advanced"></ul>
+          </div>
+        </div>
       </div>
-      <span class="teaching-badge">Undergraduate</span>
-    </div>
+
+      <!-- 1.3 Learning Resources (Newborn) -->
+      <div class="teach-card" id="card-neo-resources">
+        <div class="teach-card-header" onclick="toggleCard('card-neo-resources')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#f0fdf4;border:1px solid #bbf7d0;">📚</div>
+            <div>
+              <div class="teach-card-title">Learning Resources</div>
+              <div class="teach-card-subtitle">Curated sites, papers &amp; articles in neonatology</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-neo-resources">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-neo-resources"></ul>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="section-subhead">Workshops & Courses</div>
-    <div class="teaching-grid">
-    <div class="teaching-item">
-      <div>
-        <h4>Neonatal Resuscitation Program (NRP)</h4>
-        <p>Instructor for NRP workshops at LHMC. Simulation-based training for pediatric residents and NICU nursing staff. Focus on team communication and algorithmic thinking under pressure.</p>
+    <!-- ══ SECTION 2: NON-NEWBORN LEARNING ══ -->
+    <div class="teach-major-section" style="margin-top:2.5rem;">
+      <div class="teach-major-heading">
+        <h2>Non-Newborn Learning</h2>
+        <span class="teach-major-badge" style="background:#fef3c7;color:#92400e;border-color:#f6d860;">Beyond the NICU</span>
+        <div class="teach-major-line"></div>
       </div>
-      <span class="teaching-badge">Workshop</span>
-    </div>
-    <div class="teaching-item">
-      <div>
-        <h4>Introduction to AI for Clinicians</h4>
-        <p>Seminar series on ML fundamentals, clinical AI tools, and how doctors can critically evaluate AI/ML research. Designed for residents and fellows who want to engage with — not just consume — the AI literature.</p>
+
+      <!-- 2.1 Research Methodology & Statistics -->
+      <div class="teach-card" id="card-research-meth">
+        <div class="teach-card-header" onclick="toggleCard('card-research-meth')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#fef9c3;border:1px solid #fde68a;">📊</div>
+            <div>
+              <div class="teach-card-title">Research Methodology &amp; Medical Statistics</div>
+              <div class="teach-card-subtitle">Study design, biostatistics, data analysis &amp; scientific writing</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-research-meth">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-research-meth"></ul>
+          </div>
+        </div>
       </div>
-      <span class="teaching-badge">Seminar</span>
-    </div>
-    <div class="teaching-item">
-      <div>
-        <h4>Research Methodology for Neonatology Fellows</h4>
-        <p>Structured sessions on study design, data collection, SPSS/R basics, and scientific writing. Born from supervising DM theses and noticing the same gaps appear year after year.</p>
+
+      <!-- 2.2 Personal Finance -->
+      <div class="teach-card" id="card-finance">
+        <div class="teach-card-header" onclick="toggleCard('card-finance')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#f0fdf4;border:1px solid #bbf7d0;">💰</div>
+            <div>
+              <div class="teach-card-title">Personal Finance</div>
+              <div class="teach-card-subtitle">Financial literacy for doctors — investments, taxes &amp; wealth</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-finance">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-finance"></ul>
+          </div>
+        </div>
       </div>
-      <span class="teaching-badge">Workshop</span>
-    </div>
+
+      <!-- 2.3 General Stuff -->
+      <div class="teach-card" id="card-general">
+        <div class="teach-card-header" onclick="toggleCard('card-general')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#fce7f3;border:1px solid #f9a8d4;">🌐</div>
+            <div>
+              <div class="teach-card-title">General Stuff</div>
+              <div class="teach-card-subtitle">Interesting reads — technology, thinking, life &amp; ideas</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-general">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-general"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.4 Learning Resources (Non-Newborn) -->
+      <div class="teach-card" id="card-gen-resources">
+        <div class="teach-card-header" onclick="toggleCard('card-gen-resources')">
+          <div class="teach-card-header-left">
+            <div class="teach-card-icon" style="background:#e8f4fd;border:1px solid #b8d4ec;">🔗</div>
+            <div>
+              <div class="teach-card-title">Learning Resources</div>
+              <div class="teach-card-subtitle">Curated sites, courses &amp; tools beyond neonatology</div>
+            </div>
+          </div>
+          <div class="teach-card-meta">
+            <span class="teach-count-badge" id="count-gen-resources">0 items</span>
+            <svg class="teach-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+          </div>
+        </div>
+        <div class="teach-card-body">
+          <div class="teach-card-inner">
+            <ul class="teach-article-list" id="list-gen-resources"></ul>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="section-subhead">Teaching Philosophy</div>
-    <div style="background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1.4rem 1.8rem;margin-top:0.5rem;">
-      <p style="font-family:'Lora',serif;font-size:0.97rem;color:var(--ink-mid);line-height:1.95;font-style:italic;">"The best clinical teachers I had didn't just teach me what to do — they showed me how to think. My goal is to train doctors who can reason carefully, question the evidence, and ask the next good question. In neonatology, precision matters. We should never be comfortable with 'good enough.'"</p>
-      <p style="font-size:0.78rem;color:var(--ink-light);margin-top:0.75rem;font-family:'Lora',serif;font-weight:500;">— Dr. Vivek Kumar</p>
-    </div>
   </div>
 
   <!-- ═══ IDEAS ═══ -->
@@ -1175,6 +1447,104 @@
     if (el) el.classList.add('active');
     document.getElementById('sidebar').classList.remove('open');
   }
+
+  // ══════════════════════════════════════════════════════════════
+  // TEACHING & LEARNING — DATA STORE
+  // To add a new item: push an object into the relevant array below.
+  // Fields:
+  //   title : string (required)
+  //   url   : string — full URL or relative path, or null for "coming soon"
+  //   tag   : 'article' | 'video' | 'link' | 'book' | 'soon'
+  //   meta  : string — shown below title (author, source, year…)
+  // ══════════════════════════════════════════════════════════════
+  const TEACHING_DATA = {
+
+    // ── 1. Basics of Neonatology (UG & PG) ──────────────────────
+    basics: [
+      // Example: { title: "Approach to a sick neonate", url: "articles/sick-neonate.html", tag: "article", meta: "Dr. Vivek Kumar · LHMC · 2024" },
+    ],
+
+    // ── 2. Advanced Neonatology (DM fellows) ────────────────────
+    advanced: [
+      // Example: { title: "Sepsis biomarkers: beyond the CBC", url: "https://pubmed.ncbi.nlm.nih.gov/xxxxxxx/", tag: "article", meta: "Review · J Perinatology · 2023" },
+    ],
+
+    // ── 3. Learning Resources — Neonatology ─────────────────────
+    neoResources: [
+      // Example: { title: "NeoReviews — AAP evidence-based journal", url: "https://neoreviews.aappublications.org/", tag: "link", meta: "American Academy of Pediatrics" },
+    ],
+
+    // ── 4. Research Methodology & Medical Statistics ─────────────
+    researchMeth: [
+      // Example: { title: "Choosing the right statistical test", url: "articles/stat-tests.html", tag: "article", meta: "Dr. Vivek Kumar · 2024" },
+    ],
+
+    // ── 5. Personal Finance ──────────────────────────────────────
+    finance: [
+      // Example: { title: "Mutual funds for doctors — where to start", url: "articles/mutual-funds.html", tag: "article", meta: "Dr. Vivek Kumar · 2024" },
+    ],
+
+    // ── 6. General Stuff ─────────────────────────────────────────
+    general: [
+      // Example: { title: "How to Read a Book — Adler & Van Doren", url: "https://www.amazon.in/dp/0671212095", tag: "book", meta: "Mortimer Adler · Classic" },
+    ],
+
+    // ── 7. Learning Resources — Non-Newborn ─────────────────────
+    genResources: [
+      // Example: { title: "Statistics with R (Duke / Coursera)", url: "https://www.coursera.org/specializations/statistics", tag: "link", meta: "Free to audit · Beginner-friendly" },
+    ],
+  };
+
+  const SECTION_MAP = {
+    basics:       'list-basics',
+    advanced:     'list-advanced',
+    neoResources: 'list-neo-resources',
+    researchMeth: 'list-research-meth',
+    finance:      'list-finance',
+    general:      'list-general',
+    genResources: 'list-gen-resources',
+  };
+  const COUNT_MAP = {
+    basics:       'count-basics',
+    advanced:     'count-advanced',
+    neoResources: 'count-neo-resources',
+    researchMeth: 'count-research-meth',
+    finance:      'count-finance',
+    general:      'count-general',
+    genResources: 'count-gen-resources',
+  };
+  const TAG_LABELS = { article:'Article', video:'Video', link:'Link', book:'Book', soon:'Soon' };
+
+  function buildTeachingLists() {
+    Object.keys(SECTION_MAP).forEach(function(key) {
+      var items = TEACHING_DATA[key] || [];
+      var ul = document.getElementById(SECTION_MAP[key]);
+      var countEl = document.getElementById(COUNT_MAP[key]);
+      if (!ul) return;
+      if (countEl) countEl.textContent = items.length + (items.length === 1 ? ' item' : ' items');
+      if (items.length === 0) {
+        ul.innerHTML = '<li><p class="teach-empty">Content coming soon — check back shortly.</p></li>';
+        return;
+      }
+      ul.innerHTML = items.map(function(item) {
+        var tagClass = 'tag-' + (item.tag || 'soon');
+        var tagLabel = TAG_LABELS[item.tag] || 'Soon';
+        var inner = '<div class="teach-art-dot"></div><div class="teach-art-body"><div class="teach-art-title"><span class="teach-art-tag ' + tagClass + '">' + tagLabel + '</span>' + item.title + '</div>' + (item.meta ? '<div class="teach-art-meta">' + item.meta + '</div>' : '') + '</div>';
+        if (item.url) {
+          return '<li><a class="teach-article-link" href="' + item.url + '" target="_blank" rel="noopener">' + inner + '</a></li>';
+        } else {
+          return '<li><div class="teach-article-link" style="cursor:default;">' + inner + '<span class="teach-art-tag tag-soon" style="margin-left:auto;flex-shrink:0;">Soon</span></div></li>';
+        }
+      }).join('');
+    });
+  }
+
+  function toggleCard(id) {
+    var card = document.getElementById(id);
+    if (card) card.classList.toggle('open');
+  }
+
+  buildTeachingLists();
 
   // ── SMOOTH SCROLL FOR RESEARCH ANCHORS ──
   document.addEventListener('click', function(e) {
