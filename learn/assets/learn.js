@@ -189,6 +189,7 @@
     var d = getDone();
     document.querySelectorAll('.l-rail li[data-id]').forEach(function (li) { li.classList.toggle('done', !!d[li.dataset.id]); });
   }
+  var currentModule = null;
   function levelPage(topicId, lk) {
     var tr, tp; REG.tracks.forEach(function (t) { t.topics.forEach(function (x) { if (x.id === topicId) { tr = t; tp = x; } }); });
     if (!tp || !tp.levels[lk]) return;
@@ -232,7 +233,7 @@
           if (!en.isIntersecting) return;
           var id = en.target.dataset.module;
           rail.querySelectorAll('li').forEach(function (li) { li.classList.toggle('cur', li.dataset.id === id); });
-          cur.textContent = ': ' + INDEX[id].m.title;
+          cur.textContent = ': ' + INDEX[id].m.title; currentModule = id;
         });
       }, { rootMargin: '-35% 0px -60% 0px' });
       document.querySelectorAll('section[data-module]').forEach(function (s) { io.observe(s); });
@@ -243,6 +244,117 @@
       (ol ? '<a class="next" href="' + topicUrl + '#' + other + '"><small>Finished ' + lv.title + '?</small>Go to ' + ol.title + '</a>' : ''));
     main.appendChild(pn);
     document.title = tp.title + ': ' + lv.title + ' | Dr. Vivek Kumar';
+    setupTeach(lv);
+  }
+
+
+  /* ══════════════════════════════════════════════════════════════
+     TEACH MODE — the same level page, shown one beat per screen.
+     Each .mod-head and each .beat becomes a slide. To split a long
+     beat into two slides, put <hr class="slide-break"> inside it.
+     Keys: → / Space / PageDown next · ← / PageUp back · B blank
+           F full screen · Esc exit.  Open directly with ?teach
+     ══════════════════════════════════════════════════════════════ */
+  function setupTeach(lv) {
+    var main = document.querySelector('main'), slides = [], idx = 0, on = false;
+    /* Slides are (re)built on entry, after each page's quizzes have rendered */
+    function build() {
+      slides = [];
+      var lh = document.querySelector('.level-head'); if (lh) slides.push({ el: lh, sec: null });
+      document.querySelectorAll('section.module').forEach(function (sec) {
+        var head = sec.querySelector(':scope > .mod-head'); if (head) slides.push({ el: head, sec: sec });
+        sec.querySelectorAll(':scope > .beat').forEach(function (b) {
+          var qs = b.querySelectorAll('.q'), k = 0;
+          if (qs.length > 1) {                                   // one quiz question per slide
+            b.classList.add('has-parts'); qs.forEach(function (q, i) { q.dataset.part = i; }); k = qs.length - 1;
+          } else if (b.querySelector(':scope > hr.slide-break')) { // manual split
+            b.classList.add('has-parts');
+            [].slice.call(b.children).forEach(function (c) { if (c.matches('hr.slide-break')) { k++; return; } if (!c.matches('h3')) c.dataset.part = k; });
+          }
+          if (b.classList.contains('has-parts')) { for (var i = 0; i <= k; i++) slides.push({ el: b, sec: sec, part: i }); }
+          else slides.push({ el: b, sec: sec });
+        });
+      });
+    }
+    build();
+    if (!slides.length) return;
+
+    var opts = lv.modules.filter(function (m) { return m.status === 'live'; }).map(function (m) {
+      return '<option value="' + m.id + '">' + m.n + '. ' + m.title + '</option>'; }).join('');
+    var bar = h('div', { class: 't-bar', role: 'toolbar', 'aria-label': 'Teach mode controls' },
+      '<button type="button" class="t-prev" aria-label="Previous slide">←</button>' +
+      '<span class="t-count" aria-live="polite"></span>' +
+      '<button type="button" class="t-next" aria-label="Next slide">→</button>' +
+      '<select class="t-jump" aria-label="Jump to module"><option value="">Jump to…</option>' + opts + '</select>' +
+      '<span class="t-keys">← → move · B blank · F full screen · Esc exit</span>' +
+      '<button type="button" class="t-fs">Full screen</button><button type="button" class="t-exit">Exit</button>');
+    var prog = h('div', { class: 't-prog' }, '<i></i>'), blank = h('div', { class: 't-blank', title: 'Press B to return' });
+    document.body.appendChild(bar); document.body.appendChild(prog); document.body.appendChild(blank);
+
+    function clear() {
+      document.querySelectorAll('.slide-on').forEach(function (e) { e.classList.remove('slide-on'); });
+      document.querySelectorAll('.has-slide').forEach(function (e) { e.classList.remove('has-slide'); });
+      document.querySelectorAll('.part-on').forEach(function (e) { e.classList.remove('part-on'); });
+    }
+    function show(i) {
+      idx = Math.max(0, Math.min(slides.length - 1, i));
+      var s = slides[idx]; clear();
+      s.el.classList.add('slide-on'); if (s.sec) s.sec.classList.add('has-slide');
+      if (s.part != null) s.el.querySelectorAll('[data-part="' + s.part + '"]').forEach(function (c) { c.classList.add('part-on'); });
+      main.scrollTop = 0;
+      var mid = s.sec && s.sec.dataset.module;
+      bar.querySelector('.t-count').textContent = (mid ? 'Module ' + INDEX[mid].m.n + '  ·  ' : '') + (idx + 1) + ' / ' + slides.length;
+      bar.querySelector('.t-jump').value = mid || '';
+      prog.firstChild.style.width = ((idx + 1) / slides.length * 100) + '%';
+      if (mid) currentModule = mid;
+    }
+    function enter(startId) {
+      build(); on = true; document.documentElement.classList.add('teach'); document.body.classList.add('teach');
+      var start = 0;
+      if (startId) slides.some(function (s, i) { if (s.sec && (s.sec.dataset.module === startId || s.sec.id === startId)) { start = i; return true; } });
+      show(start);
+      if (window.gtag) gtag('event', 'teach_mode', { level: lv.title });
+    }
+    function exit() {
+      on = false; clear(); blank.classList.remove('on');
+      document.documentElement.classList.remove('teach'); document.body.classList.remove('teach');
+      if (document.fullscreenElement) document.exitFullscreen();
+      var sec = currentModule && document.querySelector('[data-module="' + currentModule + '"]');
+      if (sec) sec.scrollIntoView();
+    }
+    function fs() {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    }
+    bar.querySelector('.t-prev').onclick = function () { show(idx - 1); };
+    bar.querySelector('.t-next').onclick = function () { show(idx + 1); };
+    bar.querySelector('.t-exit').onclick = exit;
+    bar.querySelector('.t-fs').onclick = fs;
+    bar.querySelector('.t-jump').onchange = function () { if (this.value) enter(this.value); };
+    blank.onclick = function () { blank.classList.remove('on'); };
+    document.addEventListener('fullscreenchange', function () { bar.querySelector('.t-fs').textContent = document.fullscreenElement ? 'Leave full screen' : 'Full screen'; });
+
+    document.addEventListener('keydown', function (e) {
+      if (!on) { if ((e.key === 't' || e.key === 'T') && !e.target.closest('input, textarea, select')) enter(currentModule); return; }
+      var typing = e.target.closest('input, textarea, select, [contenteditable]');
+      var k = e.key;
+      if (k === 'PageDown') { e.preventDefault(); show(idx + 1); return; }          // clicker forward
+      if (k === 'PageUp') { e.preventDefault(); show(idx - 1); return; }            // clicker back
+      if (k === 'Escape') { if (blank.classList.contains('on')) blank.classList.remove('on'); else if (!document.fullscreenElement) exit(); return; }
+      if (typing) return;                                                            // sliders keep their arrow keys
+      if (k === 'ArrowRight' || k === 'ArrowDown' || (k === ' ' && !e.target.closest('button'))) { e.preventDefault(); show(idx + 1); }
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); show(idx - 1); }
+      else if (k === 'b' || k === 'B' || k === '.') blank.classList.toggle('on');
+      else if (k === 'f' || k === 'F') fs();
+      else if (k === 'Home') show(0); else if (k === 'End') show(slides.length - 1);
+    });
+
+    var btn = h('button', { type: 'button', class: 'l-teach-btn', title: 'Present this page one screen at a time (T)' }, '▶ Teach mode');
+    btn.onclick = function () { enter(currentModule); };
+    var top = document.querySelector('.l-top'); top.insertBefore(btn, top.querySelector('.l-gloss-link'));
+
+    var q = new URLSearchParams(location.search);
+    if (q.has('teach')) window.addEventListener('load', function () { enter(q.get('teach') || (location.hash || '').slice(1) || null); });
   }
 
   /* ── Topic page: two doors + module lists ── */
@@ -265,6 +377,9 @@
       if (start) {
         if (live.length) { var nx = live.filter(function (m) { return !d[m.id]; })[0] || live[0]; start.href = modUrl(nx.id); start.textContent = done ? 'Continue: ' + nx.title : 'Start ' + lv.title; }
         else { start.removeAttribute('href'); start.textContent = 'Coming soon'; start.classList.add('off'); }
+      }
+      if (live.length && lv.file && !el.querySelector('.door-teach')) {
+        el.querySelector('.door-foot').appendChild(h('a', { class: 'door-teach', href: ROOT + tp.path + lv.file + '?teach' }, 'Teach in class'));
       }
       var meta = el.querySelector('.door-progress'); if (meta) meta.textContent = done ? done + ' of ' + lv.modules.length + ' done' : '';
     });

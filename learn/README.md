@@ -66,3 +66,13 @@ Where the workbook and the slides differ, the **Neonatal Ventilation Workbook 20
 - Compensation wording: pH normal = well compensated; near normal = partial; far off = uncompensated.
 - Sample delay drift uses the workbook's in-vitro table (37 °C vs 4 °C).
 - The slides' 7.40 split is used only as a tiebreaker when pH is within 7.35–7.45.
+
+## Teach mode (for class)
+Click **▶ Teach mode** on the page (or press **T**). Each sketch, simulator and
+quiz question becomes one full-screen slide; the simulators stay live.
+- Next: → / Space / PageDown (works with clickers) · Back: ← / PageUp
+- **B** blanks the screen · **F** full screen · **Esc** exits
+- Jump to any module from the drop-down in the bottom bar.
+- Direct link for class: `basics.html?teach` or `basics.html?teach=four-steps`.
+- To split a long section into two slides, add `<hr class="slide-break">` where the break should go.
+- Content inside `class="teach-only"` shows only when teaching; `class="web-only"` only on the website.

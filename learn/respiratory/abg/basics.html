@@ -40,6 +40,10 @@
   .explain .kind { font: 700 1.05rem var(--hand); }
   .k-m { color: var(--ok); } .k-e { color: var(--gold); } .k-c { color: var(--alk); }
   @media (max-width: 680px) { .pr-wrap { grid-template-columns: 1fr; } }
+  body.teach .out-steps { margin-top: .5rem; } body.teach .out-steps li { padding: .3rem 0; } body.teach .final { margin-top: .5rem; }
+  body.teach .receipt { font-size: .8rem; line-height: 1.2; } body.teach .receipt button { padding: .05rem .35rem; }
+  body.teach .explain { font-size: 1.3rem; }
+  body.teach .gas { padding: .5rem .9rem; } body.teach .gas-pair { margin-bottom: .5rem; }
 
 /* Module 4 */
 .inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
@@ -91,7 +95,8 @@
 <header class="level-head">
   <div class="who">Basics: for nurses &amp; MBBS students</div>
   <h1>Blood gas, made simple</h1>
-  <p>Six short modules, about 40 minutes. Do them in order or jump around using the menu. Your progress saves in this browser.</p>
+  <p class="web-only">Six short modules, about 40 minutes. Do them in order or jump around using the menu. Your progress saves in this browser.</p>
+  <p class="teach-only presenter">Dr. Vivek Kumar<br><span>Assistant Professor of Neonatology, LHMC, New Delhi</span><br><span>vivekneoaiims.com</span></p>
 </header>
 
 <!-- ══════════ MODULE 1 ══════════ -->
@@ -202,6 +207,7 @@
     </svg>
     <figcaption>H⁺ in nanomoles per litre</figcaption>
   </figure>
+  <hr class="slide-break">
   <div class="duo">
     <div><h3>Why babies tip easily</h3><p>Fewer buffers in blood, kidneys still immature, lungs fragile. Small insults swing pH fast.</p></div>
     <div><h3>Why we send a gas</h3><p>It's the only test that shows acid, CO₂ and oxygen together. It's the gold standard for breathing and perfusion.</p></div>
@@ -367,6 +373,7 @@
       <p>Tap pH, then pCO₂, then HCO₃⁻. Those three are 90% of the story.</p>
     </div>
   </div>
+  <hr class="slide-break">
   <div class="tip"><b>The machine only truly measures three gas values</b>pH, pCO₂ and PO₂, plus electrolytes and lactate on many machines. HCO₃⁻, <span class="term" data-term="be">base excess</span> and saturation are calculated from them. If the sample was bad (<a data-to="abg-b-02#errors">Module 2</a>), every calculated line is bad too.</div>
 </section>
 
@@ -379,6 +386,7 @@
     </svg>
     <figcaption>Green zone = normal. Left of it is low, right is high.</figcaption>
   </figure>
+  <hr class="slide-break">
   <div class="tip"><b>Remember three round numbers</b>pH <b>7.40</b>, pCO₂ <b>40</b>, HCO₃⁻ <b>24</b>. Every interpretation compares against these.</div>
   <p>Two habits matter as much as the numbers. Read the gas <b>with the baby</b>, not in isolation. And compare with the <b>last gas</b>: the trend tells you if your treatment is working.</p>
 </section>
@@ -453,6 +461,7 @@
     <div><h3>Why “opposite” for lungs?</h3><p>CO₂ is acid. More CO₂ means a lower pH, so they move in opposite directions.</p></div>
     <div><h3>Why “same” for metabolic?</h3><p>HCO₃⁻ is base. Less HCO₃⁻ means a lower pH, so they move together.</p></div>
   </div>
+  <hr class="slide-break">
   <p>In step 2, <span class="term" data-term="be">base excess</span> backs up HCO₃⁻: below −4 points to metabolic acidosis, above +2 to metabolic alkalosis.</p>
   <p>Step 3 is <span class="term" data-term="compensation">compensation</span>. The healthy organ pushes the other way to rescue pH:</p>
   <div class="duo trio">
