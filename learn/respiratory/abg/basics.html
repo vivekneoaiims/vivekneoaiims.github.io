@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blood Gas (ABG): Basics | Dr. Vivek Kumar</title>
+<meta name="description" content="Neonatal blood gas basics for nurses and MBBS students: six interactive modules with simulators, cases and pocket cards.">
+<link rel="stylesheet" href="../../assets/learn.css">
+<style>
+/* ── page-specific styles, grouped by module ── */
+
+/* Module 1 */
+#beam { transition: transform .5s cubic-bezier(.3,1.4,.5,1); transform-origin: 300px 190px; }
+  .meter-bar { transition: width .4s; }
+
+/* Module 2 */
+.gas-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .gas { border: 1px solid var(--rule); border-radius: 10px; padding: .8rem 1rem; background: var(--bg); }
+  .gas h3 { font: 700 1.2rem var(--hand); margin: 0 0 .3rem; color: var(--ink-mid); }
+  .gas.report h3 { color: var(--acid); }
+  .gas dl { display: grid; grid-template-columns: auto 1fr; gap: .2rem .8rem; margin: 0; font-variant-numeric: tabular-nums; }
+  .gas dt { color: var(--ink-light); font-size: .88rem; } .gas dd { margin: 0; font-weight: 600; }
+  .gas dd.moved { color: var(--acid); } .gas dd i { font-style: normal; font-weight: 400; font-size: .8rem; margin-left: .3rem; }
+  .toggles { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+  .why-list { margin: .6rem 0 0; padding-left: 1.1rem; font-size: .9rem; } .why-list li { margin: .2rem 0; }
+  @media (max-width: 620px) { .gas-pair { grid-template-columns: 1fr; } }
+
+/* Module 3 */
+.pr-wrap { display: grid; grid-template-columns: 260px 1fr; gap: 1.2rem; align-items: start; }
+  .receipt { background: #fffef9; border: 1px solid var(--rule); padding: 1rem .9rem 1.4rem; font: .86rem/1.45 'Courier New', monospace; color: #333;
+    -webkit-mask: radial-gradient(circle at 6px 100%, transparent 5px, #000 5.5px) -6px 0 / 12px 100% repeat-x; mask: radial-gradient(circle at 6px 100%, transparent 5px, #000 5.5px) -6px 0 / 12px 100% repeat-x; }
+  .receipt .hd { text-align: center; border-bottom: 1px dashed #bbb; padding-bottom: .4rem; margin-bottom: .4rem; }
+  .receipt .grp { color: #999; margin-top: .5rem; }
+  .receipt button { all: unset; display: flex; justify-content: space-between; width: 100%; padding: .12rem .35rem; border-radius: 4px; cursor: pointer; box-sizing: border-box; }
+  .receipt button:hover, .receipt button.sel { background: var(--lvl-light); }
+  .receipt button:focus-visible { outline: 2px solid var(--gold); }
+  .receipt button.hl-m { background: #dff0e5; } .receipt button.hl-e { background: #fbefd5; } .receipt button.hl-c { background: #dfe8f7; }
+  .explain { background: var(--bg); border-radius: 10px; padding: 1rem 1.1rem; min-height: 9rem; }
+  .explain h3 { font: 600 1.2rem var(--serif); margin: 0 0 .2rem; }
+  .explain .kind { font: 700 1.05rem var(--hand); }
+  .k-m { color: var(--ok); } .k-e { color: var(--gold); } .k-c { color: var(--alk); }
+  @media (max-width: 680px) { .pr-wrap { grid-template-columns: 1fr; } }
+
+/* Module 4 */
+.inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+  .inputs label { font-size: .85rem; color: var(--ink-mid); display: block; }
+  .inputs input { width: 100%; font: 600 1.4rem var(--serif); padding: .4rem .6rem; border: 1.5px solid var(--rule); border-radius: 8px; background: var(--bg); color: var(--ink); }
+  .inputs input:focus { border-color: var(--lvl); outline: none; }
+  .out-steps { list-style: none; padding: 0; margin: 1rem 0 0; }
+  .out-steps li { display: flex; gap: .8rem; align-items: flex-start; padding: .55rem 0; border-bottom: 1px dashed var(--rule); opacity: 0; transform: translateY(4px); transition: .3s; }
+  .out-steps li.show { opacity: 1; transform: none; }
+  .out-steps .s { flex-shrink: 0; font: 700 1.3rem/1.2 var(--hand); color: var(--lvl); width: 1.6rem; }
+  .final { margin-top: 1rem; font: 600 1.35rem var(--serif); }
+  @media (max-width: 520px) { .inputs input { font-size: 1.15rem; } }
+
+/* Module 5 */
+.two-read { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; text-align: center; margin: .6rem 0; }
+  .two-read div { background: var(--bg); border-radius: 10px; padding: .5rem; }
+  .two-read small { display: block; color: var(--ink-light); font-size: .78rem; }
+  .two-read b { font: 600 1.6rem var(--serif); font-variant-numeric: tabular-nums; }
+
+/* Module 6 */
+.game-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .8rem; font-size: .88rem; color: var(--ink-mid); }
+  .prog { flex: 1; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+  .prog i { display: block; height: 100%; background: var(--lvl); transition: width .3s; }
+  .streak { font: 700 1.2rem var(--hand); color: var(--gold); min-width: 5rem; text-align: right; }
+  .gascard { text-align: center; padding: .8rem 0 1rem; }
+  .gascard .story { font: italic 1.02rem var(--serif); color: var(--ink-mid); margin: 0 auto .6rem; max-width: 30em; min-height: 1.5em; }
+  .vals3 { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .vals3 div small { display: block; font-size: .8rem; color: var(--ink-light); }
+  .vals3 div b { font: 600 2.2rem var(--serif); font-variant-numeric: tabular-nums; }
+  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .answers button { font: 600 .98rem var(--sans); padding: .9rem; border-radius: 10px; border: 2px solid; cursor: pointer; background: var(--paper); }
+  .answers .a-acid { border-color: var(--acid); color: var(--acid); } .answers .a-alk { border-color: var(--alk); color: var(--alk); }
+  .answers button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 3px 0 currentColor; }
+  .answers button.right { background: var(--ok-light); border-color: var(--ok); color: var(--ok); }
+  .answers button.wrong { background: var(--acid-light); }
+  .answers button:disabled { cursor: default; opacity: .9; }
+  .fb { margin-top: 1rem; padding: .9rem 1rem; border-radius: 10px; background: var(--bg); }
+  .fb ol { margin: .3rem 0 .6rem; padding-left: 1.2rem; font-size: .92rem; }
+  .fb .head { font: 700 1.35rem var(--hand); }
+  .nextbtn { font: 600 .95rem var(--sans); background: var(--lvl); color: #fff; border: 0; border-radius: 20px; padding: .55rem 1.3rem; cursor: pointer; }
+  .end { text-align: center; padding: 1rem 0; }
+  .end .score { font: 600 3.4rem var(--serif); color: var(--lvl); }
+  .shake { animation: shake .35s; } @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+</style>
+</head>
+<body data-page="level" data-topic="abg" data-level="basics">
+<main>
+
+<header class="level-head">
+  <div class="who">Basics: for nurses &amp; MBBS students</div>
+  <h1>Blood gas, made simple</h1>
+  <p>Six short modules, about 40 minutes. Do them in order or jump around using the menu. Your progress saves in this browser.</p>
+</header>
+
+<!-- ══════════ MODULE 1 ══════════ -->
+<section class="module" id="why-blood-gas" data-module="abg-b-01">
+<header class="mod-head">
+  <div class="kicker">Module 1</div>
+  <h2>Why blood gas?</h2>
+  <p>Blood is a seesaw. One side is an acid the lungs control, the other a base the kidneys control. Keep it level and the baby's cells work.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>Baby Riya, 30 weeks, 4 hours old. Grunting, chest pulling in, on CPAP.</p>
+    <p>The resident says, “Let's send a gas.”</p>
+    <p class="ask">What can one blood sample tell us that the monitor can't? Let's find out.</p>
+  </div>
+</section>
+
+<section class="beat" id="players">
+  <h3 data-beat="picture it">Two players, two speeds</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 260" width="640" role="img" aria-label="Lungs remove CO2 in minutes; kidneys adjust bicarbonate over days">
+      <g filter="url(#sketchy)" fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <!-- lungs -->
+        <path d="M150 60 v40" />
+        <path d="M150 100 q-10 6 -22 10 M150 100 q10 6 22 10" />
+        <path d="M128 80 C90 70 70 120 74 170 C78 200 110 205 130 190 C140 170 140 120 128 80Z" fill="#dfe8f7"/>
+        <path d="M172 80 C210 70 230 120 226 170 C222 200 190 205 170 190 C160 170 160 120 172 80Z" fill="#dfe8f7"/>
+        <!-- speed lines -->
+        <path d="M245 110 h40 M250 128 h30 M245 146 h40" stroke="#3a66b0"/>
+        <!-- kidney -->
+        <path d="M455 80 C410 70 390 120 400 160 C410 200 470 205 480 170 C470 150 465 140 478 125 C495 110 490 85 455 80Z" fill="#f8e1dc"/>
+        <path d="M520 85 C565 75 585 125 575 165 C565 205 505 205 495 170 C505 150 510 140 497 125 C480 110 485 90 520 85Z" fill="#f8e1dc"/>
+        <!-- tortoise-ish slow dots -->
+        <path d="M600 140 h6 M600 160 h6" stroke="#c4513f"/>
+      </g>
+      <text x="150" y="40" text-anchor="middle" font-size="26" font-weight="700">Lungs</text>
+      <text x="150" y="235" text-anchor="middle" font-size="21">blow off CO₂ (acid)</text>
+      <text x="150" y="257" text-anchor="middle" font-size="21" fill="#3a66b0">in minutes</text>
+      <text x="490" y="40" text-anchor="middle" font-size="26" font-weight="700">Kidneys</text>
+      <text x="490" y="235" text-anchor="middle" font-size="21">keep or dump HCO₃⁻ (base)</text>
+      <text x="490" y="257" text-anchor="middle" font-size="21" fill="#c4513f">in 2–3 days</text>
+      <text x="320" y="125" text-anchor="middle" font-size="40">vs</text>
+    </svg>
+    <figcaption>Fast sprinter, slow but steady</figcaption>
+  </figure>
+  <p><span class="term" data-term="pco2">CO₂</span> is an acid. Breathe less and it piles up. <span class="term" data-term="hco3">HCO₃⁻</span> is a base. The kidneys hold on to it or let it go.</p>
+</section>
+
+<section class="beat" id="seesaw">
+  <h3 data-beat="play">Tip the seesaw</h3>
+  <p>Move the sliders, or tap a situation. Watch <span class="term" data-term="ph">pH</span> follow.</p>
+  <div class="sim">
+    <svg viewBox="0 60 600 200" width="600" role="img" aria-label="Seesaw simulator">
+      <g id="beam">
+        <g filter="url(#sketchy)" stroke="#3b3b44" stroke-width="3" stroke-linecap="round" fill="none">
+          <path d="M70 190 L530 190"/>
+          <path d="M60 190 l20 0 M520 190 l20 0"/>
+          <path d="M60 188 q50 -5 100 0 M440 188 q50 -5 100 0"/>
+        </g>
+        <g id="leftLoad"></g><g id="rightLoad"></g>
+        <text x="110" y="236" text-anchor="middle" font-size="22" fill="#c4513f">CO₂ · acid</text>
+        <text x="490" y="236" text-anchor="middle" font-size="22" fill="#3a66b0">HCO₃⁻ · base</text>
+      </g>
+      <path d="M300 192 L270 250 L330 250Z" fill="#e2e0da" stroke="#3b3b44" stroke-width="2.5" filter="url(#sketchy)"/>
+    </svg>
+    <div class="readout">
+      <span>pH</span><span class="big" id="phOut">7.40</span><span class="verdict" id="phVerdict">Normal</span>
+    </div>
+    <p class="note" style="text-align:center;margin-top:0" id="hOut"></p>
+    <div class="sim-row">
+      <div class="ctl"><label for="co2">pCO₂ (lungs) <b id="co2v">40</b></label><input type="range" id="co2" min="15" max="100" value="40"><small>mmHg, normal 35–45</small></div>
+      <div class="ctl"><label for="hco3">HCO₃⁻ (kidneys) <b id="hco3v">24</b></label><input type="range" id="hco3" min="5" max="45" value="24"><small>mEq/L, normal 20–24</small></div>
+    </div>
+    <div class="presets" id="presets">
+      <button class="chip on" data-c="40" data-h="24" data-say="Level seesaw. This is where we want every baby.">Healthy baby</button>
+      <button class="chip" data-c="70" data-h="24" data-say="Breathing too little → CO₂ piles up → <b class='c-acid'>respiratory acidosis</b>.">Apnoea / tired breathing</button>
+      <button class="chip" data-c="25" data-h="24" data-say="Ventilator rate too high → CO₂ washed out → <b class='c-alk'>respiratory alkalosis</b>.">Over-ventilated</button>
+      <button class="chip" data-c="40" data-h="12" data-say="Poor perfusion → lactic acid eats up HCO₃⁻ → <b class='c-acid'>metabolic acidosis</b>.">Shock or sepsis</button>
+      <button class="chip" data-c="40" data-h="36" data-say="Losing stomach acid → base left over → <b class='c-alk'>metabolic alkalosis</b>.">Repeated vomiting</button>
+      <button class="chip" data-c="70" data-h="40" data-say="Same high CO₂, but 3 days later the kidneys have stored base. pH is back near normal: <b>compensation</b>.">Apnoea, 3 days later</button>
+    </div>
+    <p class="tip" id="say" style="margin-bottom:0">Level seesaw. This is where we want every baby.</p>
+  </div>
+</section>
+
+<section class="beat" id="log">
+  <h3 data-beat="surprise">Small number, big change</h3>
+  <p>pH 7.1 looks close to 7.4. It isn't. pH is a log scale, so every 0.3 drop <b>doubles</b> the acid.</p>
+  <figure class="sketch">
+    <svg viewBox="0 0 560 210" width="560" role="img" aria-label="Hydrogen ion concentration at different pH values">
+      <g class="sans" font-size="14">
+        <text x="70" y="40" text-anchor="end" font-size="22">pH 7.4</text>
+        <text x="70" y="85" text-anchor="end" font-size="22">pH 7.2</text>
+        <text x="70" y="130" text-anchor="end" font-size="22">pH 7.1</text>
+        <text x="70" y="175" text-anchor="end" font-size="22">pH 6.8</text>
+      </g>
+      <g filter="url(#sketchy)" stroke="#3b3b44" stroke-width="2">
+        <rect x="85" y="22" width="100" height="26" rx="4" fill="#dff0e5"/>
+        <rect x="85" y="67" width="158" height="26" rx="4" fill="#f8e1dc"/>
+        <rect x="85" y="112" width="200" height="26" rx="4" fill="#f3c2b8"/>
+        <rect x="85" y="157" width="398" height="26" rx="4" fill="#c4513f"/>
+      </g>
+      <text x="195" y="42" font-size="20">40 units of acid</text>
+      <text x="253" y="87" font-size="20">63</text>
+      <text x="295" y="132" font-size="20">80, double!</text>
+      <text x="493" y="177" font-size="20">160</text>
+    </svg>
+    <figcaption>H⁺ in nanomoles per litre</figcaption>
+  </figure>
+  <div class="duo">
+    <div><h3>Why babies tip easily</h3><p>Fewer buffers in blood, kidneys still immature, lungs fragile. Small insults swing pH fast.</p></div>
+    <div><h3>Why we send a gas</h3><p>It's the only test that shows acid, CO₂ and oxygen together. It's the gold standard for breathing and perfusion.</p></div>
+  </div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz1"></div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: the seesaw</h3>
+    <ul>
+      <li>CO₂ = acid, set by the <b>lungs</b> (minutes).</li>
+      <li>HCO₃⁻ = base, set by the <b>kidneys</b> (days).</li>
+      <li>pH below 7.35 = acidosis. Above 7.45 = alkalosis.</li>
+      <li>Every 0.3 fall in pH = double the acid.</li>
+    </ul>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 2 ══════════ -->
+<section class="module" id="good-sample" data-module="abg-b-02">
+<header class="mod-head">
+  <div class="kicker">Module 2</div>
+  <h2>Getting a good sample</h2>
+  <p>A perfect reading of a bad sample is still wrong. Most “strange” gases are made in the syringe, not in the baby.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>10:00 am. A gas is drawn from Baby Riya. The machine is busy, so the syringe waits on the counter with a tiny bubble at the top.</p>
+    <p>10:45 am. Report: PO₂ <b>108</b>. Her monitor showed SpO₂ 90% all morning.</p>
+    <p class="ask">Is Riya getting too much oxygen? Or is the syringe lying?</p>
+  </div>
+</section>
+
+<section class="beat" id="sites">
+  <h3 data-beat="picture it">Where to sample from</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 620 250" width="620" role="img" aria-label="Which sample site is reliable for pH, pCO2 and PO2">
+      <g class="sans" font-size="15" fill="#4a4a52">
+        <text x="235" y="40" text-anchor="middle" font-size="22">Umbilical / arterial line</text>
+        <text x="395" y="40" text-anchor="middle" font-size="22">Arterial stab</text>
+        <text x="540" y="40" text-anchor="middle" font-size="22">Warmed heel</text>
+        <text x="20" y="100" font-size="24">pH</text>
+        <text x="20" y="150" font-size="24">pCO₂</text>
+        <text x="20" y="200" font-size="24">PO₂</text>
+      </g>
+      <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketchy)">
+        <g stroke="#2f8150">
+          <path d="M222 92 l9 10 l18 -20"/><path d="M222 142 l9 10 l18 -20"/><path d="M222 192 l9 10 l18 -20"/>
+          <path d="M382 92 l9 10 l18 -20"/><path d="M382 192 l9 10 l18 -20"/>
+          <path d="M527 92 l9 10 l18 -20"/><path d="M527 142 l9 10 l18 -20"/>
+        </g>
+        <path d="M383 140 q12 -10 24 0 t24 0" stroke="#b8892a"/>
+        <path d="M528 185 l22 22 M550 185 l-22 22" stroke="#c4513f"/>
+        <path d="M80 120 H600 M80 170 H600" stroke="#e2e0da" stroke-width="1.5"/>
+      </g>
+      <text x="440" y="157" font-size="17" fill="#b8892a">crying changes it</text>
+      <text x="235" y="240" text-anchor="middle" font-size="19" fill="#2f8150">best, no disturbance</text>
+      <text x="395" y="240" text-anchor="middle" font-size="19">painful, baby may cry</text>
+      <text x="540" y="240" text-anchor="middle" font-size="19" fill="#c4513f">never trust PO₂</text>
+    </svg>
+    <figcaption>Arterial is gold. A warmed heel is fine for pH and CO₂.</figcaption>
+  </figure>
+  <p>A <span class="term" data-term="capillary">capillary sample</span> mixes arterial and venous blood, so its PO₂ is meaningless. Use the pulse oximeter for oxygen instead (<a data-to="abg-b-05#curve">Module 5</a>).</p>
+</section>
+
+<section class="beat" id="errors">
+  <h3 data-beat="play">Sample gone wrong</h3>
+  <p>Left is what's really in Riya's artery. Add mistakes and watch the report drift.</p>
+  <div class="sim">
+    <div class="toggles" id="toggles">
+      <button class="chip" data-k="bubble" aria-pressed="false">Air bubble left in</button>
+      <button class="chip" data-k="heparin" aria-pressed="false">Too much heparin</button>
+      <button class="chip" data-k="ice" aria-pressed="false">Kept on ice slush</button>
+    </div>
+    <div class="ctl" style="margin-bottom:1rem"><label for="delay">Waiting before analysis <b id="delayv">0 min</b></label><input type="range" id="delay" min="0" max="90" step="5" value="0"></div>
+    <div class="gas-pair">
+      <div class="gas"><h3>Truth in the baby</h3><dl id="truth"></dl></div>
+      <div class="gas report"><h3>What the report says</h3><dl id="report"></dl></div>
+    </div>
+    <ul class="why-list" id="whyList"></ul>
+    <p class="note">Delay follows the workbook table: every 10 minutes at 37 °C pH falls 0.01, pCO₂ rises 0.1 and PO₂ falls 0.1 mmHg; on ice (4 °C) it is ten times slower. Bubble and heparin sizes are illustrative.</p>
+  </div>
+  <p>Back to Riya: a bubble plus 45 minutes of waiting explains that PO₂ of 108. Try it: tick the bubble and slide to 45 min. The <span class="term" data-term="air-bubble">air bubble</span> is the main culprit.</p>
+</section>
+
+<section class="beat" id="rules">
+  <h3 data-beat="remember">Six habits for a clean gas</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 620 170" width="620" role="img" aria-label="Six steps of good sampling">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" filter="url(#sketchy)">
+        <circle cx="55" cy="60" r="34" fill="#dcefeb"/><circle cx="157" cy="60" r="34" fill="#dcefeb"/><circle cx="259" cy="60" r="34" fill="#dcefeb"/>
+        <circle cx="361" cy="60" r="34" fill="#dcefeb"/><circle cx="463" cy="60" r="34" fill="#dcefeb"/><circle cx="565" cy="60" r="34" fill="#dcefeb"/>
+        <path d="M89 60 h34 M191 60 h34 M293 60 h34 M395 60 h34 M497 60 h34" stroke-dasharray="4 5"/>
+      </g>
+      <g font-size="30" text-anchor="middle">
+        <text x="55" y="70">😌</text><text x="157" y="70">🫧</text><text x="259" y="70">🔄</text>
+        <text x="361" y="70">🧊</text><text x="463" y="70">⏱️</text><text x="565" y="70">⌨️</text>
+      </g>
+      <g font-size="19" text-anchor="middle">
+        <text x="55" y="125">calm baby</text><text x="157" y="125">push out</text><text x="157" y="145">bubbles</text>
+        <text x="259" y="125">cap and</text><text x="259" y="145">roll gently</text><text x="361" y="125">ice slush,</text><text x="361" y="145">not cubes</text>
+        <text x="463" y="125">run in 15 min</text><text x="463" y="145">(1 hr on ice)</text><text x="565" y="125">enter temp,</text><text x="565" y="145">FiO₂, Hb</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="tip"><b>Why type in temperature, FiO₂ and Hb?</b>The machine measures at 37 °C and calculates oxygen values from what you enter. A cooled baby or a wrong <span class="term" data-term="fio2">FiO₂</span> gives wrong numbers. See them on the printout in <a data-to="abg-b-03#printout">Module 3</a>.</div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz2"></div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: clean gas checklist</h3>
+    <ol>
+      <li>Arterial line is best. Heel is fine for pH and CO₂, never PO₂.</li>
+      <li>No bubbles. Cap it. Roll gently.</li>
+      <li>Analyse within 15 min, or within 1 hour on ice slush.</li>
+      <li>Enter baby's temperature, FiO₂ and Hb.</li>
+      <li>Weird result? Suspect the syringe before the baby.</li>
+    </ol>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 3 ══════════ -->
+<section class="module" id="reading-printout" data-module="abg-b-03">
+<header class="mod-head">
+  <div class="kicker">Module 3</div>
+  <h2>Reading the printout</h2>
+  <p>The machine prints 20-odd lines. It actually measures only a few. Know which numbers are real and which are maths.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>3 am. The gas machine beeps and prints a long slip. The intern reads it top to bottom and gets lost by line six.</p>
+    <p class="ask">Which lines matter first? Tap through the slip below.</p>
+  </div>
+</section>
+
+<section class="beat" id="printout">
+  <h3 data-beat="play">Tap any line</h3>
+  <div class="presets" id="hlBtns" style="margin:0 0 1rem">
+    <button class="chip" data-hl="m">Measured</button>
+    <button class="chip" data-hl="e">You type in</button>
+    <button class="chip" data-hl="c">Calculated</button>
+  </div>
+  <div class="sim pr-wrap">
+    <div class="receipt" id="receipt" aria-label="Sample blood gas printout"></div>
+    <div class="explain" id="explain" aria-live="polite">
+      <h3>Start at the top</h3>
+      <p>Tap pH, then pCO₂, then HCO₃⁻. Those three are 90% of the story.</p>
+    </div>
+  </div>
+  <div class="tip"><b>The machine only truly measures three gas values</b>pH, pCO₂ and PO₂, plus electrolytes and lactate on many machines. HCO₃⁻, <span class="term" data-term="be">base excess</span> and saturation are calculated from them. If the sample was bad (<a data-to="abg-b-02#errors">Module 2</a>), every calculated line is bad too.</div>
+</section>
+
+<section class="beat" id="normals">
+  <h3 data-beat="picture it">Normal values for newborns</h3>
+  <p class="note" style="margin-top:0">From the Neonatal Ventilation Workbook 2026.</p>
+  <figure class="sketch">
+    <svg viewBox="0 0 620 300" width="620" role="img" aria-label="Normal neonatal ranges for blood gas values">
+      <g id="bars"></g>
+    </svg>
+    <figcaption>Green zone = normal. Left of it is low, right is high.</figcaption>
+  </figure>
+  <div class="tip"><b>Remember three round numbers</b>pH <b>7.40</b>, pCO₂ <b>40</b>, HCO₃⁻ <b>24</b>. Every interpretation compares against these.</div>
+  <p>Two habits matter as much as the numbers. Read the gas <b>with the baby</b>, not in isolation. And compare with the <b>last gas</b>: the trend tells you if your treatment is working.</p>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz3"></div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: the printout</h3>
+    <ul>
+      <li>Read first: <b>pH → pCO₂ → HCO₃⁻</b>, then PO₂.</li>
+      <li>Measured: pH, pCO₂, PO₂ (plus Na, K, lactate).</li>
+      <li>Calculated: HCO₃⁻, BE, sO₂. Only as good as the sample.</li>
+      <li>Normal: pH 7.35–7.45, pCO₂ 35–45, PO₂ 50–70, HCO₃⁻ 20–24, BE −4 to +2. Hypercapnia: pCO₂ above 50.</li>
+      <li>Always compare with the previous gas.</li>
+    </ul>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 4 ══════════ -->
+<section class="module" id="four-steps" data-module="abg-b-04">
+<header class="mod-head">
+  <div class="kicker">Module 4</div>
+  <h2>Four steps to any ABG</h2>
+  <p>Acid or alkali? Lungs or kidneys? Is the other side helping? One problem or two? That's the whole method.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>Riya's gas from the printout: <b>pH 7.26, pCO₂ 55, HCO₃⁻ 24.0</b>.</p>
+    <p class="ask">By the end of this page you'll name it in ten seconds.</p>
+  </div>
+</section>
+
+<section class="beat" id="steps">
+  <h3 data-beat="picture it">The four questions</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 310" width="640" role="img" aria-label="Four-step flow for ABG interpretation">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketchy)">
+        <rect x="8" y="20" width="140" height="110" rx="14" fill="#dcefeb"/>
+        <rect x="170" y="20" width="140" height="110" rx="14" fill="#dcefeb"/>
+        <rect x="332" y="20" width="140" height="110" rx="14" fill="#dcefeb"/>
+        <rect x="494" y="20" width="140" height="110" rx="14" fill="#dcefeb"/>
+        <path d="M150 75 h16 m-8 -7 l8 7 l-8 7"/><path d="M312 75 h16 m-8 -7 l8 7 l-8 7"/><path d="M474 75 h16 m-8 -7 l8 7 l-8 7"/>
+      </g>
+      <g font-size="28" font-weight="700" fill="#1f7a70"><text x="20" y="48">1</text><text x="182" y="48">2</text><text x="344" y="48">3</text><text x="506" y="48">4</text></g>
+      <text x="78" y="78" text-anchor="middle" font-size="22">pH</text><text x="78" y="104" text-anchor="middle" font-size="17">acid or alkali?</text>
+      <text x="240" y="78" text-anchor="middle" font-size="22">Culprit</text><text x="240" y="104" text-anchor="middle" font-size="17">CO₂, HCO₃⁻, BE</text>
+      <text x="402" y="78" text-anchor="middle" font-size="22">Helper?</text><text x="402" y="104" text-anchor="middle" font-size="17">compensation</text>
+      <text x="564" y="78" text-anchor="middle" font-size="22">One or two?</text><text x="564" y="104" text-anchor="middle" font-size="17">simple or mixed</text>
+      <g filter="url(#sketchy)" stroke-width="4" stroke-linecap="round" fill="none">
+        <path d="M150 200 v60 m-10 -12 l10 12 l10 -12" stroke="#c4513f"/>
+        <path d="M220 260 v-60 m-10 12 l10 -12 l10 12" stroke="#3b3b44"/>
+        <path d="M420 200 v60 m-10 -12 l10 12 l10 -12" stroke="#c4513f"/>
+        <path d="M490 200 v60 m-10 -12 l10 12 l10 -12" stroke="#3a66b0"/>
+      </g>
+      <text x="150" y="292" text-anchor="middle" font-size="20">pH</text>
+      <text x="220" y="292" text-anchor="middle" font-size="20">CO₂</text>
+      <text x="185" y="188" text-anchor="middle" font-size="22" font-weight="700">Opposite → Respiratory</text>
+      <text x="420" y="292" text-anchor="middle" font-size="20">pH</text>
+      <text x="490" y="292" text-anchor="middle" font-size="20">HCO₃⁻</text>
+      <text x="455" y="188" text-anchor="middle" font-size="22" font-weight="700">Same way → Metabolic</text>
+    </svg>
+    <figcaption>ROME: Respiratory Opposite, Metabolic Equal. Then find the cause.</figcaption>
+  </figure>
+  <div class="duo">
+    <div><h3>Why “opposite” for lungs?</h3><p>CO₂ is acid. More CO₂ means a lower pH, so they move in opposite directions.</p></div>
+    <div><h3>Why “same” for metabolic?</h3><p>HCO₃⁻ is base. Less HCO₃⁻ means a lower pH, so they move together.</p></div>
+  </div>
+  <p>In step 2, <span class="term" data-term="be">base excess</span> backs up HCO₃⁻: below −4 points to metabolic acidosis, above +2 to metabolic alkalosis.</p>
+  <p>Step 3 is <span class="term" data-term="compensation">compensation</span>. The healthy organ pushes the other way to rescue pH:</p>
+  <div class="duo trio">
+    <div><h3>Uncompensated</h3><p>Other side still normal. pH off.</p></div>
+    <div><h3>Partially</h3><p>Other side moving. pH still off.</p></div>
+    <div><h3>Fully</h3><p>Other side moved. pH back in range.</p></div>
+  </div>
+  <div class="tip"><b>Step 4: one problem or two?</b>Simple disorder: pCO₂ and HCO₃⁻ move the <b>same</b> direction. Mixed disorder: they move in <b>opposite</b> directions, both dragging pH the same way. Example: a baby with RDS (CO₂ ↑) who becomes septic (HCO₃⁻ ↓).</div>
+</section>
+
+<section class="beat" id="decoder">
+  <h3 data-beat="play">The ABG decoder</h3>
+  <p>Type any gas or pick one. The decoder walks the four steps for you.</p>
+  <div class="sim">
+    <div class="inputs">
+      <div><label for="iph">pH</label><input id="iph" type="number" step="0.01" min="6.5" max="8" value="7.26" inputmode="decimal"></div>
+      <div><label for="ico2">pCO₂</label><input id="ico2" type="number" step="1" min="5" max="150" value="55" inputmode="decimal"></div>
+      <div><label for="ihco3">HCO₃⁻</label><input id="ihco3" type="number" step="0.1" min="2" max="60" value="24.0" inputmode="decimal"></div>
+    </div>
+    <div class="presets" id="presets4">
+      <button class="chip" data-v="7.26,55,24.0">Riya</button>
+      <button class="chip" data-v="7.10,38,11.5">Septic shock</button>
+      <button class="chip" data-v="7.36,60,33">Chronic lung disease</button>
+      <button class="chip" data-v="7.55,26,22">Over-ventilated</button>
+      <button class="chip" data-v="7.52,46,37">Pyloric stenosis</button>
+      <button class="chip" data-v="7.40,40,24">Normal</button>
+    </div>
+    <ol class="out-steps" id="out" aria-live="polite"></ol>
+    <div class="final" id="final"></div>
+  </div>
+  <p class="note">Decoder uses the workbook's neonatal ranges: pH 7.35–7.45, pCO₂ 35–45, HCO₃⁻ 20–24. Is the compensation the <i>right amount</i>? That's <a data-to="abg-a-02">Advanced: Winter's formula</a>.</p>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz4"></div>
+  <p>Want more? <a data-to="abg-b-06">The ABG sorter</a> has 13 gases to race through.</p>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: four steps</h3>
+    <ol>
+      <li><b>pH</b>: below 7.35 acidosis, above 7.45 alkalosis. Normal pH can still hide a disorder, so always do steps 2–4.</li>
+      <li><b>Culprit</b>: CO₂ moved opposite to pH → respiratory. HCO₃⁻ (and BE) moved same way → metabolic.</li>
+      <li><b>Helper</b>: pH normal = well compensated, close to normal = partial, far off = uncompensated.</li>
+      <li><b>Simple or mixed</b>: pCO₂ and HCO₃⁻ same direction = simple. Opposite = mixed. Call senior.</li>
+    </ol>
+    <p style="margin:.6rem 0 0">Then: find and treat the cause.</p>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 5 ══════════ -->
+<section class="module" id="oxygen" data-module="abg-b-05">
+<header class="mod-head">
+  <div class="kicker">Module 5</div>
+  <h2>Oxygen: PO₂ vs SpO₂</h2>
+  <p>Two numbers, two different things. Mixing them up is how preterm babies get too much oxygen.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>Riya is on 40% oxygen. The monitor shows SpO₂ <b>99%</b>. Everyone relaxes.</p>
+    <p class="ask">Should they? What could her PO₂ be?</p>
+  </div>
+</section>
+
+<section class="beat" id="bus">
+  <h3 data-beat="picture it">The bus and the bus stop</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 230" width="640" role="img" aria-label="Analogy: PO2 is the crowd at the bus stop, SpO2 is how full the bus seats are">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketchy)">
+        <rect x="250" y="50" width="350" height="120" rx="18" fill="#fbefd5"/>
+        <circle cx="300" cy="175" r="18" fill="#fff"/><circle cx="550" cy="175" r="18" fill="#fff"/>
+        <path d="M60 170 h150 M80 170 v-110 h110 v20"/>
+      </g>
+      <g fill="#c4513f" stroke="#3b3b44" stroke-width="1.5">
+        <circle cx="290" cy="95" r="12"/><circle cx="325" cy="95" r="12"/><circle cx="360" cy="95" r="12"/><circle cx="395" cy="95" r="12"/><circle cx="430" cy="95" r="12"/>
+        <circle cx="290" cy="130" r="12"/><circle cx="325" cy="130" r="12"/><circle cx="360" cy="130" r="12"/><circle cx="395" cy="130" r="12"/>
+      </g>
+      <circle cx="430" cy="130" r="12" fill="#fff" stroke="#3b3b44" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <g fill="#3a66b0">
+        <circle cx="95" cy="150" r="8"/><circle cx="115" cy="140" r="8"/><circle cx="135" cy="152" r="8"/><circle cx="155" cy="138" r="8"/><circle cx="175" cy="150" r="8"/><circle cx="120" cy="120" r="8"/><circle cx="150" cy="115" r="8"/>
+      </g>
+      <text x="135" y="40" text-anchor="middle" font-size="24" font-weight="700">PO₂</text>
+      <text x="135" y="205" text-anchor="middle" font-size="20">oxygen dissolved in plasma</text>
+      <text x="135" y="225" text-anchor="middle" font-size="18" fill="#7d7d88">the crowd pushing to get on</text>
+      <text x="470" y="100" font-size="24" font-weight="700">SpO₂</text>
+      <text x="470" y="128" font-size="20">9 of 10 seats</text>
+      <text x="470" y="150" font-size="20">= 90%</text>
+      <text x="425" y="215" text-anchor="middle" font-size="18" fill="#7d7d88">haemoglobin seats taken</text>
+    </svg>
+    <figcaption>Once the bus is full, a bigger crowd doesn't show on the seat count</figcaption>
+  </figure>
+  <p><span class="term" data-term="po2">PO₂</span> comes from the blood gas. <span class="term" data-term="spo2">SpO₂</span> comes from the pulse oximeter. At 100% SpO₂ the PO₂ could be 80 or 300: the oximeter can't tell.</p>
+</section>
+
+<section class="beat" id="curve">
+  <h3 data-beat="play">Slide the oxygen</h3>
+  <p>Babies carry <span class="term" data-term="hbf">fetal haemoglobin</span>, which grabs oxygen tighter. Same PO₂, higher SpO₂.</p>
+  <div class="sim">
+    <svg viewBox="0 0 600 340" width="600" role="img" aria-label="Oxygen dissociation curves for fetal and adult haemoglobin">
+      <rect id="zoneT" x="0" y="0" width="0" height="0" fill="#dff0e5"/>
+      <rect id="zoneB" x="0" y="0" width="0" height="0" fill="#dcefeb" opacity=".7"/>
+      <g id="axes" stroke="#3b3b44" stroke-width="1.8" fill="none"></g>
+      <path id="adult" fill="none" stroke="#7d7d88" stroke-width="2.5" stroke-dasharray="6 5"/>
+      <path id="fetal" fill="none" stroke="#c4513f" stroke-width="3.5" filter="url(#sketchy)"/>
+      <line id="vline" stroke="#3b3b44" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <circle id="dotA" r="6" fill="#7d7d88"/><circle id="dotF" r="8" fill="#c4513f" stroke="#fff" stroke-width="2"/>
+      <g id="labels"></g>
+    </svg>
+    <div class="ctl"><label for="po2">PO₂ <b id="po2v">55 mmHg</b></label><input type="range" id="po2" min="15" max="150" value="55"></div>
+    <div class="two-read">
+      <div><small>Baby SpO₂ (fetal Hb)</small><b id="sf" class="c-acid">–</b></div>
+      <div><small>Adult SpO₂</small><b id="sa">–</b></div>
+      <div><small>Verdict</small><b id="vd" style="font-size:1.05rem;line-height:2.3">–</b></div>
+    </div>
+    <p class="tip" id="msg" style="margin-bottom:0"></p>
+    <p class="note">Curves are a teaching model (P50 about 19 for fetal and 27 for adult Hb). Real curves shift with pH, temperature and transfusion.</p>
+  </div>
+</section>
+
+<section class="beat" id="why">
+  <h3 data-beat="remember">Too little hurts. Too much hurts too.</h3>
+  <div class="duo">
+    <div><h3 class="c-acid">Too little (<span class="term" data-term="hypoxia">PO₂ &lt; 50</span>)</h3><p>Brain and gut injury, acid build-up. Trials found that very low SpO₂ targets increased deaths.</p></div>
+    <div><h3 class="c-alk">Too much (<span class="term" data-term="hyperoxia">PO₂ &gt; 70</span>)</h3><p>Damages a preterm baby's eyes (ROP), lungs (BPD) and brain. Often hidden behind a “perfect” 99%.</p></div>
+  </div>
+  <div class="tip"><b>The bedside rule</b>Preterm baby on oxygen with SpO₂ above the target range (commonly 90–95%)? Turn the oxygen down. Follow your unit's alarm limits.</div>
+  <p>Back to Riya: 99% on 40% oxygen means her PO₂ could be anywhere above 80, so wean her FiO₂.</p>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz5"></div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: oxygen</h3>
+    <ul>
+      <li>PO₂ = dissolved oxygen (gas). SpO₂ = Hb seats filled (oximeter).</li>
+      <li>Target PO₂ 50–70 mmHg in neonates.</li>
+      <li>Fetal Hb: high SpO₂ at low PO₂.</li>
+      <li>SpO₂ near 100% on oxygen can hide hyperoxia. Wean.</li>
+      <li>Heel-prick PO₂ is unreliable. Trust the oximeter.</li>
+    </ul>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 6 ══════════ -->
+<section class="module" id="practice" data-module="abg-b-06">
+<header class="mod-head">
+  <div class="kicker">Module 6</div>
+  <h2>Practice: the ABG sorter</h2>
+  <p>Thirteen gases. Sort each into one of four boxes. Build a streak.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>Ward round, 8 am. Thirteen gases from the night are waiting.</p>
+    <p class="ask">Use the four steps from <a data-to="abg-b-04#steps">Module 4</a>. The arrows will save you.</p>
+  </div>
+</section>
+
+<section class="beat" id="game">
+  <h3 data-beat="play">Sort the gas</h3>
+  <div class="sim" id="arena"></div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: the four boxes</h3>
+    <ul>
+      <li><b class="c-acid">Respiratory acidosis</b>: pH ↓ CO₂ ↑. Apnoea, RDS, blocked tube.</li>
+      <li><b class="c-alk">Respiratory alkalosis</b>: pH ↑ CO₂ ↓. Over-ventilation.</li>
+      <li><b class="c-acid">Metabolic acidosis</b>: pH ↓ HCO₃⁻ ↓. Poor perfusion, sepsis, hypoxia, hypothermia, anaemia.</li>
+      <li><b class="c-alk">Metabolic alkalosis</b>: pH ↑ HCO₃⁻ ↑. Too much bicarbonate, diuretics, vomiting.</li>
+    </ul>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+  <p style="margin-top:1.5rem">Finished Basics? Next up is <a data-to="abg-a-02">checking if compensation is the right amount</a> in Advanced.</p>
+</section>
+</section>
+
+<section class="refs" id="sources">
+  Sources. Where sources differ, values follow the Neonatal Ventilation Workbook 2026.
+  <ol>
+    <li>Neonatal Ventilation Workbook 2026, chapter on Blood Gas Analysis.</li>
+    <li>Acid–base teaching slides, Dr. Vivek Kumar (practice patients 1–8 adapted from these).</li>
+    <li>Berend K, de Vries APJ, Gans ROB. Physiological approach to assessment of acid–base disturbances. N Engl J Med 2014;371:1434–45.</li>
+    <li>Askie LM et al (NeOProM). Association between oxygen saturation targeting and death or disability in extremely preterm infants. JAMA 2018;319:2190–2201.</li>
+  </ol>
+  Last reviewed: October 2026
+</section>
+
+</main>
+<script src="../../assets/registry.js"></script>
+<script src="../../assets/glossary.js"></script>
+<script src="../../assets/learn.js"></script>
+<script>
+/* ══════════ MODULE 1 ══════════ */
+(function () {
+  var co2 = document.getElementById('co2'), hco3 = document.getElementById('hco3');
+  function load(g, x, n, kind) {
+    var s = '';
+    for (var i = 0; i < n; i++) {
+      var cx = x - 40 + (i % 5) * 20, cy = 176 - Math.floor(i / 5) * 20;
+      s += kind === 'acid'
+        ? '<circle cx="' + cx + '" cy="' + cy + '" r="8.5" fill="#f3c2b8" stroke="#c4513f" stroke-width="2"/>'
+        : '<rect x="' + (cx - 8) + '" y="' + (cy - 8) + '" width="16" height="16" rx="3" fill="#c9d8f1" stroke="#3a66b0" stroke-width="2"/>';
+    }
+    g.innerHTML = s;
+  }
+  function draw() {
+    var c = +co2.value, h = +hco3.value, ph = Learn.hh(h, c);
+    document.getElementById('co2v').textContent = c;
+    document.getElementById('hco3v').textContent = h;
+    load(document.getElementById('leftLoad'), 110, Math.round(c / 7), 'acid');
+    load(document.getElementById('rightLoad'), 490, Math.round(h / 3.4), 'base');
+    var ang = Math.max(-18, Math.min(18, (ph - 7.4) * 55));
+    document.getElementById('beam').style.transform = 'rotate(' + ang + 'deg)';
+    var out = document.getElementById('phOut'), v = document.getElementById('phVerdict');
+    out.textContent = ph.toFixed(2);
+    var st = ph < 7.35 ? ['Acidosis', 'v-acid', 'c-acid'] : ph > 7.45 ? ['Alkalosis', 'v-alk', 'c-alk'] : ['Normal', 'v-ok', 'c-ok'];
+    v.textContent = st[0]; v.className = 'verdict ' + st[1]; out.className = 'big ' + st[2];
+    document.getElementById('hOut').textContent = 'Acid (H⁺): ' + Math.round(Learn.hplus(ph)) + ' nmol/L, normal about 40';
+  }
+  function manual() { document.querySelectorAll('#presets .chip').forEach(function (b) { b.classList.remove('on'); });
+    document.getElementById('say').innerHTML = 'You are driving. Push CO₂ up, then raise HCO₃⁻ to rescue the pH.'; draw(); }
+  co2.oninput = manual; hco3.oninput = manual;
+  document.querySelectorAll('#presets .chip').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('#presets .chip').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); co2.value = b.dataset.c; hco3.value = b.dataset.h;
+      document.getElementById('say').innerHTML = b.dataset.say; draw();
+    };
+  });
+  draw();
+
+  Learn.quiz('quiz1', [
+    { q: 'A baby is breathing too slowly. What happens to CO₂ and pH?', o: ['CO₂ up, pH down', 'CO₂ down, pH up', 'CO₂ up, pH up'], a: 0, why: 'Less breathing keeps CO₂ (acid) in, so pH falls. That\'s respiratory acidosis.' },
+    { q: 'Which organ corrects pH fastest?', o: ['Kidneys', 'Lungs', 'Liver'], a: 1, why: 'Lungs change CO₂ within minutes. Kidneys take 2–3 days.' },
+    { q: 'pH 7.10 vs 7.40: how much more acid is there?', o: ['About 4% more', 'About double', 'Ten times'], a: 1, why: 'pH is a log scale. A 0.3 drop doubles H⁺ (40 → 80 nmol/L).' }
+  ]);
+})();
+
+/* ══════════ MODULE 2 ══════════ */
+(function () {
+  var T = { ph: 7.30, co2: 50, po2: 58 }; T.hco3 = 0.03 * T.co2 * Math.pow(10, T.ph - 6.1);
+  var on = { bubble: false, heparin: false, ice: false };
+  var delay = document.getElementById('delay');
+  function row(k, v, dec, base) {
+    var moved = base != null && Math.abs(v - base) > (dec ? 0.005 : 0.5);
+    var arrow = moved ? (v > base ? '▲' : '▼') : '';
+    return '<dt>' + k + '</dt><dd class="' + (moved ? 'moved' : '') + '">' + v.toFixed(dec) + (arrow ? '<i>' + arrow + '</i>' : '') + '</dd>';
+  }
+  function render() {
+    var m = +delay.value, f = on.ice ? 0.1 : 1, k = m / 10 * f, ph = T.ph, co2 = T.co2, po2 = T.po2, why = [];
+    ph -= 0.01 * k; co2 += 0.1 * k; po2 -= 0.1 * k;
+    if (m > 0) why.push(on.ice ? 'On ice slush the cells barely metabolise, so the drift is ten times smaller.' :
+      'Blood cells keep living in the syringe: they use O₂ and make CO₂ and acid. pH drifts down.');
+    if (on.bubble) { po2 = po2 + (150 - po2) * 0.55; ph += Math.log10(1 / 0.85); co2 *= 0.85; why.push('Room air has PO₂ ~150 and almost no CO₂. A bubble drags the sample toward air.'); }
+    if (on.heparin) { co2 *= 0.86; ph -= 0.02; why.push('Extra liquid heparin dilutes the sample: pCO₂ and the calculated HCO₃⁻ read falsely low.'); }
+    if (!why.length) why.push('No errors. Report matches the baby.');
+    var hco3 = 0.03 * co2 * Math.pow(10, ph - 6.1);
+    document.getElementById('truth').innerHTML = row('pH', T.ph, 2) + row('pCO₂', T.co2, 0) + row('PO₂', T.po2, 0) + row('HCO₃⁻', T.hco3, 1);
+    document.getElementById('report').innerHTML = row('pH', ph, 2, T.ph) + row('pCO₂', co2, 0, T.co2) + row('PO₂', po2, 0, T.po2) + row('HCO₃⁻', hco3, 1, T.hco3);
+    document.getElementById('whyList').innerHTML = why.map(function (w) { return '<li>' + w + '</li>'; }).join('');
+    document.getElementById('delayv').textContent = m + ' min';
+  }
+  document.querySelectorAll('#toggles .chip').forEach(function (b) {
+    b.onclick = function () { var k = b.dataset.k; on[k] = !on[k]; b.classList.toggle('on', on[k]); b.setAttribute('aria-pressed', on[k]); render(); };
+  });
+  delay.oninput = render; render();
+
+  Learn.quiz('quiz2', [
+    { q: 'Baby in room air, SpO₂ 86%, gas shows PO₂ 142. Most likely?', o: ['Baby is hyperoxic', 'Air bubble in syringe', 'Machine needs calibration'], a: 1, why: 'A low SpO₂ can\'t sit with a high PO₂. Air contamination pushes PO₂ toward ~150.' },
+    { q: 'A syringe waited 50 min at room temperature. The pH will read…', o: ['Falsely high', 'Falsely low', 'Unchanged'], a: 1, why: 'Living cells keep making acid and CO₂, so pH drifts down: 0.01 every 10 min at room temperature (workbook).' },
+    { q: 'From a warmed heel-prick, which value should you NOT trust?', o: ['pH', 'pCO₂', 'PO₂'], a: 2, why: 'Capillary PO₂ is unreliable. Use pulse oximetry for oxygenation.' }
+  ]);
+})();
+
+/* ══════════ MODULE 3 ══════════ */
+(function () {
+  var L = [
+    ['grp', 'Measured'],
+    ['m', 'pH', '7.26', 'pH', 'Acid level. Below 7.35, so this baby has acidosis. Always read this first.', 'abg-b-04#steps'],
+    ['m', 'pCO2', '55 mmHg', 'pCO₂', 'CO₂, the lung side of the seesaw. High here: the baby isn\'t clearing CO₂ well.', 'abg-b-01#seesaw'],
+    ['m', 'pO2', '62 mmHg', 'PO₂', 'Oxygen dissolved in plasma. 50–70 is the usual neonatal target. Fine here.', 'abg-b-05#curve'],
+    ['m', 'Na+', '136', 'Sodium', 'Measured electrolyte. Used later for the anion gap in Advanced.', 'abg-a-03'],
+    ['m', 'K+', '4.6', 'Potassium', 'Measured. Rises falsely if the sample is haemolysed (squeezed heel).', 'abg-b-02#sites'],
+    ['m', 'Lac', '1.8', 'Lactate', 'Acid made when tissues lack oxygen. Above 2–4 suggests poor perfusion, e.g. shock or sepsis.', null],
+    ['grp', 'You type in'],
+    ['e', 'Temp', '37.0 C', 'Patient temperature', 'The machine analyses at 37 °C. Enter the baby\'s real temperature, e.g. during cooling.', 'abg-b-02#rules'],
+    ['e', 'FiO2', '0.40', 'FiO₂', 'Oxygen the baby is breathing. Needed for oxygenation maths like the A–a gradient.', 'abg-b-02#rules'],
+    ['e', 'tHb', '15.0 g/dL', 'Haemoglobin', 'Used to calculate base excess and oxygen content. If left blank, the machine guesses.', null],
+    ['grp', 'Calculated'],
+    ['c', 'HCO3-', '24.0', 'HCO₃⁻', 'The kidney side of the seesaw, calculated from pH and pCO₂. Normal (20–24), so the kidneys haven\'t reacted yet.', 'abg-b-04#steps'],
+    ['c', 'BE', '-1.2', 'Base excess', 'Extra (+) or missing (−) base. Normal −4 to +2. Below −4 = metabolic acidosis, above +2 = metabolic alkalosis. Beyond ±10 is clinically significant.', 'abg-a-04'],
+    ['c', 'sO2', '93 %', 'Calculated saturation', 'Estimated from PO₂ using an adult curve. Trust the pulse oximeter or a co-oximeter more.', 'abg-b-05#curve'],
+    ['c', 'AaDO2', '155', 'A–a gradient', 'Gap between oxygen in the lungs and in the blood. Bigger gap = sicker lungs. Advanced topic.', 'abg-a-06']
+  ];
+  var rc = document.getElementById('receipt'), ex = document.getElementById('explain');
+  var html = '<div class="hd">NICU BLOOD GAS<br>Pt: Baby Riya  Arterial</div>';
+  L.forEach(function (r, i) {
+    if (r[0] === 'grp') html += '<div class="grp">-- ' + r[1] + ' --</div>';
+    else html += '<button type="button" data-i="' + i + '" data-k="' + r[0] + '"><span>' + r[1] + '</span><span>' + r[2] + '</span></button>';
+  });
+  rc.innerHTML = html;
+  var KIND = { m: ['Measured by the machine', 'k-m'], e: ['You type this in', 'k-e'], c: ['Calculated by the machine', 'k-c'] };
+  rc.querySelectorAll('button').forEach(function (b) {
+    b.onclick = function () {
+      rc.querySelectorAll('button').forEach(function (x) { x.classList.remove('sel'); });
+      b.classList.add('sel');
+      var r = L[+b.dataset.i], k = KIND[r[0]];
+      ex.innerHTML = '<div class="kind ' + k[1] + '">' + k[0] + '</div><h3>' + r[3] + '  <span style="font-weight:400;color:var(--ink-light)">' + r[2] + '</span></h3><p>' + r[4] + '</p>' +
+        (r[5] ? '<a data-to="' + r[5] + '">More on this</a>' : '');
+      Learn.wire(ex);
+      if (innerWidth < 680) ex.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+  });
+  document.querySelectorAll('#hlBtns .chip').forEach(function (c) {
+    c.onclick = function () {
+      var was = c.classList.contains('on');
+      document.querySelectorAll('#hlBtns .chip').forEach(function (x) { x.classList.remove('on'); });
+      rc.querySelectorAll('button').forEach(function (x) { x.classList.remove('hl-m', 'hl-e', 'hl-c'); });
+      if (was) return; c.classList.add('on');
+      rc.querySelectorAll('button[data-k="' + c.dataset.hl + '"]').forEach(function (x) { x.classList.add('hl-' + c.dataset.hl); });
+    };
+  });
+
+  /* range bars */
+  var R = [['pH', 7.0, 7.7, 7.35, 7.45, 7.40, ''], ['pCO₂', 20, 70, 35, 45, 40, 'mmHg'], ['PO₂', 20, 120, 50, 70, null, 'mmHg'], ['HCO₃⁻', 10, 34, 20, 24, 22, 'mEq/L'], ['BE', -14, 10, -4, 2, 0, 'mEq/L']];
+  var s = '', x0 = 120, w = 420;
+  R.forEach(function (r, i) {
+    var y = 30 + i * 55, sc = function (v) { return x0 + (v - r[1]) / (r[2] - r[1]) * w; };
+    s += '<text x="108" y="' + (y + 16) + '" text-anchor="end" font-size="22">' + r[0] + '</text>';
+    s += '<g filter="url(#sketchy)"><rect x="' + x0 + '" y="' + y + '" width="' + w + '" height="22" rx="11" fill="#f3f1ec" stroke="#3b3b44" stroke-width="1.6"/>';
+    s += '<rect x="' + sc(r[3]) + '" y="' + y + '" width="' + (sc(r[4]) - sc(r[3])) + '" height="22" fill="#9fd1b0" stroke="#2f8150" stroke-width="1.6"/></g>';
+    s += '<text x="' + sc(r[3]) + '" y="' + (y + 42) + '" text-anchor="middle" font-size="17">' + r[3] + '</text>';
+    s += '<text x="' + sc(r[4]) + '" y="' + (y + 42) + '" text-anchor="middle" font-size="17">' + r[4] + '</text>';
+    s += '<text x="' + (x0 + w + 10) + '" y="' + (y + 16) + '" font-size="16" fill="#7d7d88">' + r[6] + '</text>';
+    s += '<text x="' + (x0 + 6) + '" y="' + (y + 16) + '" font-size="15" fill="#c4513f">low</text><text x="' + (x0 + w - 6) + '" y="' + (y + 16) + '" text-anchor="end" font-size="15" fill="#3a66b0">high</text>';
+  });
+  document.getElementById('bars').innerHTML = s;
+
+  Learn.quiz('quiz3', [
+    { q: 'Which of these does the gas machine actually measure?', o: ['HCO₃⁻', 'pCO₂', 'Base excess'], a: 1, why: 'pH, pCO₂ and PO₂ are measured. HCO₃⁻ and BE are calculated from them.' },
+    { q: 'A cooled baby (33.5 °C) has a gas sent. What must you do?', o: ['Nothing, the machine knows', 'Enter the baby\'s temperature', 'Warm the syringe first'], a: 1, why: 'The machine runs at 37 °C. It corrects only if you enter the real temperature.' },
+    { q: 'Base excess of −12 suggests…', o: ['Metabolic acidosis', 'Respiratory acidosis', 'A normal gas'], a: 0, why: 'A large negative BE means base is missing, which is a metabolic acid load.' }
+  ]);
+})();
+
+/* ══════════ MODULE 4 ══════════ */
+(function () {
+  var ph = document.getElementById('iph'), co2 = document.getElementById('ico2'), hc = document.getElementById('ihco3');
+  var t;
+  function run() {
+    var p = parseFloat(ph.value), c = parseFloat(co2.value), b = parseFloat(hc.value);
+    var out = document.getElementById('out'), fin = document.getElementById('final');
+    if ([p, c, b].some(isNaN)) { out.innerHTML = ''; fin.textContent = 'Enter all three values.'; return; }
+    var r = Learn.decode(p, c, b);
+    var calc = Learn.hh(b, c), mismatch = Math.abs(calc - p) > 0.06;
+    out.innerHTML = r.steps.map(function (s, i) { return '<li><span class="s">' + (i + 1) + '</span><span>' + s + '</span></li>'; }).join('') +
+      (mismatch ? '<li><span class="s">!</span><span>These three numbers don\'t fit together (expected pH ≈ ' + calc.toFixed(2) + '). Check for a typo or a <a data-to="abg-b-02#errors">sampling error</a>.</span></li>' : '');
+    var cls = r.side === 'acid' ? 'c-acid' : r.side === 'alk' ? 'c-alk' : r.primary === 'normal' ? 'c-ok' : '';
+    fin.className = 'final ' + cls;
+    fin.innerHTML = r.label + (r.comp && r.comp !== 'borderline' ? ', ' + r.comp : '') + (r.recheck ? ' <a data-to="abg-b-02#errors">Why?</a>' : '') +
+      (r.primary === 'mixed' ? ' <a data-to="abg-a-05" style="font-size:.85rem">Mixed disorders</a>' : '');
+    Learn.wire(out); Learn.wire(fin);
+    clearTimeout(t);
+    var lis = out.querySelectorAll('li'), i = 0;
+    (function show() { if (i < lis.length) { lis[i++].classList.add('show'); t = setTimeout(show, 260); } })();
+  }
+  [ph, co2, hc].forEach(function (el) { el.addEventListener('input', function () {
+    document.querySelectorAll('#presets4 .chip').forEach(function (x) { x.classList.remove('on'); }); run(); }); });
+  document.querySelectorAll('#presets4 .chip').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('#presets4 .chip').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
+      var v = b.dataset.v.split(','); ph.value = v[0]; co2.value = v[1]; hc.value = v[2]; run();
+    };
+  });
+  document.querySelector('#presets4 .chip').classList.add('on'); run();
+
+  Learn.quiz('quiz4', [
+    { q: 'pH 7.25, pCO₂ 30, HCO₃⁻ 13. Primary problem?', o: ['Respiratory acidosis', 'Metabolic acidosis', 'Respiratory alkalosis'], a: 1, why: 'pH low, HCO₃⁻ low (same way) → metabolic. The low CO₂ is the lungs helping, so it\'s partially compensated.' },
+    { q: 'pH 7.16, pCO₂ 68, HCO₃⁻ 23.5. Primary problem?', o: ['Respiratory acidosis', 'Metabolic acidosis', 'Metabolic alkalosis'], a: 0, why: 'pH low, CO₂ high (opposite) → respiratory. HCO₃⁻ is still normal, so it\'s uncompensated: an acute problem.' },
+    { q: 'pH 7.38, pCO₂ 62, HCO₃⁻ 35. What best describes it?', o: ['Normal gas', 'Fully compensated respiratory acidosis', 'Metabolic alkalosis'], a: 1, why: 'pH is normal but on the acid side. High CO₂ is the culprit, and high HCO₃⁻ has pulled pH back. Typical of chronic lung disease.' }
+  ]);
+})();
+
+/* ══════════ MODULE 5 ══════════ */
+(function () {
+  var X0 = 60, X1 = 570, Y0 = 290, Y1 = 30, PMAX = 150;
+  function sat(p, p50) { var r = Math.pow(p / p50, 2.7); return r / (1 + r) * 100; }
+  function x(p) { return X0 + p / PMAX * (X1 - X0); } function y(s) { return Y0 - s / 100 * (Y0 - Y1); }
+  function path(p50) { var d = ''; for (var p = 0; p <= PMAX; p += 2) d += (p ? 'L' : 'M') + x(p).toFixed(1) + ' ' + y(sat(p, p50)).toFixed(1); return d; }
+  document.getElementById('fetal').setAttribute('d', path(19));
+  document.getElementById('adult').setAttribute('d', path(27));
+  document.getElementById('axes').innerHTML = '<path d="M' + X0 + ' ' + Y1 + ' V' + Y0 + ' H' + X1 + '"/>';
+  var zt = document.getElementById('zoneT'); zt.setAttribute('x', x(50)); zt.setAttribute('y', Y1); zt.setAttribute('width', x(70) - x(50)); zt.setAttribute('height', Y0 - Y1);
+  var zb = document.getElementById('zoneB'); zb.setAttribute('x', X0); zb.setAttribute('y', y(95)); zb.setAttribute('width', X1 - X0); zb.setAttribute('height', y(90) - y(95));
+  var lab = '';
+  [0, 50, 100, 150].forEach(function (p) { lab += '<text class="sans" x="' + x(p) + '" y="' + (Y0 + 20) + '" text-anchor="middle" font-size="13">' + p + '</text>'; });
+  [50, 90, 100].forEach(function (s) { lab += '<text class="sans" x="' + (X0 - 8) + '" y="' + (y(s) + 4) + '" text-anchor="end" font-size="13">' + s + '%</text>'; });
+  lab += '<text x="' + ((X0 + X1) / 2) + '" y="' + (Y0 + 44) + '" text-anchor="middle" font-size="18">PO₂ (mmHg)</text>';
+  lab += '<text x="' + (x(60)) + '" y="' + (Y0 - 10) + '" text-anchor="middle" font-size="17" fill="#2f8150">PO₂ target</text>';
+  lab += '<text x="' + (X1 - 4) + '" y="' + (y(90) + 20) + '" text-anchor="end" font-size="17" fill="#1f7a70">SpO₂ 90–95% band</text>';
+  lab += '<text x="' + x(18) + '" y="' + y(92) + '" font-size="19" fill="#c4513f">baby</text>';
+  lab += '<text x="' + x(38) + '" y="' + y(48) + '" font-size="19" fill="#7d7d88">adult</text>';
+  document.getElementById('labels').innerHTML = lab;
+
+  var sl = document.getElementById('po2');
+  function draw() {
+    var p = +sl.value, f = sat(p, 19), a = sat(p, 27);
+    document.getElementById('po2v').textContent = p + ' mmHg';
+    var vl = document.getElementById('vline'); vl.setAttribute('x1', x(p)); vl.setAttribute('x2', x(p)); vl.setAttribute('y1', Y0); vl.setAttribute('y2', y(f));
+    var dF = document.getElementById('dotF'); dF.setAttribute('cx', x(p)); dF.setAttribute('cy', y(f));
+    var dA = document.getElementById('dotA'); dA.setAttribute('cx', x(p)); dA.setAttribute('cy', y(a));
+    document.getElementById('sf').textContent = Math.round(f) + '%';
+    document.getElementById('sa').textContent = Math.round(a) + '%';
+    var vd = document.getElementById('vd'), msg = document.getElementById('msg');
+    if (p < 50) { vd.textContent = 'Hypoxia'; vd.className = 'c-acid'; msg.innerHTML = 'Low PO₂. The steep part of the curve: small PO₂ changes swing SpO₂ a lot.'; }
+    else if (p <= 70) { vd.textContent = 'Target'; vd.className = 'c-ok'; msg.innerHTML = 'Sweet spot. Notice the baby\'s SpO₂ is already ' + Math.round(f) + '% here.'; }
+    else { vd.textContent = 'Hyperoxia'; vd.className = 'c-alk'; msg.innerHTML = 'Too much oxygen, yet SpO₂ only climbs from ' + Math.round(sat(70, 19)) + '% to ' + Math.round(f) + '%. The flat top hides it.'; }
+  }
+  sl.oninput = draw; draw();
+
+  Learn.quiz('quiz5', [
+    { q: 'Preterm baby on 35% oxygen, SpO₂ 99%. Best action?', o: ['Leave it, perfect', 'Reduce FiO₂', 'Increase FiO₂'], a: 1, why: 'At 99% the curve is flat, so PO₂ may be very high. Wean to the target range.' },
+    { q: 'Same PO₂ of 40. Who shows the higher SpO₂?', o: ['Newborn', 'Adult', 'Same'], a: 0, why: 'Fetal haemoglobin holds oxygen tighter, shifting the curve left.' },
+    { q: 'Which number comes from the blood gas machine?', o: ['SpO₂', 'PO₂', 'Both equally'], a: 1, why: 'PO₂ is measured on the gas. SpO₂ is read by the pulse oximeter.' }
+  ]);
+})();
+
+/* ══════════ MODULE 6 ══════════ */
+(function () {
+  var CASES = [
+    { s: '', v: [7.27, 34, 15] }, { s: '', v: [7.34, 50, 26] }, { s: '', v: [7.45, 48, 32] }, { s: '', v: [7.32, 28, 14] },
+    { s: '', v: [7.37, 50, 28] }, { s: '', v: [7.44, 48, 29] }, { s: '', v: [7.45, 28, 22] }, { s: '', v: [7.36, 48, 26] },
+    { s: 'Term baby, 1 hour after a difficult delivery, poor tone.', v: [7.08, 40, 11.5] },
+    { s: '29-weeker with RDS, tiring on CPAP.', v: [7.16, 70, 24] },
+    { s: 'Ventilated preterm, 2 hours after surfactant. Settings unchanged.', v: [7.53, 27, 22] },
+    { s: '4-week-old with projectile vomiting for 3 days.', v: [7.51, 47, 37] },
+    { s: '12-day-old preterm, lethargic, mottled, CRT 5 s. Late-onset sepsis?', v: [7.22, 29, 11.5] }
+  ];
+  var BOX = { 'resp-acid': 'Respiratory acidosis', 'resp-alk': 'Respiratory alkalosis', 'meta-acid': 'Metabolic acidosis', 'meta-alk': 'Metabolic alkalosis' };
+  var arena = document.getElementById('arena');
+  var order, i, score, streak, best;
+
+  function shuffle(a) { a = a.slice(); for (var k = a.length - 1; k > 0; k--) { var j = Math.floor(Math.random() * (k + 1)); var t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+  function start() { order = shuffle(CASES); i = 0; score = 0; streak = 0; best = 0; show(); }
+
+  function show() {
+    if (i >= order.length) return end();
+    var c = order[i];
+    arena.innerHTML =
+      '<div class="game-top"><span>' + (i + 1) + ' / ' + order.length + '</span><div class="prog"><i style="width:' + (i / order.length * 100) + '%"></i></div><span class="streak">' + (streak > 1 ? '🔥 ' + streak : '') + '</span></div>' +
+      '<div class="gascard"><p class="story">' + (c.s || 'Patient ' + (i + 1)) + '</p><div class="vals3">' +
+      '<div><small>pH</small><b>' + c.v[0].toFixed(2) + '</b></div><div><small>pCO₂</small><b>' + c.v[1] + '</b></div><div><small>HCO₃⁻</small><b>' + c.v[2] + '</b></div></div></div>' +
+      '<div class="answers">' +
+      '<button class="a-acid" data-k="resp-acid">Respiratory acidosis</button><button class="a-alk" data-k="resp-alk">Respiratory alkalosis</button>' +
+      '<button class="a-acid" data-k="meta-acid">Metabolic acidosis</button><button class="a-alk" data-k="meta-alk">Metabolic alkalosis</button></div>' +
+      '<div id="fb"></div>';
+    arena.querySelectorAll('.answers button').forEach(function (b) { b.onclick = function () { answer(b, c); }; });
+  }
+
+  function answer(btn, c) {
+    var r = Learn.decode(c.v[0], c.v[1], c.v[2]), ok = btn.dataset.k === r.primary;
+    arena.querySelectorAll('.answers button').forEach(function (b) { b.disabled = true; if (b.dataset.k === r.primary) b.classList.add('right'); });
+    if (ok) { score++; streak++; best = Math.max(best, streak); } else { btn.classList.add('wrong', 'shake'); streak = 0; }
+    var fb = document.getElementById('fb');
+    fb.innerHTML = '<div class="fb"><div class="head ' + (ok ? 'c-ok' : 'c-acid') + '">' + (ok ? (streak > 2 ? 'On fire!' : 'Correct!') : 'Not this one') + '</div>' +
+      '<ol>' + r.steps.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
+      '<button class="nextbtn" type="button">' + (i + 1 < order.length ? 'Next gas' : 'See my score') + '</button></div>';
+    var nb = fb.querySelector('.nextbtn'); nb.focus({ preventScroll: true });
+    nb.onclick = function () { i++; show(); };
+    var s = arena.querySelector('.streak'); s.textContent = streak > 1 ? '🔥 ' + streak : '';
+  }
+
+  function end() {
+    var pct = score / order.length;
+    if (pct >= 0.6) Learn.done('abg-b-06');
+    arena.innerHTML = '<div class="end"><div class="score">' + score + ' / ' + order.length + '</div>' +
+      '<p>Best streak: ' + best + '</p><p>' + (pct === 1 ? 'Perfect sort. You\'re ready for Advanced.' : pct >= 0.75 ? 'Strong. Replay to lock it in.' : 'Revisit the arrows in Module 4, then try again.') + '</p>' +
+      '<button class="nextbtn" type="button" id="again">Play again (new order)</button></div>';
+    document.getElementById('again').onclick = start;
+  }
+  start();
+})();
+
+</script>
+</body>
+</html>
