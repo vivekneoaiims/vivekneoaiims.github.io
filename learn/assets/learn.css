@@ -294,10 +294,13 @@ body.teach .q-opts { grid-template-columns: 1fr; } body.teach .q-opts button { f
 .t-prog i { display: block; height: 100%; background: var(--lvl); transition: width .25s; }
 .t-blank { position: fixed; inset: 0; z-index: 90; background: #000; cursor: pointer; }
 body.teach .t-bar { display: flex; } body.teach .t-prog { display: block; } body.teach .t-blank.on { display: block; }
-@media (max-width: 760px) { .t-keys { display: none; } .t-jump { max-width: 8rem; } .l-teach-btn { display: none; } }
+@media (max-width: 760px) { .t-keys { display: none; } .t-jump { max-width: 8rem; } .l-teach-btn { padding: .32rem .7rem; } .l-gloss-link { display: none; } }
 
 .teach-only { display: none; }
 body.teach .teach-only { display: block; } body.teach .web-only { display: none; }
 body.teach .level-head .who { font-size: 1.8rem; }
 body.teach .presenter { margin-top: 2.5rem; font: 500 1.6rem/1.5 var(--serif); color: var(--ink); }
 body.teach .presenter span { font: 400 1.1rem var(--sans); color: var(--ink-mid); }
+
+.teach-cta { display: inline-block; margin-top: 1rem; font: 600 .92rem var(--sans); color: var(--lvl); border: 1.5px solid var(--lvl); border-radius: 22px; padding: .45rem 1rem; text-decoration: none; }
+.teach-cta:hover { background: var(--lvl); color: #fff; }

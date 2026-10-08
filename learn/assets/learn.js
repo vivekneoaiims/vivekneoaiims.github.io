@@ -353,6 +353,8 @@
     btn.onclick = function () { enter(currentModule); };
     var top = document.querySelector('.l-top'); top.insertBefore(btn, top.querySelector('.l-gloss-link'));
 
+    document.querySelectorAll('a.teach-cta').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); enter(currentModule); }); });
+    console.log('Learn engine ' + 'v3 · Teach mode ready');
     var q = new URLSearchParams(location.search);
     if (q.has('teach')) window.addEventListener('load', function () { enter(q.get('teach') || (location.hash || '').slice(1) || null); });
   }
