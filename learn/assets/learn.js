@@ -142,6 +142,17 @@
       });
       card.appendChild(opts); box.appendChild(card);
     });
+    var beat = box.closest('.beat');
+    if (beat && !box.hasAttribute('data-always')) {
+      beat.classList.add('quiz-beat'); box.classList.add('quiz-box');
+      var label = '✎ Check yourself <span>(' + qs.length + ' quick question' + (qs.length > 1 ? 's' : '') + ')</span>';
+      var cb = h('button', { type: 'button', class: 'check-btn', 'aria-expanded': 'false' }, label);
+      cb.onclick = function () {
+        var open = beat.classList.toggle('quiz-open');
+        cb.setAttribute('aria-expanded', open); cb.innerHTML = open ? 'Hide questions' : label;
+      };
+      box.parentNode.insertBefore(cb, box);
+    }
   }
 
   /* ── Acid–base maths shared by simulators ── */
@@ -265,6 +276,11 @@
         var head = sec.querySelector(':scope > .mod-head'); if (head) slides.push({ el: head, sec: sec });
         sec.querySelectorAll(':scope > .beat').forEach(function (b) {
           var qs = b.querySelectorAll('.q'), k = 0;
+          if (b.classList.contains('quiz-beat')) {               // optional quiz: only via "Check yourself"
+            b.classList.add('has-parts');
+            qs.forEach(function (q, i) { q.dataset.part = i; slides.push({ el: b, sec: sec, part: i, quiz: true, n: qs.length }); });
+            return;
+          }
           if (qs.length > 1) {                                   // one quiz question per slide
             b.classList.add('has-parts'); qs.forEach(function (q, i) { q.dataset.part = i; }); k = qs.length - 1;
           } else if (b.querySelector(':scope > hr.slide-break')) { // manual split
@@ -280,12 +296,13 @@
     if (!slides.length) return;
 
     var opts = lv.modules.filter(function (m) { return m.status === 'live'; }).map(function (m) {
-      return '<option value="' + m.id + '">' + m.n + '. ' + m.title + '</option>'; }).join('');
+      return '<option value="' + m.id + '">' + m.title + '</option>'; }).join('');
     var bar = h('div', { class: 't-bar', role: 'toolbar', 'aria-label': 'Teach mode controls' },
       '<button type="button" class="t-prev" aria-label="Previous slide">←</button>' +
       '<span class="t-count" aria-live="polite"></span>' +
       '<button type="button" class="t-next" aria-label="Next slide">→</button>' +
-      '<select class="t-jump" aria-label="Jump to module"><option value="">Jump to…</option>' + opts + '</select>' +
+      '<select class="t-jump" aria-label="Jump to section"><option value="">Jump to…</option>' + opts + '</select>' +
+      '<button type="button" class="t-check">✎ Check yourself</button>' +
       '<span class="t-keys">← → move · B blank · F full screen · Esc exit</span>' +
       '<button type="button" class="t-fs">Full screen</button><button type="button" class="t-exit">Exit</button>');
     var prog = h('div', { class: 't-prog' }, '<i></i>'), blank = h('div', { class: 't-blank', title: 'Press B to return' });
@@ -302,13 +319,25 @@
     function applySteps() {
       steps.forEach(function (st, j) { st.classList.toggle('step-on', j < shown); });
     }
+    /* Quiz slides are optional: normal navigation skips them; the
+       "Check yourself" button opens them and returns afterwards. */
+    var ret = null;
+    function isQ(i) { return !!(slides[i] && slides[i].quiz); }
+    function sameQuiz(a, b) { return isQ(a) && isQ(b) && slides[a].el === slides[b].el; }
+    function plainNext(i) { var j = i + 1; while (j < slides.length && isQ(j)) j++; return j < slides.length ? j : i; }
+    function plainPrev(i) { var j = i - 1; while (j >= 0 && isQ(j)) j--; return j >= 0 ? j : i; }
+    function leaveQuiz(forward) { var r = ret == null ? plainPrev(idx) : ret; ret = null; if (forward) show(plainNext(r)); else show(r, true); }
     function next() {
       if (shown < steps.length) { shown++; applySteps(); document.dispatchEvent(new CustomEvent('learn:step', { detail: { el: steps[shown - 1] } })); }
-      else show(idx + 1);
+      else if (isQ(idx)) { if (sameQuiz(idx, idx + 1)) show(idx + 1); else leaveQuiz(true); }
+      else show(plainNext(idx));
     }
     function prev() {
-      if (shown > 0) { shown--; applySteps(); } else if (idx > 0) show(idx - 1, true);
+      if (shown > 0) { shown--; applySteps(); }
+      else if (isQ(idx)) { if (sameQuiz(idx, idx - 1)) show(idx - 1); else leaveQuiz(false); }
+      else if (idx > 0) show(plainPrev(idx), true);
     }
+    function quizFor(sec) { for (var i = 0; i < slides.length; i++) if (slides[i].quiz && slides[i].sec === sec) return i; return -1; }
     function show(i, allSteps) {
       idx = Math.max(0, Math.min(slides.length - 1, i));
       var s = slides[idx]; clear();
@@ -321,15 +350,20 @@
       main.scrollTop = 0;
       document.dispatchEvent(new CustomEvent('learn:slide', { detail: { el: s.el, part: s.part } }));
       var mid = s.sec && s.sec.dataset.module;
-      bar.querySelector('.t-count').textContent = (mid ? 'Module ' + INDEX[mid].m.n + '  ·  ' : '') + (idx + 1) + ' / ' + slides.length;
+      var plain = slides.filter(function (x) { return !x.quiz; }).length, pos = 0;
+      for (var j = 0; j <= idx; j++) if (!slides[j].quiz) pos++;
+      bar.querySelector('.t-count').textContent = s.quiz ? 'Check yourself  ·  ' + (s.part + 1) + ' / ' + s.n : pos + ' / ' + plain;
       bar.querySelector('.t-jump').value = mid || '';
-      prog.firstChild.style.width = ((idx + 1) / slides.length * 100) + '%';
+      prog.firstChild.style.width = (pos / plain * 100) + '%';
+      var cb = bar.querySelector('.t-check'), qi = s.sec ? quizFor(s.sec) : -1;
+      cb.style.display = (s.quiz || qi >= 0) ? '' : 'none';
+      cb.textContent = s.quiz ? '↩ Back to slides' : '✎ Check yourself';
       if (mid) currentModule = mid;
     }
     function enter(startId) {
       build(); on = true; document.documentElement.classList.add('teach'); document.body.classList.add('teach');
-      var start = 0;
-      if (startId) slides.some(function (s, i) { if (s.sec && (s.sec.dataset.module === startId || s.sec.id === startId)) { start = i; return true; } });
+      var start = 0; ret = null;
+      if (startId) slides.some(function (s, i) { if (!s.quiz && s.sec && (s.sec.dataset.module === startId || s.sec.id === startId)) { start = i; return true; } });
       show(start);
       if (window.gtag) gtag('event', 'teach_mode', { level: lv.title });
     }
@@ -349,6 +383,10 @@
     bar.querySelector('.t-next').onclick = next;
     bar.querySelector('.t-exit').onclick = exit;
     bar.querySelector('.t-fs').onclick = fs;
+    bar.querySelector('.t-check').onclick = function () {
+      if (isQ(idx)) { leaveQuiz(false); return; }
+      var qi = slides[idx].sec ? quizFor(slides[idx].sec) : -1; if (qi >= 0) { ret = idx; show(qi); }
+    };
     bar.querySelector('.t-jump').onchange = function () { if (this.value) enter(this.value); };
     blank.onclick = function () { blank.classList.remove('on'); };
     main.addEventListener('click', function (e) {
@@ -359,7 +397,7 @@
     document.addEventListener('fullscreenchange', function () { bar.querySelector('.t-fs').textContent = document.fullscreenElement ? 'Leave full screen' : 'Full screen'; });
 
     document.addEventListener('keydown', function (e) {
-      if (!on) { if ((e.key === 't' || e.key === 'T') && !e.target.closest('input, textarea, select')) enter(currentModule); return; }
+      if (!on) { if ((e.key === 't' || e.key === 'T') && !e.target.closest('input, textarea, select')) enter(null); return; }
       var typing = e.target.closest('input, textarea, select, [contenteditable]');
       var k = e.key;
       if (k === 'PageDown') { e.preventDefault(); next(); return; }          // clicker forward
@@ -370,15 +408,15 @@
       else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); prev(); }
       else if (k === 'b' || k === 'B' || k === '.') blank.classList.toggle('on');
       else if (k === 'f' || k === 'F') fs();
-      else if (k === 'Home') show(0); else if (k === 'End') show(slides.length - 1);
+      else if (k === 'Home') show(0); else if (k === 'End') show(plainPrev(slides.length));
     });
 
     var btn = h('button', { type: 'button', class: 'l-teach-btn', title: 'Present this page one screen at a time (T)' }, '▶ Teach mode');
-    btn.onclick = function () { enter(currentModule); };
+    btn.onclick = function () { enter(null); };
     var top = document.querySelector('.l-top'); top.insertBefore(btn, top.querySelector('.l-gloss-link'));
 
-    document.querySelectorAll('a.teach-cta').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); enter(currentModule); }); });
-    console.log('Learn engine ' + 'v4 · Teach mode ready');
+    document.querySelectorAll('a.teach-cta').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); enter(null); }); });
+    console.log('Learn engine ' + 'v5 · Teach mode ready');
     var q = new URLSearchParams(location.search);
     if (q.has('teach')) window.addEventListener('load', function () { enter(q.get('teach') || (location.hash || '').slice(1) || null); });
   }

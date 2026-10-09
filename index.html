@@ -1459,9 +1459,9 @@
     // ── 1. Basics of Neonatology (UG & PG) ──────────────────────
     basics: [
       // Example: { title: "Approach to a sick neonate", url: "articles/sick-neonate.html", tag: "article", meta: "Dr. Vivek Kumar · LHMC · 2024" },
-      { title: "Blood Gas (ABG): Basics — 6 interactive modules", url: "learn/respiratory/abg/basics.html", tag: "article", meta: "Dr. Vivek Kumar · 2026 · Nurses & MBBS" },
-      { title: "Newborn Ventilation: Basics — 7 interactive modules", url: "learn/respiratory/ventilation/basics.html", tag: "article", meta: "Dr. Vivek Kumar · 2026 · Nurses & MBBS" },
-      { title: "Pulmonary Graphics: Basics — 6 interactive modules", url: "learn/respiratory/graphics/basics.html", tag: "article", meta: "Dr. Vivek Kumar · 2026 · Nurses & MBBS" },
+      { title: "ABG: Basics", url: "learn/respiratory/abg/basics.html" },
+      { title: "Ventilation: Basics", url: "learn/respiratory/ventilation/basics.html" },
+      { title: "Pulmonary Graphics: Basics", url: "learn/respiratory/graphics/basics.html" },
     ],
 
     // ── 2. Advanced Neonatology (DM fellows) ────────────────────
@@ -1529,7 +1529,8 @@
       ul.innerHTML = items.map(function(item) {
         var tagClass = 'tag-' + (item.tag || 'soon');
         var tagLabel = TAG_LABELS[item.tag] || 'Soon';
-        var inner = '<div class="teach-art-dot"></div><div class="teach-art-body"><div class="teach-art-title"><span class="teach-art-tag ' + tagClass + '">' + tagLabel + '</span>' + item.title + '</div>' + (item.meta ? '<div class="teach-art-meta">' + item.meta + '</div>' : '') + '</div>';
+        var tagHtml = (item.url && !item.tag) ? '' : '<span class="teach-art-tag ' + tagClass + '">' + tagLabel + '</span>';
+        var inner = '<div class="teach-art-dot"></div><div class="teach-art-body"><div class="teach-art-title">' + tagHtml + item.title + '</div>' + (item.meta ? '<div class="teach-art-meta">' + item.meta + '</div>' : '') + '</div>';
         if (item.url) {
           return '<li><a class="teach-article-link" href="' + item.url + '" target="_blank" rel="noopener">' + inner + '</a></li>';
         } else {

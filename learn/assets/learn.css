@@ -343,13 +343,13 @@ svg.vloop, svg.vscalar { display: block; width: 100%; height: auto; }
 body.teach .level-head.slide-on .ppt-title { display: flex; }
 body.teach main:has(.level-head.slide-on) { background: #fff; }
 body.teach .level-head.slide-on:has(.ppt-title) { max-width: none; height: 100%; margin: 0; display: flex; }
-.ppt-title { flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; min-height: 100%; font-family: 'Calibri Light', Calibri, 'Inter', system-ui, sans-serif; }
+.ppt-title { flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; min-height: 100%; font-family: var(--sans); }
 .ppt-title .pt-main { flex: 1.15; display: flex; flex-direction: column; justify-content: flex-end; }
-.ppt-title h1 { font: 300 clamp(2.6rem, 6.2vw, 5.6rem)/1.1 'Calibri Light', Calibri, 'Inter', sans-serif !important; color: #000; margin: 0; letter-spacing: 0; }
-.ppt-title .pt-sub { font: 400 clamp(1.1rem, 2.1vw, 1.9rem) Calibri, 'Inter', sans-serif; color: #7030a0; margin: .9rem 0 0 4vw; }
-.ppt-title .pt-by { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 2vh; font: 400 clamp(.95rem, 1.45vw, 1.35rem)/1.45 Calibri, 'Inter', sans-serif; color: #000; }
-.ppt-title .pt-by .pt-name { color: #c00000; }
-.ppt-title .pt-by .pt-site { color: #000; }
+.ppt-title h1 { font: 500 clamp(2.6rem, 5.4vw, 4.6rem)/1.15 var(--serif) !important; color: var(--ink); margin: 0; letter-spacing: -.01em; }
+.ppt-title .pt-sub { font: italic 400 clamp(1.1rem, 2vw, 1.75rem) var(--serif); color: #7030a0; margin: 1rem 0 0; }
+.ppt-title .pt-by { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 2vh; font: 400 clamp(.95rem, 1.4vw, 1.3rem)/1.5 var(--sans); color: var(--ink-mid); }
+.ppt-title .pt-by .pt-name { font: 500 clamp(1.15rem, 1.9vw, 1.7rem)/1.4 var(--serif); color: var(--ink); }
+.ppt-title .pt-by .pt-site { color: var(--ink-mid); }
 body.teach .level-head.slide-on:has(.ppt-title) > :not(.ppt-title) { display: none; }
 
 /* section-divider slide in the same PowerPoint style */
@@ -372,3 +372,19 @@ body.teach .quote { font-size: 1.5rem; }
 body.teach .mon-wrap svg.vmon { max-height: 52vh; }
 body.teach .mon-loops svg { max-height: 22vh; }
 body.teach table.vals { font-size: 1.05rem; }
+
+/* ══════════ OPTIONAL QUIZZES ("Check yourself") ══════════ */
+.quiz-beat:not(.quiz-open) .quiz-box { display: none; }
+.quiz-beat { margin: 1.6rem 0; }
+.quiz-beat > h3 { display: none; }
+.check-btn { font: 600 .9rem var(--sans); color: var(--lvl); background: var(--paper); border: 1.5px dashed var(--lvl); border-radius: 22px; padding: .5rem 1.1rem; cursor: pointer; }
+.check-btn span { font-weight: 400; color: var(--ink-mid); }
+.check-btn:hover { background: var(--lvl-light); }
+.quiz-open .check-btn { margin-bottom: .8rem; }
+body.teach .quiz-beat .quiz-box { display: block; }
+body.teach .quiz-beat > h3 { display: block; }
+body.teach .check-btn { display: none; }
+.t-check { color: var(--lvl) !important; border-color: var(--lvl) !important; font-weight: 600 !important; }
+
+/* section list: no numbers, just a progress circle */
+.l-rail .n, .door-list .n { font-size: 0; width: .9rem; height: .9rem; margin-top: .3rem; }
