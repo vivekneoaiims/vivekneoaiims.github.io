@@ -296,12 +296,30 @@
       document.querySelectorAll('.has-slide').forEach(function (e) { e.classList.remove('has-slide'); });
       document.querySelectorAll('.part-on').forEach(function (e) { e.classList.remove('part-on'); });
     }
-    function show(i) {
+    /* Click-to-reveal builds (like PowerPoint animations): any element with
+       class "step" inside a slide stays hidden until the next click. */
+    var steps = [], shown = 0;
+    function applySteps() {
+      steps.forEach(function (st, j) { st.classList.toggle('step-on', j < shown); });
+    }
+    function next() {
+      if (shown < steps.length) { shown++; applySteps(); document.dispatchEvent(new CustomEvent('learn:step', { detail: { el: steps[shown - 1] } })); }
+      else show(idx + 1);
+    }
+    function prev() {
+      if (shown > 0) { shown--; applySteps(); } else if (idx > 0) show(idx - 1, true);
+    }
+    function show(i, allSteps) {
       idx = Math.max(0, Math.min(slides.length - 1, i));
       var s = slides[idx]; clear();
       s.el.classList.add('slide-on'); if (s.sec) s.sec.classList.add('has-slide');
       if (s.part != null) s.el.querySelectorAll('[data-part="' + s.part + '"]').forEach(function (c) { c.classList.add('part-on'); });
+      steps = [].slice.call(s.el.querySelectorAll('.step')).filter(function (st) {
+        if (s.part == null) return true; var pp = st.closest('[data-part]'); return !pp || pp.dataset.part == s.part;
+      });
+      shown = allSteps ? steps.length : 0; applySteps();
       main.scrollTop = 0;
+      document.dispatchEvent(new CustomEvent('learn:slide', { detail: { el: s.el, part: s.part } }));
       var mid = s.sec && s.sec.dataset.module;
       bar.querySelector('.t-count').textContent = (mid ? 'Module ' + INDEX[mid].m.n + '  ·  ' : '') + (idx + 1) + ' / ' + slides.length;
       bar.querySelector('.t-jump').value = mid || '';
@@ -317,6 +335,7 @@
     }
     function exit() {
       on = false; clear(); blank.classList.remove('on');
+      document.querySelectorAll('.step-on').forEach(function (e) { e.classList.remove('step-on'); });
       document.documentElement.classList.remove('teach'); document.body.classList.remove('teach');
       if (document.fullscreenElement) document.exitFullscreen();
       var sec = currentModule && document.querySelector('[data-module="' + currentModule + '"]');
@@ -326,24 +345,29 @@
       if (document.fullscreenElement) document.exitFullscreen();
       else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
     }
-    bar.querySelector('.t-prev').onclick = function () { show(idx - 1); };
-    bar.querySelector('.t-next').onclick = function () { show(idx + 1); };
+    bar.querySelector('.t-prev').onclick = prev;
+    bar.querySelector('.t-next').onclick = next;
     bar.querySelector('.t-exit').onclick = exit;
     bar.querySelector('.t-fs').onclick = fs;
     bar.querySelector('.t-jump').onchange = function () { if (this.value) enter(this.value); };
     blank.onclick = function () { blank.classList.remove('on'); };
+    main.addEventListener('click', function (e) {
+      if (!on || !document.body.classList.contains('click-advance')) return;
+      if (e.target.closest('a, button, input, select, textarea, label, .sim, .q, .term, .l-pop, svg.vmon')) return;
+      next();
+    });
     document.addEventListener('fullscreenchange', function () { bar.querySelector('.t-fs').textContent = document.fullscreenElement ? 'Leave full screen' : 'Full screen'; });
 
     document.addEventListener('keydown', function (e) {
       if (!on) { if ((e.key === 't' || e.key === 'T') && !e.target.closest('input, textarea, select')) enter(currentModule); return; }
       var typing = e.target.closest('input, textarea, select, [contenteditable]');
       var k = e.key;
-      if (k === 'PageDown') { e.preventDefault(); show(idx + 1); return; }          // clicker forward
-      if (k === 'PageUp') { e.preventDefault(); show(idx - 1); return; }            // clicker back
+      if (k === 'PageDown') { e.preventDefault(); next(); return; }          // clicker forward
+      if (k === 'PageUp') { e.preventDefault(); prev(); return; }            // clicker back
       if (k === 'Escape') { if (blank.classList.contains('on')) blank.classList.remove('on'); else if (!document.fullscreenElement) exit(); return; }
       if (typing) return;                                                            // sliders keep their arrow keys
-      if (k === 'ArrowRight' || k === 'ArrowDown' || (k === ' ' && !e.target.closest('button'))) { e.preventDefault(); show(idx + 1); }
-      else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); show(idx - 1); }
+      if (k === 'ArrowRight' || k === 'ArrowDown' || (k === ' ' && !e.target.closest('button'))) { e.preventDefault(); next(); }
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); prev(); }
       else if (k === 'b' || k === 'B' || k === '.') blank.classList.toggle('on');
       else if (k === 'f' || k === 'F') fs();
       else if (k === 'Home') show(0); else if (k === 'End') show(slides.length - 1);
@@ -354,7 +378,7 @@
     var top = document.querySelector('.l-top'); top.insertBefore(btn, top.querySelector('.l-gloss-link'));
 
     document.querySelectorAll('a.teach-cta').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); enter(currentModule); }); });
-    console.log('Learn engine ' + 'v3 · Teach mode ready');
+    console.log('Learn engine ' + 'v4 · Teach mode ready');
     var q = new URLSearchParams(location.search);
     if (q.has('teach')) window.addEventListener('load', function () { enter(q.get('teach') || (location.hash || '').slice(1) || null); });
   }

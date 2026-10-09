@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newborn Ventilation: Basics | Dr. Vivek Kumar</title>
+<meta name="description" content="Neonatal ventilation basics for nurses and MBBS students: how we breathe, the T-piece, ventilator terms, trigger-limit-cycle, common modes and settings by disease. Interactive simulators and Teach mode.">
+<link rel="stylesheet" href="../../assets/learn.css?v=4">
+<style>
+/* ── page-specific styles ── */
+.outline-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 1.2rem; align-items: center; }
+.outline-wrap ol { margin: 0; padding-left: 1.3rem; font-size: 1.08rem; } .outline-wrap li { margin: .45rem 0; }
+.pill { display: inline-block; margin-top: 1rem; background: #e6f2dc; border: 1.5px solid #6f9a4c; color: #c00000; border-radius: 10px; padding: .5rem 1.4rem; font-weight: 600; }
+.muscle-grid { display: grid; grid-template-columns: 1fr 230px 1fr; gap: 1rem; align-items: center; margin: 1rem 0; }
+.mcard { border-radius: 10px; padding: .8rem 1rem; font-size: .9rem; }
+.mcard h4 { margin: -.8rem -1rem .6rem; padding: .45rem 1rem; color: #fff; font: 600 .95rem var(--sans); border-radius: 10px 10px 0 0; }
+.mcard.in { background: var(--purple-light); } .mcard.in h4 { background: var(--purple); }
+.mcard.out { background: var(--maroon-light); } .mcard.out h4 { background: var(--maroon); }
+.mcard b { display: block; margin-top: .4rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-mid); }
+.mcard ul { margin: .2rem 0 0; padding-left: 1.1rem; } .mcard li { margin: .15rem 0; } .mcard em { color: var(--ink-light); font-size: .82rem; }
+.press-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.press-duo figure { margin: 0; }
+.dep-cards > div { --c: var(--maroon); }
+.ladder-wrap { display: grid; grid-template-columns: minmax(0, 1fr); }
+.tp-ctl { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-top: .8rem; }
+.thumb { font: 700 1rem var(--sans); background: var(--maroon); color: #fff; border: 0; border-radius: 40px; padding: .9rem 1.6rem; cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: none; box-shadow: 0 4px 0 #4e1124; }
+.thumb.down { transform: translateY(3px); box-shadow: 0 1px 0 #4e1124; background: var(--purple); }
+.tp-read { display: flex; gap: 1.2rem; flex-wrap: wrap; font-size: .9rem; color: var(--ink-mid); }
+.tp-read b { font: 600 1.25rem var(--serif); color: var(--ink); display: block; }
+.term-cards > div:nth-child(even) { --c: var(--purple); }
+.readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .6rem; margin: .8rem 0; }
+.readouts div { background: var(--bg); border-radius: 8px; padding: .5rem .7rem; font-size: .8rem; color: var(--ink-mid); }
+.readouts b { display: block; font: 600 1.35rem var(--serif); color: var(--ink); font-variant-numeric: tabular-nums; }
+.readouts .warn b { color: #c00000; } .readouts .good b { color: var(--ok); }
+.flag { font-size: .9rem; margin: .4rem 0 0; min-height: 1.4em; }
+.seg { display: inline-flex; border: 1.5px solid var(--maroon); border-radius: 20px; overflow: hidden; margin: .2rem .4rem .4rem 0; }
+.seg button { font: 500 .82rem var(--sans); border: 0; background: var(--paper); color: var(--maroon); padding: .4rem .8rem; cursor: pointer; }
+.seg button.on { background: var(--maroon); color: #fff; }
+.builder-row { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1rem; font-size: .88rem; }
+.builder-row span.lab { width: 5.5rem; color: var(--ink-mid); }
+.mode-name { font: 600 1.15rem var(--serif); color: var(--purple); margin: .6rem 0 0; }
+.mode-chips .chip.on { background: var(--maroon); border-color: var(--maroon); }
+.lab-read { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin-top: .8rem; }
+.lab-read div { background: var(--bg); border-radius: 8px; padding: .5rem .7rem; font-size: .78rem; color: var(--ink-mid); }
+.lab-read b { display: block; font: 600 1.3rem var(--serif); color: var(--ink); }
+.mode-say { margin: .7rem 0 0; font-size: .95rem; min-height: 3em; }
+.set-cards > div { --c: var(--maroon); } .set-cards > div.p { --c: var(--purple); }
+.set-cards dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .1rem .7rem; font-size: .92rem; }
+.set-cards dt { font-weight: 600; color: var(--ink); } .set-cards dd { margin: 0; color: var(--ink-mid); font-variant-numeric: tabular-nums; }
+table.vals.dz td { font-size: .86rem; vertical-align: top; } table.vals.dz th { font-size: .82rem; }
+.tc-out { font-size: .95rem; margin: .5rem 0 0; }
+body.teach .muscle-grid { grid-template-columns: 1fr 260px 1fr; } body.teach .mcard { font-size: 1rem; }
+body.teach .outline-wrap ol { font-size: 1.5rem; } body.teach .outline-wrap { grid-template-columns: minmax(0,1fr) 300px; }
+body.teach .pill { font-size: 1.3rem; }
+body.teach .tp-read b { font-size: 1.6rem; }
+body.teach .readouts b { font-size: 1.4rem; } body.teach .readouts { margin: .4rem 0; } body.teach .readouts div { padding: .3rem .6rem; }
+body.teach .sim-row { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .3rem 1.2rem; }
+body.teach #termMon svg { max-height: 26vh; }
+body.teach #labSvg { max-height: 26vh; } body.teach .mode-say { font-size: 1rem; min-height: 0; margin-top: .4rem; } body.teach #tpSvg { max-height: 34vh; } body.teach #bSvg { max-height: 36vh; } body.teach #tcSvg { max-height: 34vh; }
+body.teach #guess svg { max-height: 20vh; }
+body.teach .press-duo figure.sketch svg { max-height: 33vh; }
+body.teach .flag { font-size: 1rem; }
+body.teach .lab-read { margin-top: .4rem; } body.teach .lab-read div { padding: .3rem .6rem; }
+body.teach table.vals.dz td { font-size: .95rem; }
+@media (max-width: 760px) {
+  .outline-wrap, .muscle-grid, .press-duo { grid-template-columns: minmax(0, 1fr); }
+  .outline-wrap svg { max-width: 200px; margin: 0 auto; }
+  .muscle-grid svg { max-width: 220px; margin: 0 auto; display: block; }
+  .lab-read { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body data-page="level" data-topic="ventilation" data-level="basics" class="theme-mp click-advance">
+<main>
+
+<header class="level-head">
+  <!-- Teach-mode first slide: same as the PowerPoint -->
+  <div class="ppt-title" aria-hidden="true">
+    <div class="pt-main">
+      <h1>Newborn: Ventilation</h1>
+      <div class="pt-sub">Breath carries spirit, ventilation carries air.</div>
+    </div>
+    <div class="pt-by">
+      <span class="pt-name">Dr. Vivek Kumar</span>
+      <span>Assistant Professor, LHMC</span>
+      <span class="pt-site">vivekneoaiims.com</span>
+    </div>
+  </div>
+  <div class="who">Basics: for nurses &amp; MBBS students</div>
+  <h1>Newborn: Ventilation</h1>
+  <p class="c-purple" style="font-style:italic;margin-bottom:.6rem">Breath carries spirit, ventilation carries air.</p>
+  <p>Seven short modules, about 45 minutes. From your own breathing to the ventilator's modes, with a thumb-on-the-T-piece simulator and a live ventilator screen. Your progress saves in this browser.</p>
+  <a class="teach-cta" href="?teach">▶ Teach this in class</a>
+</header>
+
+<!-- ══════════ MODULE 1 ══════════ -->
+<section class="module" id="how-we-breathe" data-module="vent-b-01">
+<header class="mod-head">
+  <div class="kicker">Module 1</div>
+  <h2>How we breathe</h2>
+  <p>Before we push air in, see how the body pulls it in.</p>
+</header>
+
+<section class="beat" id="outline">
+  <h3 data-beat="today">Outline of the learning session</h3>
+  <div class="outline-wrap">
+    <div>
+      <p style="margin:0 0 .3rem">Today's topics:</p>
+      <ol>
+        <li class="step">Principle behind the T-piece</li>
+        <li class="step">Basic terms in ventilation</li>
+        <li class="step">Common ventilation modes</li>
+        <li class="step">Pulmonary graphics: the 5 most common conditions (<a data-to="graph-b-05">next topic</a>)</li>
+      </ol>
+      <div class="pill step">Need active participation!</div>
+    </div>
+    <svg viewBox="0 0 220 200" width="220" aria-hidden="true">
+      <g fill="none" stroke-width="3" stroke-linecap="round" filter="url(#sketchy)">
+        <g stroke="#5e2b8c"><path d="M45 95 a28 28 0 1 1 30 0 v18 h-30z" fill="#efe6f7"/><path d="M47 122 h26 M50 130 h20"/><path d="M60 40 v-14 M30 52 l-10 -8 M90 52 l10 -8"/></g>
+        <g stroke="#7b1e3a"><path d="M95 75 a32 32 0 1 1 34 0 v20 h-34z" fill="#f7e4ea"/><path d="M97 104 h30 M100 112 h24"/><path d="M112 14 v-12 M80 28 l-10 -9 M144 28 l10 -9"/><path d="M104 60 q8 -14 16 0" /></g>
+        <g stroke="#5e2b8c"><path d="M150 100 a26 26 0 1 1 28 0 v16 h-28z" fill="#efe6f7"/><path d="M152 124 h24 M155 131 h18"/><path d="M164 52 v-12 M138 62 l-9 -7 M190 62 l9 -7"/></g>
+        <path d="M30 190 q80 -40 160 0" stroke="#3b3b44" fill="#f3d9c8"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="beat">
+  <div class="hook">
+    <p>Kabir, 29 weeks, 1.1 kg, is grunting with deep chest retractions. His mother asks: <em>"Why can't he just breathe like us?"</em></p>
+    <p class="ask">To answer her, you need to know how breathing works.</p>
+  </div>
+</section>
+
+<section class="beat" id="muscles">
+  <h3 data-beat="see it">The breathing pump</h3>
+  <div class="muscle-grid">
+    <div class="mcard in">
+      <h4>Muscles of inspiration</h4>
+      <b>Core</b>
+      <ul><li>Diaphragm <em>(contracts, moves down)</em></li><li>External intercostals <em>(lift the ribs)</em></li></ul>
+      <b>Accessory</b>
+      <ul><li>Sternocleidomastoid <em>(lifts sternum)</em></li><li>Pectoralis minor <em>(pulls ribs out)</em></li></ul>
+    </div>
+    <svg viewBox="0 0 230 280" width="230" role="img" aria-label="Rib cage and diaphragm moving with breathing">
+      <g id="cage" filter="url(#sketchy)" fill="none" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="scale" values="1 1;1.07 1.03;1 1" keyTimes="0;.45;1" dur="3.4s" repeatCount="indefinite" additive="sum"/>
+      </g>
+      <path id="dia" d="M40 205 Q115 120 190 205" fill="none" stroke="#7b1e3a" stroke-width="5" stroke-linecap="round">
+        <animate attributeName="d" values="M40 205 Q115 120 190 205;M40 212 Q115 175 190 212;M40 205 Q115 120 190 205" keyTimes="0;.45;1" dur="3.4s" repeatCount="indefinite"/>
+      </path>
+      <g fill="#5e2b8c">
+        <path d="M115 6 v26 m-9 -10 l9 10 l9 -10" stroke="#5e2b8c" stroke-width="3.5" fill="none" stroke-linecap="round">
+          <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.5;.95;1" dur="3.4s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <text x="115" y="262" text-anchor="middle" font-size="20" fill="#7b1e3a">diaphragm</text>
+      <text x="200" y="22" text-anchor="end" font-size="18" fill="#5e2b8c"><tspan>air in</tspan>
+        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.4;.5;.95;1" dur="3.4s" repeatCount="indefinite"/></text>
+    </svg>
+    <div class="mcard out">
+      <h4>Muscles of expiration</h4>
+      <b>Usually passive</b>
+      <ul><li>Diaphragm <em>(relaxes, moves up)</em></li><li>The lung recoils like a balloon</li></ul>
+      <b>When forced</b>
+      <ul><li>Internal intercostals <em>(pull ribs down)</em></li><li>Abdominals, quadratus lumborum</li></ul>
+    </div>
+  </div>
+  <div class="tip"><b>Why babies tire</b>A newborn's ribs are soft and lie flat, and the diaphragm does almost all the work. When the lung is stiff (RDS), the soft chest wall caves in instead: those are Kabir's retractions.</div>
+</section>
+
+<section class="beat" id="pressure">
+  <h3 data-beat="see it">Negative vs positive pressure</h3>
+  <div class="press-duo">
+    <figure class="sketch">
+      <svg viewBox="0 0 300 250" width="300" role="img" aria-label="Negative pressure breathing: diaphragm pulls down, alveolar pressure below zero, air flows in">
+        <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" filter="url(#sketchy)">
+          <path d="M150 20 v55"/><path d="M150 75 q-10 10 -25 18 M150 75 q10 10 25 18"/>
+          <path d="M60 50 h180 v150 h-180z" stroke="#c9c3cf"/>
+          <path d="M126 90 c-50 -5 -60 40 -55 80 c3 20 40 22 55 10 z" fill="#f2d7df"/>
+          <path d="M174 90 c50 -5 60 40 55 80 c-3 20 -40 22 -55 10 z" fill="#f2d7df"/>
+          <path d="M60 205 Q150 225 240 205" stroke="#7b1e3a" stroke-width="4"/>
+          <path d="M150 232 v14 m-7 -7 l7 7 l7 -7" stroke="#7b1e3a" stroke-width="3"/>
+        </g>
+        <path d="M150 0 v34 m-8 -10 l8 10 l8 -10" stroke="#5e2b8c" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <text x="160" y="16" font-size="17" fill="#5e2b8c">air pulled in</text>
+        <text x="28" y="44" font-size="16">airway 0</text>
+        <text x="98" y="140" font-size="16" fill="#7b1e3a">−1</text><text x="185" y="140" font-size="16" fill="#7b1e3a">−1</text>
+        <text x="64" y="196" font-size="15">pleura −5</text>
+        <text x="150" y="246" text-anchor="middle" font-size="15" fill="#7b1e3a" dx="60">diaphragm down</text>
+      </svg>
+      <figcaption>Baby: chest grows, pressure falls, air is <b>pulled</b> in.</figcaption>
+    </figure>
+    <figure class="sketch step">
+      <svg viewBox="0 0 300 250" width="300" role="img" aria-label="Positive pressure ventilation: ventilator pushes gas in, airway pressure above zero">
+        <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" filter="url(#sketchy)">
+          <path d="M150 20 v55"/><path d="M150 75 q-10 10 -25 18 M150 75 q10 10 25 18"/>
+          <path d="M60 50 h180 v150 h-180z" stroke="#c9c3cf"/>
+          <path d="M126 90 c-54 -8 -66 44 -60 84 c3 22 44 24 60 12 z" fill="#ead9f3"/>
+          <path d="M174 90 c54 -8 66 44 60 84 c-3 22 -44 24 -60 12 z" fill="#ead9f3"/>
+          <path d="M60 210 Q150 222 240 210" stroke="#7b1e3a" stroke-width="4"/>
+          <rect x="128" y="2" width="44" height="22" rx="5" fill="#7b1e3a" stroke="#7b1e3a"/>
+        </g>
+        <path d="M188 8 h-16 m8 -6 l8 6 l-8 6" stroke="#5e2b8c" stroke-width="0" fill="none"/>
+        <path d="M150 26 v34 m-8 -10 l8 10 l8 -10" stroke="#5e2b8c" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <text x="150" y="18" text-anchor="middle" font-size="13" class="sans" fill="#fff" font-weight="600">VENT</text>
+        <text x="180" y="18" font-size="17" fill="#5e2b8c">air pushed in</text>
+        <text x="28" y="44" font-size="16">airway +20</text>
+        <text x="94" y="140" font-size="16" fill="#5e2b8c">+15</text><text x="183" y="140" font-size="16" fill="#5e2b8c">+15</text>
+        <text x="64" y="196" font-size="15">pleura +</text>
+      </svg>
+      <figcaption>Ventilator: pressure rises, air is <b>pushed</b> in.</figcaption>
+    </figure>
+  </div>
+  <div class="tip purple step"><b>Same rule, opposite push</b>Gas always flows from high to low pressure. The baby lowers the pressure inside; the ventilator raises it outside. Positive pressure can over-stretch the lung and squeeze the heart, so we use the <b>lowest pressure that works</b>.</div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz1"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 2 ══════════ -->
+<section class="module" id="why-ventilate" data-module="vent-b-02">
+<header class="mod-head">
+  <div class="kicker">Module 2</div>
+  <h2>Why we ventilate</h2>
+  <p>Breathing has two jobs. When the baby can't do them, we help.</p>
+</header>
+
+<section class="beat" id="gas-exchange">
+  <h3 data-beat="see it">Two jobs: oxygen in, CO₂ out</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 600 220" width="600" role="img" aria-label="Alveolus next to a capillary: oxygen moves into blood, carbon dioxide moves out">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" filter="url(#sketchy)">
+        <path d="M150 30 v40"/><circle cx="150" cy="130" r="62" fill="#f6e5eb" stroke="#7b1e3a"/>
+        <path d="M250 40 c30 0 30 180 0 180 M330 40 c-30 0 -30 180 0 180" stroke="#c4513f"/>
+      </g>
+      <g fill="#e06a6a" stroke="#a53c3c" stroke-width="1.5"><ellipse cx="290" cy="80" rx="13" ry="8"/><ellipse cx="290" cy="130" rx="13" ry="8"/><ellipse cx="290" cy="180" rx="13" ry="8"/></g>
+      <g stroke-width="4" stroke-linecap="round" fill="none">
+        <path d="M185 105 h75 m-10 -9 l10 9 l-10 9" stroke="#5e2b8c"><animate attributeName="stroke-dashoffset" values="40;0" dur="1.2s" repeatCount="indefinite"/></path>
+        <path d="M260 160 h-75 m10 -9 l-10 9 l10 9" stroke="#7b1e3a"/>
+      </g>
+      <text x="150" y="135" text-anchor="middle" font-size="22">alveolus</text>
+      <text x="290" y="30" text-anchor="middle" font-size="20" fill="#c4513f">blood</text>
+      <text x="222" y="96" text-anchor="middle" font-size="22" font-weight="700" fill="#5e2b8c">O₂</text>
+      <text x="222" y="186" text-anchor="middle" font-size="22" font-weight="700" fill="#7b1e3a">CO₂</text>
+      <g class="step">
+        <text x="360" y="90" font-size="22" fill="#5e2b8c">Oxygenation ← FiO₂ + MAP</text>
+        <text x="360" y="118" font-size="17">(more O₂, lungs kept open)</text>
+      </g>
+      <g class="step">
+        <text x="360" y="165" font-size="22" fill="#7b1e3a">CO₂ removal ← rate × volume</text>
+        <text x="360" y="193" font-size="17">(how much air moves per minute)</text>
+      </g>
+    </svg>
+  </figure>
+  <p>Remember this split. When the blood gas shows high CO₂ (<a data-to="abg-b-01">ABG module</a>), think <span class="term" data-term="minute-ventilation">minute ventilation</span>. When oxygen is low, think <span class="term" data-term="fio2">FiO₂</span> and <span class="term" data-term="map">mean airway pressure</span>.</p>
+</section>
+
+<section class="beat" id="o2-deprivation">
+  <h3 data-beat="see it">Hypoxia, hypoxemia, ischemia</h3>
+  <p>Three words that get mixed up. All mean tissues are short of oxygen, for different reasons.</p>
+  <div class="cards dep-cards">
+    <div class="step">
+      <h4>Hypoxemia</h4>
+      <p><b>Low O₂ in the blood.</b></p>
+      <svg viewBox="0 0 160 40" width="160" aria-hidden="true"><text x="8" y="28" font-size="22" fill="#5e2b8c">O₂</text><path d="M40 20 h40 M66 10 l14 10 l-14 10 M52 10 l14 10 l-14 10" stroke="#3b3b44" stroke-width="3" fill="none"/><path d="M60 8 l12 24" stroke="#c00000" stroke-width="3"/><g fill="#e06a6a"><circle cx="105" cy="16" r="5"/><circle cx="120" cy="26" r="5"/><circle cx="133" cy="14" r="5"/></g></svg>
+      <ul><li>Low FiO₂, hypoventilation</li><li>V/Q mismatch, diffusion problem</li><li>Right-to-left shunt <em>(O₂ won't fix it)</em></li></ul>
+    </div>
+    <div class="step p">
+      <h4>Hypoxia</h4>
+      <p><b>Low O₂ reaching the tissues.</b></p>
+      <svg viewBox="0 0 160 40" width="160" aria-hidden="true"><text x="8" y="28" font-size="22" fill="#5e2b8c">O₂</text><path d="M40 20 h50 M76 10 l14 10 l-14 10" stroke="#3b3b44" stroke-width="3" fill="none"/><path d="M62 8 l12 24" stroke="#c00000" stroke-width="3"/><circle cx="125" cy="20" r="14" fill="#c9c3cf"/></svg>
+      <ul><li>Hypoxemia</li><li>Anaemia</li><li>Low cardiac output</li></ul>
+    </div>
+    <div class="step">
+      <h4>Ischemia</h4>
+      <p><b>Low blood flow to the tissues.</b></p>
+      <svg viewBox="0 0 160 40" width="160" aria-hidden="true"><g fill="#c4513f"><path d="M18 10 q-6 10 0 16 q6 -6 0 -16z"/><path d="M34 16 q-6 10 0 16 q6 -6 0 -16z"/></g><path d="M50 20 h40 M76 10 l14 10 l-14 10" stroke="#3b3b44" stroke-width="3" fill="none"/><path d="M62 8 l12 24" stroke="#c00000" stroke-width="3"/><circle cx="125" cy="20" r="14" fill="#c9c3cf"/></svg>
+      <ul><li>Poor arterial flow (shock)</li><li>Poor venous drainage</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="support">
+  <h3 data-beat="see it">The ladder of support</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 260" width="640" role="img" aria-label="Ladder of respiratory support from oxygen to high-frequency oscillation">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" filter="url(#sketchy)">
+        <path d="M20 240 h100 v-36 h100 v-36 h100 v-36 h100 v-36 h100 v-36 h100" />
+      </g>
+      <g font-size="18" text-anchor="middle">
+        <text x="70" y="230">Oxygen</text>
+        <text x="170" y="194" fill="#5e2b8c">CPAP</text>
+        <text x="270" y="158" fill="#5e2b8c">NIPPV / BiPAP</text>
+        <text x="370" y="122" fill="#5e2b8c">nasal HFO</text>
+      </g>
+      <g font-size="18" text-anchor="middle" class="step">
+        <text x="465" y="64" fill="#7b1e3a">Conventional</text><text x="465" y="86" font-size="14" fill="#7b1e3a">SIMV · A/C · PSV</text>
+        <text x="575" y="50" fill="#7b1e3a">HFOV</text>
+        <path d="M425 255 h210" stroke="#7b1e3a" stroke-width="5" filter="url(#sketchy)"/>
+        <text x="530" y="250" font-size="17" fill="#7b1e3a">invasive (via ET tube)</text>
+      </g>
+      <path d="M125 255 h290" stroke="#5e2b8c" stroke-width="5" filter="url(#sketchy)"/>
+      <text x="270" y="250" text-anchor="middle" font-size="17" fill="#5e2b8c">non-invasive (via nose)</text>
+      <text x="40" y="40" font-size="20">more support ↗</text>
+    </svg>
+  </figure>
+  <p class="quote step">"Ventilation's only purpose is to keep the patient alive while something good can happen to allow them to breathe for themselves."</p>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz2"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 3 ══════════ -->
+<section class="module" id="t-piece" data-module="vent-b-03">
+<header class="mod-head">
+  <div class="kicker">Module 3</div>
+  <h2>Simplified ventilator: Ayre's T-piece</h2>
+  <p>Understand the T-piece, and you understand every ventilator.</p>
+</header>
+
+<section class="beat" id="tpiece-sketch">
+  <h3 data-beat="see it">A tube, a T and your thumb</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 300" width="640" role="img" aria-label="Baby with endotracheal tube connected to a T-piece; oxygen flows in from below; a thumb closes the open end">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#sketchy)">
+        <path d="M140 36 C70 36 32 88 38 148 C42 188 66 212 92 222 L92 292 L162 292 L166 242 C186 240 196 230 198 214 C208 212 210 202 204 196 C212 192 212 182 206 178 L222 160 L206 150 C212 100 190 36 140 36Z" fill="#f6dccb"/>
+        <path d="M112 182 c12 30 14 60 4 108" stroke="#c4513f" stroke-width="2"/>
+        <path d="M210 172 h145" stroke="#9a8ca6" stroke-width="12"/>
+        <path d="M210 172 h145" stroke="#efe9f3" stroke-width="7"/>
+        <path d="M112 182 q40 -10 98 -10" stroke="#9a8ca6" stroke-width="10"/>
+        <rect x="352" y="60" width="26" height="230" fill="#e9e3ef" stroke="#7a6d86"/>
+      </g>
+      <g fill="#7b1e3a" class="flowdots">
+        <circle r="4"><animateMotion dur="1.6s" repeatCount="indefinite" path="M365 285 V70"/></circle>
+        <circle r="4"><animateMotion dur="1.6s" begin=".5s" repeatCount="indefinite" path="M365 285 V70"/></circle>
+        <circle r="4"><animateMotion dur="1.6s" begin="1.05s" repeatCount="indefinite" path="M365 285 V70"/></circle>
+      </g>
+      <text x="395" y="290" font-size="19">← gas in (6–8 L/min)</text>
+      <text x="395" y="178" font-size="19">← T-piece adapter</text>
+      <text x="225" y="206" font-size="18">endotracheal tube</text>
+      <text x="395" y="104" font-size="19">← open end (PEEP cap)</text>
+      <g class="step">
+        <ellipse cx="365" cy="48" rx="26" ry="16" fill="#e8b89c" stroke="#3b3b44" stroke-width="2"/>
+        <text x="400" y="36" font-size="20" fill="#7b1e3a" font-weight="700">thumb closes the hole</text>
+        <text x="400" y="58" font-size="18" fill="#7b1e3a">→ gas goes into the lungs</text>
+        <path d="M340 150 h-120 m10 -8 l-10 8 l10 8" stroke="#7b1e3a" stroke-width="4" fill="none"/>
+      </g>
+    </svg>
+    <figcaption>Thumb off: gas escapes through the cap (PEEP). Thumb on: pressure rises to PIP.</figcaption>
+  </figure>
+</section>
+
+<section class="beat" id="tpiece-sim">
+  <h3 data-beat="play">Be the ventilator</h3>
+  <p>Press and hold the button to close the T-piece. Let go to open it. Try 40 breaths a minute, each about 0.4 s long.</p>
+  <div class="sim">
+    <svg id="tpSvg" viewBox="0 0 640 220" width="640" role="img" aria-label="Live airway pressure trace from the T-piece"></svg>
+    <div class="tp-ctl">
+      <button type="button" class="thumb" id="thumb">Hold to close (thumb on)</button>
+      <button type="button" class="chip" id="autoThumb" aria-pressed="false">Electronic thumb</button>
+      <div class="tp-read">
+        <div>Last Ti<b id="tpTi">–</b></div><div>Rate<b id="tpRR">–</b></div><div>PIP reached<b id="tpPip">–</b></div>
+      </div>
+    </div>
+    <div class="sim-row" style="margin-top:.8rem">
+      <div class="ctl"><label for="tpPipSet">PIP limit (pop-off) <b id="tpPipSetV">20</b></label><input type="range" id="tpPipSet" min="15" max="30" value="20"><small>cmH₂O</small></div>
+      <div class="ctl"><label for="tpPeep">PEEP cap <b id="tpPeepV">5</b></label><input type="range" id="tpPeep" min="0" max="8" value="5"><small>cmH₂O</small></div>
+      <div class="ctl"><label for="tpFlow">Gas flow <b id="tpFlowV">8</b></label><input type="range" id="tpFlow" min="4" max="12" value="8"><small>L/min: more flow, faster rise</small></div>
+    </div>
+  </div>
+  <hr class="slide-break">
+  <div class="tip"><b>The big idea</b>A ventilator is a T-piece with an <b>electronic thumb</b>. How long the thumb stays on is <span class="term" data-term="ti">Ti</span>. How often it closes is the rate. The pop-off sets <span class="term" data-term="pip">PIP</span>, and the cap sets <span class="term" data-term="peep">PEEP</span>.</div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz3"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 4 ══════════ -->
+<section class="module" id="terms" data-module="vent-b-04">
+<header class="mod-head">
+  <div class="kicker">Module 4</div>
+  <h2>Speaking ventilator</h2>
+  <p>Nine words cover almost every ventilator setting.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>Night round. The resident reads out Kabir's settings: <b>"PIP 20, PEEP 5, Ti 0.35, rate 50, FiO₂ 40%."</b></p>
+    <p class="ask">By the end of this module, you will be able to picture that breath.</p>
+  </div>
+</section>
+
+<section class="beat" id="terms-sketch">
+  <h3 data-beat="see it">One breath, labelled</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 300" width="640" role="img" aria-label="Pressure against time for two breaths, labelled PIP, PEEP, Ti, Te and mean airway pressure">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.2" stroke-linecap="round">
+        <path d="M50 20 V262 H620"/>
+      </g>
+      <path class="step" d="M70 202 L70 164 L600 164" fill="none" stroke="#5e2b8c" stroke-width="2.5" stroke-dasharray="7 6" id="mapLine"/>
+      <path class="draw" d="M50 202 H70 L78 60 H134 L142 202 H310 L318 60 H374 L382 202 H560 L568 60 H600" fill="none" stroke="#7b1e3a" stroke-width="4" stroke-linejoin="round" filter="url(#sketchy)"/>
+      <text x="40" y="66" text-anchor="end" font-size="18">20</text><text x="40" y="208" text-anchor="end" font-size="18">5</text><text x="40" y="266" text-anchor="end" font-size="18">0</text>
+      <text x="610" y="285" text-anchor="end" font-size="18">time (s)</text>
+      <text x="22" y="150" font-size="18" transform="rotate(-90 22 150)" text-anchor="middle">pressure (cmH₂O)</text>
+      <g class="step"><text x="150" y="56" font-size="22" font-weight="700" fill="#7b1e3a">PIP</text><text x="150" y="78" font-size="16">size of breath</text></g>
+      <g class="step"><text x="160" y="226" font-size="22" font-weight="700" fill="#7b1e3a">PEEP</text><text x="160" y="246" font-size="16">keeps alveoli open between breaths</text></g>
+      <g class="step" stroke="#5e2b8c" stroke-width="2.5" fill="none"><path d="M78 36 H134 M78 30 v12 M134 30 v12"/><text x="106" y="28" text-anchor="middle" font-size="19" fill="#5e2b8c" stroke="none">Ti 0.4 s</text></g>
+      <g class="step" stroke="#5e2b8c" stroke-width="2.5" fill="none"><path d="M142 104 H310 M142 98 v12 M310 98 v12"/><text x="226" y="96" text-anchor="middle" font-size="19" fill="#5e2b8c" stroke="none">Te 1.1 s</text></g>
+      <g class="step" stroke="#3b3b44" stroke-width="2" fill="none"><path d="M318 14 H560 M318 8 v12 M560 8 v12"/><text x="439" y="34" text-anchor="middle" font-size="18" stroke="none">one breath cycle = 60 ÷ rate = 1.5 s</text></g>
+      <g class="step"><text x="430" y="158" font-size="20" font-weight="700" fill="#5e2b8c">MAP ≈ 9</text><text x="430" y="186" font-size="16" fill="#5e2b8c">average pressure</text></g>
+    </svg>
+    <figcaption>Rate 40 → each cycle lasts 1.5 s. With Ti 0.4 s, 1.1 s is left to breathe out.</figcaption>
+  </figure>
+  <hr class="slide-break">
+  <div class="cards term-cards">
+    <div><h4>PIP</h4><p>Peak pressure. Bigger PIP → bigger breath. Usually 16–20.</p></div>
+    <div><h4>PEEP</h4><p>Floor pressure. Stops collapse. 4 for normal lungs, 5–8 for sick lungs.</p></div>
+    <div><h4>Ti / Te</h4><p>Breath-in time (0.3–0.4 s) and breath-out time.</p></div>
+    <div><h4>Rate</h4><p>Machine breaths per minute.</p></div>
+    <div><h4>FiO₂</h4><p>Oxygen fraction: 21% (air) to 100%.</p></div>
+    <div><h4>Tidal volume</h4><p>Volume per breath. Aim 4–6 mL/kg.</p></div>
+    <div><h4>Minute ventilation</h4><p>Rate × tidal volume. Controls CO₂.</p></div>
+    <div><h4>MAP</h4><p>Mean airway pressure. Drives oxygenation.</p></div>
+  </div>
+</section>
+
+<section class="beat" id="terms-sim">
+  <h3 data-beat="play">Set Kabir's ventilator</h3>
+  <p>Kabir weighs 1.1 kg. Change the settings and watch the screen. Aim for a tidal volume of 4–6 mL/kg.</p>
+  <div class="sim">
+    <div class="presets mode-chips" id="lungChips" style="margin:0 0 .8rem">
+      <button class="chip on" data-c="0.35">Stiff lung (RDS)</button>
+      <button class="chip" data-c="0.7">After surfactant</button>
+      <button class="chip" data-c="1.0">Healthy lung</button>
+    </div>
+    <div id="termMon"></div>
+    <div class="sim-row" style="margin-top:.8rem">
+      <div class="ctl"><label for="sPip">PIP <b id="sPipV">20</b></label><input type="range" id="sPip" min="10" max="30" value="20"><small>cmH₂O</small></div>
+      <div class="ctl"><label for="sPeep">PEEP <b id="sPeepV">5</b></label><input type="range" id="sPeep" min="3" max="8" value="5"><small>cmH₂O</small></div>
+      <div class="ctl"><label for="sTi">Ti <b id="sTiV">0.35</b></label><input type="range" id="sTi" min="0.25" max="0.6" step="0.05" value="0.35"><small>seconds</small></div>
+      <div class="ctl"><label for="sRr">Rate <b id="sRrV">50</b></label><input type="range" id="sRr" min="20" max="70" step="5" value="50"><small>breaths/min</small></div>
+    </div>
+    <div class="readouts" id="termRead"></div>
+    <p class="flag" id="termFlag"></p>
+  </div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz4"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 5 ══════════ -->
+<section class="module" id="trigger-limit-cycle" data-module="vent-b-05">
+<header class="mod-head">
+  <div class="kicker">Module 5</div>
+  <h2>Start, max, end</h2>
+  <p>Every breath, from every ventilator, answers three questions.</p>
+</header>
+
+<section class="beat" id="ideal">
+  <h3 data-beat="see it">Ideal mode of ventilation</h3>
+  <div class="duo">
+    <div><h3>Synchronises</h3><p>with the baby's own breathing effort.</p></div>
+    <div><h3>Lowest work</h3><p>of breathing for the baby.</p></div>
+  </div>
+  <p style="margin-bottom:.3rem"><b>Classifying the modes</b></p>
+  <table class="vals">
+    <tr class="step"><th>1. Start (trigger)</th><td><b class="c-purple">Flow</b> or pressure (or the machine's timer)</td></tr>
+    <tr class="step"><th>2. Max (limit)</th><td><b class="c-purple">Volume</b> or pressure</td></tr>
+    <tr class="step"><th>3. End (cycling)</th><td>Flow or <b class="c-purple">time</b></td></tr>
+    <tr class="step"><th>4. Spontaneous breaths allowed?</th><td><b class="c-purple">Yes</b> or no</td></tr>
+  </table>
+  <p class="note">Purple: the usual choice in modern neonatal ventilators.</p>
+</section>
+
+<section class="beat" id="tlc">
+  <h3 data-beat="see it">Trigger, limit and cycling</h3>
+  <figure class="sketch">
+    <svg viewBox="0 0 640 260" width="640" role="img" aria-label="Flow against time with trigger, limit and cycling points marked">
+      <g fill="none" stroke="#3b3b44" stroke-width="2.2" stroke-linecap="round"><path d="M40 20 V240 H320"/><path d="M360 20 V240 H630"/></g>
+      <path class="draw" d="M40 130 H110 V50 H190 V220 L280 130 H320" fill="none" stroke="#7b1e3a" stroke-width="4" stroke-linejoin="round" filter="url(#sketchy)"/>
+      <path d="M40 130 H320" stroke="#c9c3cf" stroke-dasharray="4 4"/>
+      <text x="50" y="40" font-size="22">flow</text><text x="300" y="256" text-anchor="end" font-size="18">time</text>
+      <path class="draw" d="M360 200 H420 C440 200 450 80 500 70 L540 70 C550 70 552 200 570 200 H630" fill="none" stroke="#5e2b8c" stroke-width="4" filter="url(#sketchy)"/>
+      <path d="M360 200 H630" stroke="#c9c3cf" stroke-dasharray="4 4"/>
+      <text x="370" y="40" font-size="22">pressure</text><text x="610" y="256" text-anchor="end" font-size="18">time</text>
+      <text x="628" y="222" text-anchor="end" font-size="15" fill="#5e2b8c">baseline = PEEP</text>
+      <g class="step"><circle cx="110" cy="130" r="9" fill="none" stroke="#c00000" stroke-width="3"/><text x="104" y="160" font-size="24" font-weight="700" fill="#c00000">1</text><text x="62" y="182" font-size="17" fill="#c00000">trigger</text>
+        <path d="M420 230 v-24 m-7 9 l7 -9 l7 9" stroke="#c00000" stroke-width="3" fill="none"/><text x="420" y="252" text-anchor="middle" font-size="16" fill="#c00000">trigger</text></g>
+      <g class="step"><path d="M115 30 H185 M115 24 v12 M185 24 v12" stroke="#5e2b8c" stroke-width="2.5" fill="none"/><text x="150" y="20" text-anchor="middle" font-size="24" font-weight="700" fill="#5e2b8c">2</text><text x="200" y="44" font-size="17" fill="#5e2b8c">limit</text>
+        <path d="M520 82 v40 m-7 -32 l7 -9 l7 9 M520 122 m-7 -9 l7 9 l7 -9" stroke="#b8892a" stroke-width="3" fill="none"/><text x="510" y="112" font-size="16" text-anchor="end" fill="#b8892a">limit</text></g>
+      <g class="step"><circle cx="190" cy="50" r="9" fill="none" stroke="#2f8150" stroke-width="3"/><text x="204" y="72" font-size="24" font-weight="700" fill="#2f8150">3</text><text x="222" y="72" font-size="17" fill="#2f8150">cycle</text>
+        <path d="M580 70 h-28 m9 -7 l-9 7 l9 7" stroke="#2f8150" stroke-width="3" fill="none"/><text x="585" y="76" font-size="16" fill="#2f8150">cycling</text></g>
+      <g class="step"><text x="246" y="196" font-size="24" font-weight="700">4</text><text x="232" y="236" font-size="17">expiration</text></g>
+    </svg>
+    <figcaption>1 starts the breath, 2 caps it, 3 ends it, 4 is breathing out.</figcaption>
+  </figure>
+</section>
+
+<section class="beat" id="builder">
+  <h3 data-beat="play">Build a breath</h3>
+  <p>Pick an answer to each question and see which breath you made.</p>
+  <div class="sim">
+    <div class="builder-row"><span class="lab">Start by</span><span class="seg" data-k="trig"><button class="on" data-v="time">machine timer</button><button data-v="baby">baby's effort</button></span></div>
+    <div class="builder-row"><span class="lab">Limited by</span><span class="seg" data-k="lim"><button class="on" data-v="pres">pressure</button><button data-v="vol">volume</button></span></div>
+    <div class="builder-row"><span class="lab">Ended by</span><span class="seg" data-k="cyc"><button class="on" data-v="time">time (Ti)</button><button data-v="flow">falling flow</button></span></div>
+    <svg id="bSvg" viewBox="0 0 640 230" width="640" role="img" aria-label="Pressure and flow of the breath you built" style="margin-top:.6rem"></svg>
+    <p class="mode-name" id="bName"></p>
+    <p class="note" id="bWhy" style="margin-top:.2rem"></p>
+  </div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz5"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 6 ══════════ -->
+<section class="module" id="modes" data-module="vent-b-06">
+<header class="mod-head">
+  <div class="kicker">Module 6</div>
+  <h2>Common modes of ventilation</h2>
+  <p>IMV, SIMV, A/C and PSV differ in one thing: what happens when the baby tries to breathe.</p>
+</header>
+
+<section class="beat" id="mode-table">
+  <h3 data-beat="see it">Summary of common modes</h3>
+  <div class="tbl-wrap">
+  <table class="vals ticks">
+    <tr><th>Mode</th><th>You set PEEP, PIP, FiO₂, rate, Ti</th><th>Breath starts with baby</th><th>Every effort gets a breath</th><th>Baby ends the breath</th></tr>
+    <tr class="step"><td><b>IMV</b></td><td class="tk-yes">✓</td><td class="tk-no">✗</td><td class="tk-no">✗</td><td class="tk-no">✗</td></tr>
+    <tr class="step"><td><b><span class="term" data-term="simv">SIMV</span></b></td><td class="tk-yes">✓</td><td class="tk-yes">✓</td><td class="tk-no">✗</td><td class="tk-no">✗</td></tr>
+    <tr class="step"><td><b><span class="term" data-term="ac">A/C</span></b></td><td class="tk-yes">✓ <small>(rate = back-up)</small></td><td class="tk-yes">✓</td><td class="tk-yes">✓</td><td class="tk-no">✗</td></tr>
+    <tr class="step"><td><b><span class="term" data-term="psv">PSV</span></b></td><td class="tk-yes">✓ <small>(Ti = maximum)</small></td><td class="tk-yes">✓</td><td class="tk-yes">✓</td><td class="tk-yes">✓</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="beat" id="mode-lab">
+  <h3 data-beat="play">Mode lab</h3>
+  <p>Purple ticks are Kabir's own efforts. Maroon humps are machine breaths. Switch modes and watch who gets help.</p>
+  <div class="sim">
+    <div class="presets mode-chips" id="modeChips" style="margin:0 0 .6rem">
+      <button class="chip on" data-m="IMV">IMV</button><button class="chip" data-m="SIMV">SIMV</button><button class="chip" data-m="AC">A/C</button><button class="chip" data-m="PSV">PSV</button>
+    </div>
+    <svg id="labSvg" viewBox="0 0 640 210" width="640" role="img" aria-label="Pressure trace with baby efforts and machine breaths"></svg>
+    <div class="sim-row" style="margin-top:.6rem">
+      <div class="ctl"><label for="labSet">Set (machine) rate <b id="labSetV">30</b></label><input type="range" id="labSet" min="10" max="60" step="5" value="30"></div>
+      <div class="ctl"><label for="labBaby">Kabir's own breathing rate <b id="labBabyV">50</b></label><input type="range" id="labBaby" min="0" max="70" step="5" value="50"><small>0 = apnoea</small></div>
+    </div>
+    <div class="lab-read" id="labRead"></div>
+    <p class="mode-say" id="labSay"></p>
+  </div>
+</section>
+
+<section class="beat" id="guess">
+  <h3 data-beat="try it">Guess the mode</h3>
+  <div class="duo">
+    <figure class="sketch" style="margin:0"><svg id="guessA" viewBox="0 0 300 130" width="300" role="img" aria-label="Waveform A"></svg><figcaption>A)</figcaption></figure>
+    <figure class="sketch step" style="margin:0"><svg id="guessB" viewBox="0 0 300 130" width="300" role="img" aria-label="Waveform B"></svg><figcaption>B)</figcaption></figure>
+  </div>
+  <div id="quiz6"></div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: modes in one line each</h3>
+    <ul>
+      <li><b>IMV</b>: machine breathes on its own clock, ignores the baby. Fights happen.</li>
+      <li><b>SIMV</b>: set number of breaths, timed with the baby. Extra efforts: no help.</li>
+      <li><b>A/C</b>: every effort gets a full breath. Set rate is only the back-up.</li>
+      <li><b>PSV</b>: every effort helped, and the baby decides when to stop (flow-cycled).</li>
+      <li>Watch the baby: a rising rate on A/C or PSV can over-ventilate, so check CO₂.</li>
+    </ul>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 7 ══════════ -->
+<section class="module" id="disease" data-module="vent-b-07">
+<header class="mod-head">
+  <div class="kicker">Module 7</div>
+  <h2>Settings by disease</h2>
+  <p>Different lungs, different problems, different starting settings.</p>
+</header>
+
+<section class="beat" id="time-constant">
+  <h3 data-beat="see it">Time constant: how fast the lung empties</h3>
+  <p><span class="term" data-term="time-constant">τ = resistance × compliance.</span> After 1 τ, 63% of the breath is out; after 3 τ, 95%. If Te is shorter than 3 τ, air stays behind.</p>
+  <div class="sim">
+    <div class="presets mode-chips" id="tcChips" style="margin:0 0 .6rem">
+      <button class="chip" data-r="20" data-c="5">Normal lung</button><button class="chip on" data-r="20" data-c="1">RDS</button><button class="chip" data-r="100" data-c="3">MAS</button>
+    </div>
+    <svg id="tcSvg" viewBox="0 0 640 200" width="640" role="img" aria-label="Lung emptying curve against the available expiratory time"></svg>
+    <div class="sim-row">
+      <div class="ctl"><label for="tcR">Resistance <b id="tcRV">20</b></label><input type="range" id="tcR" min="10" max="150" step="5" value="20"><small>cmH₂O/L/s: tube, secretions, meconium</small></div>
+      <div class="ctl"><label for="tcC">Compliance <b id="tcCV">1</b></label><input type="range" id="tcC" min="0.5" max="6" step="0.5" value="1"><small>mL/cmH₂O: low = stiff lung</small></div>
+      <div class="ctl"><label for="tcRr">Rate <b id="tcRrV">50</b></label><input type="range" id="tcRr" min="20" max="80" step="5" value="50"></div>
+    </div>
+    <p class="tc-out" id="tcOut"></p>
+  </div>
+</section>
+
+<section class="beat" id="dz-table">
+  <h3 data-beat="see it">Four lungs compared</h3>
+  <div class="tbl-wrap">
+  <table class="vals dz">
+    <tr><th></th><th>RDS</th><th>MAS</th><th>Apnoea of prematurity</th><th>BPD</th></tr>
+    <tr><th>Compliance</th><td>↓↓↓ (no surfactant → collapse)</td><td>Variable: ↓, some parts over-inflated</td><td>Normal</td><td>↓ (fibrosis, stiff)</td></tr>
+    <tr><th>Resistance</th><td>Normal or mildly ↑</td><td>↑↑ (meconium, ball-valve)</td><td>Normal</td><td>↑↑ (airway remodelling)</td></tr>
+    <tr><th>Time constant</th><td>Short</td><td>Mixed: long + short</td><td>Normal</td><td>Long → air trapping</td></tr>
+    <tr class="step"><th>Approach</th><td><b>Faster rate, short Ti, low VT</b></td><td><b>Gentle, long Te, avoid trapping</b></td><td><b>Minimal settings</b></td><td><b>Slow rate, long Te, higher VT</b></td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="beat" id="dz-cards">
+  <h3 data-beat="remember">Starting settings</h3>
+  <div class="cards set-cards">
+    <div class="step"><h4>Moderate RDS</h4><dl><dt>PIP</dt><dd>18–20</dd><dt>PEEP</dt><dd>5–6</dd><dt>Ti</dt><dd>0.35–0.40</dd><dt>Rate</dt><dd>50–55</dd></dl></div>
+    <div class="step"><h4>Severe RDS</h4><dl><dt>PIP</dt><dd>20–24</dd><dt>PEEP</dt><dd>6–8</dd><dt>Ti</dt><dd>0.30–0.40</dd><dt>Rate</dt><dd>50–55</dd></dl></div>
+    <div class="step p"><h4>MAS</h4><dl><dt>PIP</dt><dd>16–20</dd><dt>PEEP</dt><dd>4–5</dd><dt>Ti</dt><dd>0.40</dd><dt>Rate</dt><dd>40–50</dd></dl></div>
+    <div class="step p"><h4>Apnoea</h4><dl><dt>PIP</dt><dd>12–14</dd><dt>PEEP</dt><dd>4–5</dd><dt>Ti</dt><dd>0.40</dd><dt>Rate</dt><dd>30</dd><dt>FiO₂</dt><dd>21%</dd></dl></div>
+    <div class="step"><h4>BPD</h4><dl><dt>PIP</dt><dd>18–20</dd><dt>PEEP</dt><dd>5–8</dd><dt>VT</dt><dd>6–8 mL/kg</dd><dt>Ti</dt><dd>0.35</dd><dt>Rate</dt><dd>15–25</dd></dl></div>
+  </div>
+  <div class="tip purple step"><b>FiO₂ for all</b>Start 10% above what the baby needed before, then titrate to SpO₂ 91–95%.</div>
+  <p class="note">RDS, MAS and apnoea follow the Neonatal Ventilation Workbook 2026; BPD follows the teaching slides. These are starting points only: adjust to chest rise, graphics and blood gas, and follow your unit's protocol.</p>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz7"></div>
+</section>
+
+<section class="beat" id="summary">
+  <div class="pocket">
+    <h3>Pocket card: ventilation in six lines</h3>
+    <ol>
+      <li>Breathing pulls air in (negative pressure). Ventilators push it in (positive pressure).</li>
+      <li>A ventilator is a T-piece with an electronic thumb.</li>
+      <li>PIP and rate move CO₂. FiO₂ and MAP move oxygen.</li>
+      <li>Every breath: trigger (start), limit (max), cycling (end).</li>
+      <li>Common modes: SIMV, A/C, PSV. They differ in what happens when the baby tries.</li>
+      <li>Te ≥ 3 time constants, or air gets trapped.</li>
+    </ol>
+    <p style="margin:.6rem 0 0">Next: read all of this on the screen in <a data-to="graph-b-01">Pulmonary Graphics</a>.</p>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<section class="refs" id="sources">
+  Sources
+  <ol>
+    <li>Newborn: Ventilation, teaching slides, Dr. Vivek Kumar (2026). Settings by disease are adapted from these slides.</li>
+    <li>Neonatal Ventilation Workbook 2026.</li>
+    <li>Keszler M. State of the art in conventional mechanical ventilation. J Perinatol 2009;29:262–75.</li>
+    <li>Goldsmith JP, Karotkin EH, Keszler M, Suresh GK. Assisted Ventilation of the Neonate, 7th ed. Elsevier; 2022.</li>
+  </ol>
+  Last reviewed: October 2026
+</section>
+
+</main>
+
+<script src="../../assets/registry.js?v=4"></script>
+<script src="../../assets/glossary.js?v=4"></script>
+<script src="../../assets/learn.js?v=4"></script>
+<script src="../../assets/vent.js?v=4"></script>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function E(tag, at, parent, text) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function whenVisible(el, on, off) {
+  if (!('IntersectionObserver' in window)) { on(); return; }
+  new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) on(); else if (off) off(); }); }).observe(el);
+}
+
+/* ══════════ MODULE 1 ══════════ */
+(function ribcage() {
+  var cage = document.getElementById('cage'); cage.setAttribute('transform', 'translate(115 0)');
+  var g = E('g', { stroke: '#b5546f', 'stroke-width': 5 }, cage);
+  E('path', { d: 'M-12 32 L-88 22 M12 32 L88 22', stroke: '#9a8ca6', 'stroke-width': 5 }, g);
+  for (var i = 0; i < 7; i++) {
+    var y = 44 + i * 22, w = 70 + Math.min(i, 4) * 8 - Math.max(0, i - 4) * 6;
+    E('path', { d: 'M-9 ' + y + ' C' + (-w * 0.7) + ' ' + (y - 8) + ' ' + (-w - 6) + ' ' + (y + 18) + ' ' + (-w + 2) + ' ' + (y + 40) }, g);
+    E('path', { d: 'M9 ' + y + ' C' + (w * 0.7) + ' ' + (y - 8) + ' ' + (w + 6) + ' ' + (y + 18) + ' ' + (w - 2) + ' ' + (y + 40) }, g);
+  }
+  E('rect', { x: -9, y: 36, width: 18, height: 120, rx: 6, fill: '#f6e5eb', stroke: '#7b1e3a', 'stroke-width': 3 }, cage);
+})();
+Learn.quiz('quiz1', [
+  { q: 'In normal breathing, air flows in because the pressure inside the alveoli becomes…', o: ['Higher than the air outside', 'Lower than the air outside', 'Equal to the air outside'], a: 1, why: 'The chest grows, the pressure inside drops below outside air, and air is pulled in.' },
+  { q: 'Which muscle does most of the breathing work in a newborn?', o: ['Diaphragm', 'Intercostals', 'Abdominals', 'Sternocleidomastoid'], a: 0, why: 'Newborn ribs are soft and horizontal, so the diaphragm does nearly everything.' },
+  { q: 'On a ventilator, during inspiration the pleural pressure becomes…', o: ['More negative', 'Positive', 'Unchanged'], a: 1, why: 'Gas is pushed in, so the whole chest, pleura included, is pressurised. That is why high pressures can reduce venous return.' }
+]);
+
+/* ══════════ MODULE 2 ══════════ */
+Learn.quiz('quiz2', [
+  { q: 'A baby with cyanotic heart disease stays at SpO₂ 70% even in 100% oxygen. Most likely mechanism?', o: ['Low FiO₂', 'Hypoventilation', 'Right-to-left shunt', 'Anaemia'], a: 2, why: 'Shunted blood never meets the alveolar gas, so extra oxygen cannot fix it.' },
+  { q: 'pCO₂ is 70 on the ventilator. Which change helps most directly?', o: ['Increase FiO₂', 'Increase rate or PIP', 'Increase PEEP only'], a: 1, why: 'CO₂ removal follows minute ventilation: rate × tidal volume. FiO₂ does not remove CO₂.' },
+  { q: 'Tissues can be hypoxic even with normal PaO₂ and SpO₂. When?', o: ['Severe anaemia or shock', 'RDS', 'Hypoventilation'], a: 0, why: 'Each red cell is full, but there are too few cells (anaemia) or too little flow (shock) to deliver oxygen.' }
+]);
+
+/* ══════════ MODULE 3: T-piece simulator ══════════ */
+(function tpiece() {
+  var svg = document.getElementById('tpSvg'), W = 640, H = 220, L = 50, B = 26, WIN = 6, PMAX = 32;
+  var X = function (t) { return L + t / WIN * (W - L - 10); }, Y = function (p) { return 10 + (PMAX - p) / PMAX * (H - 10 - B); };
+  E('rect', { x: 0, y: 0, width: W, height: H, rx: 12, fill: '#1f0f26' }, svg);
+  [0, 10, 20, 30].forEach(function (p) { E('line', { x1: L, x2: W - 10, y1: Y(p), y2: Y(p), stroke: 'rgba(255,255,255,.1)' }, svg); E('text', { x: L - 8, y: Y(p) + 5, 'text-anchor': 'end', class: 'sans', 'font-size': 12, style: 'fill:#e9dcef' }, svg, p); });
+  E('text', { x: 14, y: (H - B) / 2, class: 'sans', 'font-size': 12, style: 'fill:#ffb547', transform: 'rotate(-90 14 ' + (H - B) / 2 + ')', 'text-anchor': 'middle' }, svg, 'Pressure (cmH₂O)');
+  E('text', { x: W - 12, y: H - 8, class: 'sans', 'font-size': 12, 'text-anchor': 'end', style: 'fill:#e9dcef' }, svg, 'last 6 seconds →');
+  var pipL = E('line', { x1: L, x2: W - 10, stroke: '#c9a3e6', 'stroke-dasharray': '5 5' }, svg), peepL = E('line', { x1: L, x2: W - 10, stroke: '#c9a3e6', 'stroke-dasharray': '5 5' }, svg);
+  var pipT = E('text', { x: W - 14, class: 'sans', 'font-size': 12, 'text-anchor': 'end', style: 'fill:#c9a3e6' }, svg, 'PIP limit'), peepT = E('text', { x: W - 14, class: 'sans', 'font-size': 12, 'text-anchor': 'end', style: 'fill:#c9a3e6' }, svg, 'PEEP');
+  var path = E('path', { fill: 'none', stroke: '#ffb547', 'stroke-width': 3, 'stroke-linejoin': 'round' }, svg);
+  var hint = E('text', { x: W / 2 + 20, y: 60, class: 'sans', 'font-size': 15, 'text-anchor': 'middle', style: 'fill:#fff;opacity:.75' }, svg, 'Press and hold the button below');
+  var btn = document.getElementById('thumb'), auto = document.getElementById('autoThumb');
+  var sPip = document.getElementById('tpPipSet'), sPeep = document.getElementById('tpPeep'), sFlow = document.getElementById('tpFlow');
+  var P = 5, t = 0, occl = false, autoOn = false, hist = [], starts = [], startT = 0, peak = 0, last = null, running = false;
+  function lines() {
+    document.getElementById('tpPipSetV').textContent = sPip.value; document.getElementById('tpPeepV').textContent = sPeep.value; document.getElementById('tpFlowV').textContent = sFlow.value;
+    pipL.setAttribute('y1', Y(+sPip.value)); pipL.setAttribute('y2', Y(+sPip.value)); pipT.setAttribute('y', Y(+sPip.value) - 5);
+    peepL.setAttribute('y1', Y(+sPeep.value)); peepL.setAttribute('y2', Y(+sPeep.value)); peepT.setAttribute('y', Y(+sPeep.value) + 16);
+  }
+  [sPip, sPeep, sFlow].forEach(function (s) { s.addEventListener('input', lines); }); lines();
+  function setOccl(v) {
+    if (v === occl) return; occl = v; btn.classList.toggle('down', v); hint.style.display = 'none';
+    if (v) { startT = t; peak = P; starts.push(t); if (starts.length > 5) starts.shift(); }
+    else {
+      document.getElementById('tpTi').textContent = (t - startT).toFixed(2) + ' s';
+      document.getElementById('tpPip').textContent = Math.round(peak);
+      if (starts.length > 2) { var n = starts.length - 1, iv = (starts[n] - starts[0]) / n; document.getElementById('tpRR').textContent = Math.round(60 / iv) + '/min'; }
+    }
+  }
+  btn.addEventListener('pointerdown', function (e) { e.preventDefault(); if (autoOn) toggleAuto(); btn.setPointerCapture(e.pointerId); setOccl(true); });
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { btn.addEventListener(ev, function () { if (!autoOn) setOccl(false); }); });
+  btn.addEventListener('keydown', function (e) { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); e.stopPropagation(); if (autoOn) toggleAuto(); setOccl(true); } });
+  btn.addEventListener('keyup', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setOccl(false); } });
+  btn.addEventListener('click', function (e) { e.stopPropagation(); });
+  function toggleAuto() { autoOn = !autoOn; auto.classList.toggle('on', autoOn); auto.setAttribute('aria-pressed', autoOn); auto.textContent = autoOn ? 'Electronic thumb: rate 40, Ti 0.4 s' : 'Electronic thumb'; if (!autoOn) setOccl(false); }
+  auto.addEventListener('click', function (e) { e.stopPropagation(); toggleAuto(); });
+  function step(dt) {
+    t += dt;
+    if (autoOn) setOccl((t % 1.5) < 0.4);
+    var tau = 0.22 * 8 / +sFlow.value;
+    if (occl) P += (Math.min(+sPip.value, 40) - P) * Math.min(1, dt / tau); else P += (+sPeep.value - P) * Math.min(1, dt / 0.03);
+    if (occl) peak = Math.max(peak, P);
+    hist.push([t, P]); while (hist.length && hist[0][0] < t - WIN) hist.shift();
+  }
+  function draw() {
+    var d = '', t0 = t - WIN;
+    for (var i = 0; i < hist.length; i++) d += (i ? 'L' : 'M') + X(hist[i][0] - t0).toFixed(1) + ' ' + Y(hist[i][1]).toFixed(1);
+    path.setAttribute('d', d);
+  }
+  function frame(ts) {
+    if (!running) { last = null; return; }
+    if (last != null) { var dt = Math.min(0.05, (ts - last) / 1000); for (var k = 0; k < 4; k++) step(dt / 4); draw(); }
+    last = ts; requestAnimationFrame(frame);
+  }
+  for (var i = 0; i < 300; i++) step(0.02); draw();
+  whenVisible(svg, function () { if (!running) { running = true; requestAnimationFrame(frame); } }, function () { running = false; });
+})();
+Learn.quiz('quiz3', [
+  { q: 'On a T-piece, what sets the PEEP?', o: ['The opening of the PEEP cap', 'How long the thumb stays on', 'The oxygen blender'], a: 0, why: 'With the thumb off, gas escapes through the cap; a tighter opening holds more pressure in the lungs.' },
+  { q: 'You hold your thumb on for a full second each breath. Which setting is too long?', o: ['Ti', 'PEEP', 'FiO₂'], a: 0, why: 'Thumb-on time is inspiratory time. Newborns usually need only 0.3–0.4 s.' },
+  { q: 'Pressure creeps up slowly when you close the T-piece. What makes it rise faster?', o: ['More gas flow', 'Lower PEEP', 'Longer Ti'], a: 0, why: 'More flow fills the circuit faster, so pressure reaches PIP sooner (a squarer wave, higher MAP).' }
+]);
+
+/* ══════════ MODULE 4: terms on a live screen ══════════ */
+(function terms() {
+  var host = document.getElementById('termMon'), W = 1.1, C = 0.35;
+  var ids = ['sPip', 'sPeep', 'sTi', 'sRr'];
+  function v(id) { return +document.getElementById(id).value; }
+  function opts() { return { pip: v('sPip'), peep: v('sPeep'), ti: v('sTi'), rr: v('sRr'), C: C, R: 0.08 }; }
+  var mon = VentSim.monitor(host, opts(), { channels: ['p', 'f', 'v'], stripH: 70, fix: { p: [0, 35] } });
+  function update() {
+    ids.forEach(function (id) { document.getElementById(id + 'V').textContent = document.getElementById(id).value; });
+    var o = opts(); mon.set(o);
+    var d = VentSim.run(o, 8), s = d.start, a = s[s.length - 2], b = s[s.length - 1];
+    var lung = d.lung.slice(a, b), p = d.p.slice(a, b);
+    var vt = Math.max.apply(null, lung) - Math.min.apply(null, lung), vtk = vt / W;
+    var map = p.reduce(function (x, y) { return x + y; }, 0) / p.length;
+    var te = 60 / o.rr - o.ti, tau = o.R * o.C, mv = vt * o.rr / W;
+    var cls = vtk > 6.5 ? 'warn' : vtk < 3.5 ? 'warn' : 'good';
+    document.getElementById('termRead').innerHTML =
+      '<div class="' + cls + '">Tidal volume<b>' + vt.toFixed(1) + ' mL</b>' + vtk.toFixed(1) + ' mL/kg</div>' +
+      '<div>Te<b>' + te.toFixed(2) + ' s</b>I:E 1:' + (te / o.ti).toFixed(1) + '</div>' +
+      '<div>MAP<b>' + map.toFixed(1) + '</b>cmH₂O</div>' +
+      '<div>Minute ventilation<b>' + Math.round(mv) + '</b>mL/kg/min</div>';
+    var f = '';
+    if (vtk > 6.5) f = '⚠ Breath too big for this lung: risk of volutrauma. Lower the PIP.';
+    else if (vtk < 3.5) f = '⚠ Breath too small: CO₂ will climb. Raise the PIP or check the lung.';
+    else f = '✓ Tidal volume in the 4–6 mL/kg target.';
+    if (te < 3 * tau) f += ' ⚠ Te is shorter than 3 time constants: air trapping.';
+    if (o.pip > 22) f += ' PIP above 22 in a preterm raises the risk of air leak.';
+    document.getElementById('termFlag').textContent = f;
+  }
+  ids.forEach(function (id) { document.getElementById(id).addEventListener('input', update); });
+  document.querySelectorAll('#lungChips .chip').forEach(function (c) {
+    c.addEventListener('click', function () { document.querySelectorAll('#lungChips .chip').forEach(function (x) { x.classList.toggle('on', x === c); }); C = +c.dataset.c; update(); });
+  });
+  update();
+})();
+Learn.quiz('quiz4', [
+  { q: 'Rate 60, Ti 0.4 s. What is Te?', o: ['0.6 s', '1.0 s', '0.4 s', '1.6 s'], a: 0, why: 'One cycle = 60 ÷ 60 = 1 s. Te = 1 − 0.4 = 0.6 s.' },
+  { q: 'After surfactant, the same PIP now gives 9 mL/kg. What should you do?', o: ['Lower the PIP', 'Raise the PIP', 'Raise the rate', 'Nothing'], a: 0, why: 'Compliance improved, so the lung fills more for the same pressure. Wean PIP quickly to avoid volutrauma.' },
+  { q: 'Which two settings mainly decide oxygenation?', o: ['FiO₂ and MAP', 'Rate and PIP', 'Ti and rate'], a: 0, why: 'Oxygenation follows FiO₂ and mean airway pressure. CO₂ follows minute ventilation.' }
+]);
+
+/* ══════════ MODULE 5: build a breath ══════════ */
+(function builder() {
+  var svg = document.getElementById('bSvg'), st = { trig: 'time', lim: 'pres', cyc: 'time' };
+  var W = 640, L = 70, X = function (t) { return L + t / 1.3 * (W - L - 12); };
+  function YP(p) { return 12 + (26 - p) / 28 * 92; } function YF(f) { return 165 - f / 10 * 50; }
+  function render() {
+    svg.innerHTML = '';
+    E('path', { d: 'M' + L + ' 10 V106 H' + (W - 12) + ' M' + L + ' 118 V218 M' + L + ' 165 H' + (W - 12), stroke: '#3b3b44', 'stroke-width': 1.5, fill: 'none' }, svg);
+    E('text', { x: 8, y: 50, 'font-size': 18, fill: '#5e2b8c' }, svg, 'pressure');
+    E('text', { x: 8, y: 160, 'font-size': 18, fill: '#7b1e3a' }, svg, 'flow');
+    var t0 = 0.25, vol = st.lim === 'vol', flowCyc = st.cyc === 'flow' && !vol, baby = st.trig === 'baby';
+    var tau = 0.07, ti = flowCyc ? tau * Math.log(1 / 0.15) + 0.03 : 0.4, te = t0 + ti;
+    var pP = '', pF = '';
+    for (var t = 0; t <= 1.3; t += 0.005) {
+      var p = 5, f = 0;
+      if (baby && t > t0 - 0.12 && t < t0) { var k = (t - (t0 - 0.12)) / 0.12; p = 5 - 1.2 * Math.sin(k * Math.PI / 2); f = 1.6 * k; }
+      if (t >= t0 && t < te) {
+        var u = t - t0;
+        if (vol) { f = 6; p = 5 + Math.min(1, u / 0.02) * 4 + u / 0.4 * 13; }
+        else { p = 5 + 15 * (1 - Math.exp(-u / 0.018)); f = 9 * Math.exp(-u / tau) * Math.min(1, u / 0.012); }
+      }
+      if (t >= te) { var w = t - te, pend = vol ? 22 : 20; p = 5 + (pend - 5) * Math.exp(-w / 0.02); f = -(vol ? 9 : 8.5) * Math.exp(-w / 0.1) * Math.min(1, w / 0.012); }
+      pP += (pP ? 'L' : 'M') + X(t).toFixed(1) + ' ' + YP(p).toFixed(1); pF += (pF ? 'L' : 'M') + X(t).toFixed(1) + ' ' + YF(f).toFixed(1);
+    }
+    E('path', { d: pP, fill: 'none', stroke: '#5e2b8c', 'stroke-width': 3.5, class: 'draw' }, svg);
+    E('path', { d: pF, fill: 'none', stroke: '#7b1e3a', 'stroke-width': 3.5, class: 'draw' }, svg);
+    // markers
+    if (baby) { E('text', { x: X(t0) - 6, y: 128, 'font-size': 16, 'text-anchor': 'end', fill: '#c00000' }, svg, 'baby pulls → sensor fires'); }
+    else { E('text', { x: X(t0), y: 128, 'font-size': 22, 'text-anchor': 'middle' }, svg, '⏱'); }
+    E('circle', { cx: X(t0), cy: YF(0), r: 7, fill: 'none', stroke: '#c00000', 'stroke-width': 2.5 }, svg);
+    E('circle', { cx: X(te), cy: vol ? YF(6) : YF(flowCyc ? 9 * 0.15 * Math.exp(-0.03 / tau) : 9 * Math.exp(-ti / tau)), r: 7, fill: 'none', stroke: '#2f8150', 'stroke-width': 2.5 }, svg);
+    E('text', { x: X(te) + 10, y: 128, 'font-size': 16, fill: '#2f8150' }, svg, flowCyc ? 'ends: flow fell to 15%' : 'ends: Ti reached');
+    E('text', { x: X(t0 + 0.06), y: 22, 'font-size': 16, fill: '#b8892a' }, svg, vol ? 'limit: set volume (pressure varies)' : 'limit: set PIP (flat top)');
+    VentSim.redraw(svg);
+    var name, why;
+    if (vol) { name = 'Volume-limited breath (volume control)'; why = 'Flow stays steady until the set volume is in, so pressure keeps climbing. ' + (st.cyc === 'flow' ? 'Steady flow never "falls", so these breaths are time-cycled in practice.' : 'Modern neonatal ventilators prefer volume-targeted pressure breaths instead.'); }
+    else if (!baby && !flowCyc) { name = 'Mandatory breath: time-triggered, pressure-limited, time-cycled'; why = 'The classic IMV breath. Pressure-limited, time-cycled, continuous-flow ventilation is the commonest newborn breath.'; }
+    else if (baby && !flowCyc) { name = 'Synchronised breath: baby-triggered, pressure-limited, time-cycled'; why = 'The breath used in SIMV and assist-control.'; }
+    else if (baby && flowCyc) { name = 'Pressure-support breath (PSV)'; why = 'The baby starts it and the falling flow ends it, so the baby chooses its own Ti.'; }
+    else { name = 'Unusual: timer start with flow cycling'; why = 'Flow cycling is meant to follow the baby. Back-up breaths are usually time-cycled.'; }
+    document.getElementById('bName').textContent = name; document.getElementById('bWhy').textContent = why;
+  }
+  document.querySelectorAll('#builder .seg').forEach(function (seg) {
+    seg.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () { seg.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); st[seg.dataset.k] = b.dataset.v; render(); });
+    });
+  });
+  render();
+})();
+Learn.quiz('quiz5', [
+  { q: 'A breath starts when the baby\'s effort creates a tiny flow at the sensor. This is a…', o: ['Flow trigger', 'Pressure trigger', 'Time trigger'], a: 0, why: 'The flow sensor at the tube detects the baby pulling gas in.' },
+  { q: 'In a time-cycled breath, what ends inspiration?', o: ['The set Ti', 'Falling flow', 'Reaching PIP'], a: 0, why: 'Time-cycled means the clock (Ti) ends the breath. Reaching PIP is the limit, not the end.' },
+  { q: 'The commonest breath in newborn ventilation is…', o: ['Pressure-limited, time-cycled', 'Volume-limited, flow-cycled', 'Time-triggered, flow-cycled'], a: 0, why: 'Pressure-controlled, time-cycled, continuous-flow ventilation is the neonatal workhorse.' }
+]);
+
+/* ══════════ MODULE 6: mode lab ══════════ */
+var MODE = { IMV: 1, SIMV: 1, AC: 1, PSV: 1 };
+function modeEvents(mode, setRate, babyRate, span) {
+  var eff = [], mach = [], k, Ti = mode === 'PSV' ? 0.24 : 0.35;
+  if (babyRate > 0) { var per = 60 / babyRate; for (k = 0; 0.3 + k * per < span; k++) eff.push({ t: 0.3 + k * per + Math.sin(k * 2.3) * 0.07, help: false }); }
+  var P = 60 / setRate;
+  if (mode === 'IMV') {
+    for (k = 0; 0.55 + k * P < span; k++) mach.push({ t: 0.55 + k * P, sync: false });
+    mach.forEach(function (m) { eff.forEach(function (e) { if (Math.abs(m.t - e.t) < 0.12) { m.sync = true; e.help = true; } }); });
+  } else if (mode === 'SIMV') {
+    for (var w = 0; w < span; w += P) {
+      var first = eff.filter(function (e) { return e.t >= w && e.t < w + P; })[0];
+      if (first) { first.help = true; mach.push({ t: first.t + 0.04, sync: true }); } else if (w + P < span) mach.push({ t: w + P - 0.001, sync: false, backup: true });
+    }
+  } else {
+    var lastB = 0.4 - P, ei = 0;
+    for (var t = 0; t < span; t += 0.01) {
+      while (ei < eff.length && eff[ei].t < t) {
+        var e = eff[ei++];
+        if (e.t > lastB + Ti + 0.2) { e.help = true; mach.push({ t: e.t + 0.04, sync: true }); lastB = e.t + 0.04; }
+      }
+      if (t >= lastB + P) { mach.push({ t: t, sync: babyRate === 0, backup: true }); lastB = t; }
+    }
+  }
+  mach.forEach(function (m) { m.ti = Ti; });
+  return { eff: eff, mach: mach };
+}
+function drawMode(svg, mode, setRate, babyRate, span, opt) {
+  opt = opt || {};
+  var W = +svg.viewBox.baseVal.width, H = +svg.viewBox.baseVal.height, L = opt.L || 40, top = 14, base = H - (opt.small ? 26 : 56);
+  var X = function (t) { return L + t / span * (W - L - 8); }, Y = function (p) { return base - (p - 5) * (base - top) / 17; };
+  svg.innerHTML = '';
+  var ev = modeEvents(mode, setRate, babyRate, span), d = '';
+  for (var t = 0; t <= span; t += 0.01) {
+    var p = 5;
+    ev.eff.forEach(function (e) { if (!e.help && t > e.t && t < e.t + 0.35) p -= 1.6 * Math.sin((t - e.t) / 0.35 * Math.PI); });
+    ev.mach.forEach(function (m) { var u = t - m.t; if (u >= 0 && u < m.ti + 0.06) p = 5 + 15 * Math.min(1, u / 0.035) * (u > m.ti ? Math.max(0, 1 - (u - m.ti) / 0.05) : 1); });
+    d += (d ? 'L' : 'M') + X(t).toFixed(1) + ' ' + Y(p).toFixed(1);
+  }
+  E('path', { d: 'M' + L + ' ' + top + ' V' + Y(4) + ' H' + (W - 8), stroke: '#c9c3cf', fill: 'none' }, svg);
+  var tr = E('path', { d: d, fill: 'none', stroke: '#7b1e3a', 'stroke-width': opt.small ? 2.5 : 3, 'stroke-linejoin': 'round' }, svg);
+  if (!opt.small) {
+    E('text', { x: 6, y: Y(20) + 5, 'font-size': 15 }, svg, 'PIP'); E('text', { x: 6, y: Y(5) + 5, 'font-size': 15 }, svg, 'PEEP');
+    E('text', { x: 6, y: H - 14, 'font-size': 15, fill: '#5e2b8c' }, svg, 'baby');
+    ev.eff.forEach(function (e) {
+      E('path', { d: 'M' + X(e.t) + ' ' + (H - 34) + ' v16', stroke: '#5e2b8c', 'stroke-width': 3, 'stroke-linecap': 'round' }, svg);
+      E('circle', { cx: X(e.t), cy: H - 8, r: 4.5, fill: e.help ? '#5e2b8c' : '#fff', stroke: '#5e2b8c', 'stroke-width': 2 }, svg);
+    });
+    ev.mach.forEach(function (m) { if (!m.sync && !m.backup && babyRate > 0) E('text', { x: X(m.t + m.ti / 2), y: top + 2, 'font-size': 16, 'text-anchor': 'middle', fill: '#c00000' }, svg, '✗'); });
+    if (!reduceMotion) {
+      var cid = 'clip' + Math.random().toString(36).slice(2), cp = E('clipPath', { id: cid }, svg), r = E('rect', { x: 0, y: 0, width: X(0), height: H }, cp);
+      E('animate', { attributeName: 'width', from: X(0), to: W, dur: span + 's', repeatCount: 'indefinite' }, r);
+      tr.setAttribute('clip-path', 'url(#' + cid + ')');
+      var cur = E('line', { y1: top, y2: base, stroke: 'rgba(94,43,140,.5)', 'stroke-width': 1.5 }, svg);
+      E('animate', { attributeName: 'x1', from: X(0), to: W, dur: span + 's', repeatCount: 'indefinite' }, cur);
+      E('animate', { attributeName: 'x2', from: X(0), to: W, dur: span + 's', repeatCount: 'indefinite' }, cur);
+    }
+  }
+  return ev;
+}
+(function modeLab() {
+  var svg = document.getElementById('labSvg'), mode = 'IMV', setR = document.getElementById('labSet'), baby = document.getElementById('labBaby'), SPAN = 12;
+  var SAY = {
+    IMV: 'IMV runs on its own clock. Some breaths land while Kabir is breathing out (✗): he fights the ventilator. His own breaths in between get only PEEP.',
+    SIMV: 'SIMV gives the set number of breaths, each timed with one of Kabir\'s efforts. His extra efforts (open circles) get no help, so he still works hard.',
+    AC: 'Assist-control: every effort gets a full breath. If Kabir stops breathing, the set rate takes over as a back-up. Watch for over-breathing (low CO₂).',
+    PSV: 'Pressure support: every effort is helped, and each breath ends as Kabir\'s flow falls, so breaths are shorter and he sets his own Ti. Good for weaning.'
+  };
+  function render() {
+    document.getElementById('labSetV').textContent = setR.value; document.getElementById('labBabyV').textContent = baby.value;
+    var ev = drawMode(svg, mode, +setR.value, +baby.value, SPAN);
+    var per = 60 / SPAN, helped = ev.eff.filter(function (e) { return e.help; }).length;
+    var out = ev.mach.filter(function (m) { return +baby.value ? (!m.sync && !m.backup) : m.backup; }).length;
+    document.getElementById('labRead').innerHTML =
+      '<div>Kabir\'s efforts<b>' + Math.round(ev.eff.length * per) + '/min</b></div>' +
+      '<div>Machine breaths<b>' + Math.round(ev.mach.length * per) + '/min</b></div>' +
+      '<div>Efforts helped<b>' + (ev.eff.length ? Math.round(helped / ev.eff.length * 100) + '%' : '–') + '</b></div>' +
+      '<div>' + (+baby.value ? 'Out of step' : 'Back-up breaths') + '<b>' + Math.round(out * per) + '/min</b></div>';
+    document.getElementById('labSay').textContent = (+baby.value === 0 ? 'Apnoea: no efforts, so every mode just gives the set (back-up) rate. ' : '') + SAY[mode];
+  }
+  document.querySelectorAll('#modeChips .chip').forEach(function (c) {
+    c.addEventListener('click', function () { document.querySelectorAll('#modeChips .chip').forEach(function (x) { x.classList.toggle('on', x === c); }); mode = c.dataset.m; render(); });
+  });
+  [setR, baby].forEach(function (s) { s.addEventListener('input', render); });
+  render();
+  drawMode(document.getElementById('guessA'), 'SIMV', 25, 55, 6, { small: true, L: 8 });
+  drawMode(document.getElementById('guessB'), 'AC', 25, 48, 6, { small: true, L: 8 });
+})();
+Learn.quiz('quiz6', [
+  { q: 'Waveform A: big breaths at a steady rate, small wiggles in between. Which mode?', o: ['SIMV (or IMV)', 'Assist-control', 'Pressure support'], a: 0, why: 'Only the set breaths are big. The baby\'s other efforts get just PEEP, seen as small dips.' },
+  { q: 'Waveform B: every breath is full size, but the spacing is irregular. Which mode?', o: ['Assist-control', 'SIMV', 'IMV'], a: 0, why: 'Each effort triggered a full breath, so the baby sets the timing and the machine sets the size.' },
+  { q: 'On A/C, Kabir is in pain and breathes 90 times a minute. What happens to his CO₂?', o: ['It falls: he is over-ventilated', 'It rises', 'No change'], a: 0, why: 'Every one of the 90 efforts gets a full breath. Treat the pain, and check the gas.' }
+]);
+
+/* ══════════ MODULE 7: time constant ══════════ */
+(function timeConst() {
+  var svg = document.getElementById('tcSvg'), W = 640, H = 200, L = 50, B = 30, TM = 1.6;
+  var r = document.getElementById('tcR'), c = document.getElementById('tcC'), rr = document.getElementById('tcRr');
+  var X = function (t) { return L + t / TM * (W - L - 12); }, Y = function (v) { return 12 + (100 - v) / 100 * (H - 12 - B); };
+  function render() {
+    var R = +r.value, C = +c.value, tau = R * C / 1000, te = 60 / +rr.value - 0.35;
+    document.getElementById('tcRV').textContent = R; document.getElementById('tcCV').textContent = C; document.getElementById('tcRrV').textContent = rr.value;
+    svg.innerHTML = '';
+    E('path', { d: 'M' + L + ' 10 V' + (H - B) + ' H' + (W - 12), stroke: '#3b3b44', 'stroke-width': 2, fill: 'none' }, svg);
+    E('text', { x: 14, y: (H - B) / 2, 'font-size': 15, 'text-anchor': 'middle', transform: 'rotate(-90 14 ' + (H - B) / 2 + ')' }, svg, 'breath left in lung (%)');
+    E('text', { x: W - 12, y: H - 6, 'font-size': 16, 'text-anchor': 'end' }, svg, 'time after expiration starts (s)');
+    var left = 100 * Math.exp(-te / tau), trap = te < 3 * tau;
+    if (te < TM) E('rect', { x: X(te), y: 10, width: W - 12 - X(te), height: H - B - 10, fill: trap ? 'rgba(192,0,0,.08)' : 'rgba(47,129,80,.07)' }, svg);
+    var d = '';
+    for (var t = 0; t <= TM; t += 0.01) d += (d ? 'L' : 'M') + X(t).toFixed(1) + ' ' + Y(100 * Math.exp(-t / tau)).toFixed(1);
+    E('path', { d: d, fill: 'none', stroke: '#7b1e3a', 'stroke-width': 3.5 }, svg);
+    [1, 3].forEach(function (n) { if (n * tau < TM) { E('line', { x1: X(n * tau), x2: X(n * tau), y1: Y(100), y2: H - B, stroke: '#5e2b8c', 'stroke-dasharray': '3 4' }, svg); E('text', { x: X(n * tau) + 4, y: Y(n === 1 ? 37 : 5) - 6, 'font-size': 16, fill: '#5e2b8c' }, svg, n + 'τ'); } });
+    if (te < TM) { E('line', { x1: X(te), x2: X(te), y1: 10, y2: H - B, stroke: trap ? '#c00000' : '#2f8150', 'stroke-width': 3 }, svg); E('text', { x: X(te) + 6, y: 28, 'font-size': 17, fill: trap ? '#c00000' : '#2f8150' }, svg, 'next breath (Te ' + te.toFixed(2) + ' s)'); }
+    document.getElementById('tcOut').innerHTML = 'τ = ' + R + ' × ' + (C / 1000).toFixed(4) + ' L/cmH₂O = <b>' + tau.toFixed(2) + ' s</b>. 3τ = ' + (3 * tau).toFixed(2) + ' s; Te = ' + te.toFixed(2) + ' s → ' +
+      (trap ? '<b class="c-maroon">air trapping: ' + Math.round(left) + '% of the breath is still inside. Slow the rate or shorten Ti.</b>' : '<b style="color:var(--ok)">the lung empties in time.</b>');
+  }
+  [r, c, rr].forEach(function (s) { s.addEventListener('input', function () { document.querySelectorAll('#tcChips .chip').forEach(function (x) { x.classList.remove('on'); }); render(); }); });
+  document.querySelectorAll('#tcChips .chip').forEach(function (ch) {
+    ch.addEventListener('click', function () { document.querySelectorAll('#tcChips .chip').forEach(function (x) { x.classList.toggle('on', x === ch); }); r.value = ch.dataset.r; c.value = ch.dataset.c; render(); });
+  });
+  render();
+})();
+Learn.quiz('quiz7', [
+  { q: 'Baby with MAS: CO₂ keeps rising even after you raised the rate to 70. Why?', o: ['Te is too short, so air is trapped', 'PIP is too low', 'FiO₂ is too low'], a: 0, why: 'MAS has a long time constant. A faster rate cuts Te below 3τ, gas stays in, and tidal volume falls. Slow the rate.' },
+  { q: 'Which lung has the shortest time constant?', o: ['RDS', 'MAS', 'BPD'], a: 0, why: 'Very low compliance with normal resistance gives a short τ, so RDS tolerates fast rates and short Ti.' },
+  { q: 'Starting PEEP for an apnoeic baby with normal lungs?', o: ['4–5', '6–8', '0'], a: 0, why: 'Normal lungs need only physiological PEEP (workbook: 4–5). Sick, low-volume lungs need 5–8.' }
+]);
+</script>
+</body>
+</html>

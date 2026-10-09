@@ -76,3 +76,11 @@ quiz question becomes one full-screen slide; the simulators stay live.
 - Direct link for class: `basics.html?teach` or `basics.html?teach=four-steps`.
 - To split a long section into two slides, add `<hr class="slide-break">` where the break should go.
 - Content inside `class="teach-only"` shows only when teaching; `class="web-only"` only on the website.
+
+## Ventilation and Pulmonary Graphics (October 2026)
+- `respiratory/ventilation/basics.html` (7 modules) and `respiratory/graphics/basics.html` (6 modules), each with a topic page.
+- `assets/vent.js`: the breath model and live ventilator screen used by both pages.
+- Maroon & purple look: add `class="theme-mp"` to `<body>`.
+- PowerPoint-style first slide in Teach mode: the `<div class="ppt-title">` block inside `.level-head`.
+- Click-to-reveal (like PowerPoint animations): give any element `class="step"`; it appears on the next click in Teach mode.
+- On pages with `class="click-advance"` on `<body>`, clicking empty slide space also moves forward.

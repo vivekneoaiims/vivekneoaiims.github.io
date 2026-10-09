@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulmonary Graphics: Basics | Dr. Vivek Kumar</title>
+<meta name="description" content="Neonatal pulmonary graphics for nurses and MBBS students: scalars, pressure-volume and flow-volume loops, and the five problems to spot (leak, air trapping, secretions, beaking, compliance). Live ventilator-screen simulators and Teach mode.">
+<link rel="stylesheet" href="../../assets/learn.css?v=4">
+<style>
+/* ── page-specific styles ── */
+.aim { border: 2px dashed #c00000; border-radius: 8px; padding: .7rem 1rem; background: var(--paper); }
+.aim b { color: #c00000; } .aim ol { margin: .3rem 0 0; padding-left: 1.2rem; }
+.class-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; align-items: start; }
+.why-list { list-style: none; padding: 0; margin: 0; }
+.why-list li { padding: .55rem .9rem .55rem 2.4rem; margin: .4rem 0; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; position: relative; }
+.why-list li::before { content: '✓'; position: absolute; left: .9rem; color: var(--maroon); font-weight: 700; }
+.why-list li.red { color: #c00000; }
+.sc-trio { display: grid; gap: .6rem; }
+.sc-trio figure { margin: 0; }
+.prob-chips .chip.on { background: var(--maroon); border-color: var(--maroon); }
+.prob-say { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: .8rem; }
+.prob-say > div { background: var(--bg); border-radius: 10px; padding: .7rem .9rem; font-size: .92rem; }
+.prob-say h4 { margin: 0 0 .3rem; font: 600 .95rem var(--sans); color: var(--maroon); } .prob-say > div + div h4 { color: var(--purple); }
+.prob-say ul { margin: 0; padding-left: 1.1rem; }
+.mini-loops { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+.mini-loops figure { margin: 0; }
+.det-ans { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .8rem; }
+.det-ans button { font: 500 .9rem var(--sans); padding: .6rem .7rem; border: 1.5px solid var(--rule); border-radius: 8px; background: var(--bg); cursor: pointer; color: var(--ink); }
+.det-ans button:hover { border-color: var(--maroon); }
+.det-ans button.right { border-color: var(--ok); background: var(--ok-light); } .det-ans button.wrong { border-color: #c00000; background: #f8e1dc; }
+.det-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: .6rem; }
+.det-top .streak { font: 700 1.3rem var(--hand); color: var(--maroon); }
+.det-why { margin: .7rem 0 0; font-size: .95rem; min-height: 1.5em; }
+.pearl { text-align: center; font: 500 1.35rem/1.5 var(--serif); color: var(--maroon); margin: 1rem 0; }
+.pearl .red { color: #c00000; font: 600 1.1rem var(--sans); display: block; margin-top: .8rem; }
+.qa { color: var(--ink-mid); font-size: .95rem; margin: .4rem 0 0; padding-left: 1.2rem; }
+body.teach .why-list li { font-size: 1.25rem; } body.teach .aim { font-size: 1.15rem; }
+body.teach .class-grid { font-size: 1.15rem; }
+body.teach .sc-trio figure.sketch svg { max-height: 30vh; }
+body.teach .mon-wrap svg.vmon { max-height: 33vh; } body.teach .mon-loops svg { max-height: 16vh; }
+body.teach .mon-loops figcaption { font-size: .85rem; } body.teach .mon-loops { gap: .3rem; } body.teach .mon-loops figure { padding: .2rem; }
+body.teach .det-ans { margin-top: .5rem; gap: .35rem; } body.teach .det-ans button { padding: .4rem .6rem; font-size: .95rem; }
+body.teach .det-why { margin-top: .4rem; } body.teach .qa { margin-top: .2rem; } body.teach .det-top { margin-bottom: .3rem; }
+body.teach .mini-loops figure.sketch svg { max-height: 28vh; }
+body.teach .loop-one figure.sketch svg { max-height: 44vh; }
+body.teach .prob-say { font-size: .95rem; margin-top: .5rem; } body.teach .prob-say > div { padding: .4rem .8rem; }
+body.teach .pearl { font-size: 2rem; } body.teach .pearl .red { font-size: 1.5rem; }
+body.teach .sim-row { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .3rem 1.2rem; }
+.loop-one { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; align-items: center; }
+@media (max-width: 760px) {
+  .class-grid, .prob-say, .loop-one { grid-template-columns: minmax(0, 1fr); }
+  .mini-loops { grid-template-columns: 1fr 1fr; }
+  .det-ans { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body data-page="level" data-topic="graphics" data-level="basics" class="theme-mp click-advance">
+<main>
+
+<header class="level-head">
+  <!-- Teach-mode first slide: same as the PowerPoint -->
+  <div class="ppt-title" aria-hidden="true">
+    <div class="pt-main">
+      <h1>Pulmonary Graphics</h1>
+      <div class="pt-sub">Since a picture is worth a thousand words!</div>
+    </div>
+    <div class="pt-by">
+      <span class="pt-name">Dr. Vivek Kumar</span>
+      <span>Assistant Professor, LHMC</span>
+      <span class="pt-site">vivekneoaiims.com</span>
+    </div>
+  </div>
+  <div class="who">Basics: for nurses &amp; MBBS students</div>
+  <h1>Pulmonary Graphics</h1>
+  <p class="c-purple" style="font-style:italic;margin-bottom:.6rem">Since a picture is worth a thousand words!</p>
+  <p>Six short modules, about 40 minutes. Learn to read the ventilator screen and spot the five problems you will meet every week. New to ventilators? Start with <a data-to="vent-b-04">Speaking ventilator</a>.</p>
+  <a class="teach-cta" href="?teach">▶ Teach this in class</a>
+</header>
+
+<!-- ══════════ MODULE 1 ══════════ -->
+<section class="module" id="why-graphics" data-module="graph-b-01">
+<header class="mod-head">
+  <div class="kicker">Module 1</div>
+  <h2>Why graphics?</h2>
+  <p>The screen shows what the baby's lungs are doing, breath by breath.</p>
+</header>
+
+<section class="beat">
+  <div class="hook">
+    <p>2 am. Kabir's ventilator alarms: <b>"Low expiratory volume."</b> His SpO₂ is drifting down. The nurse glances at the screen and says, "The loop isn't closing. It's a leak."</p>
+    <p class="ask">She diagnosed it in two seconds, without a blood gas. That's the skill.</p>
+  </div>
+</section>
+
+<section class="beat" id="why">
+  <h3 data-beat="see it">Why graphics?</h3>
+  <ul class="why-list">
+    <li class="step">Gives an objective picture of treatment</li>
+    <li class="step">Helps optimise ventilator settings</li>
+    <li class="step red">Picks up misadventures like tube leak and secretions</li>
+    <li class="step">Shows the effect of treatment (surfactant, suction)</li>
+    <li class="step">Helps the weaning process</li>
+  </ul>
+</section>
+
+<section class="beat" id="classification">
+  <h3 data-beat="see it">Classification</h3>
+  <div class="class-grid">
+    <div class="cards" style="margin:0;grid-template-columns:1fr"><div><h4>● Scalars</h4><p>Time on the x-axis, against pressure, volume or flow.</p></div></div>
+    <div class="cards" style="margin:0;grid-template-columns:1fr"><div class="p"><h4>● Loops</h4><p>Pressure against volume (<b>P-V loop</b>). Volume against flow (<b>flow-volume loop</b>).</p></div></div>
+    <div class="aim step"><b>Our aim: to identify</b>
+      <ol><li><span class="term" data-term="leak">Leak</span></li><li><span class="term" data-term="air-trapping">Air trapping (auto-PEEP)</span></li><li>Secretions</li><li><span class="term" data-term="beaking">Beaking</span> (excess pressure)</li><li><span class="term" data-term="compliance">Compliance</span></li></ol></div>
+  </div>
+</section>
+
+<section class="beat" id="screen">
+  <h3 data-beat="see it">The whole screen</h3>
+  <p>This is Kabir's screen on a good day: three scalars on the left, two loops on the right. The dot on each loop follows the breath.</p>
+  <div id="scr1"></div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz1"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 2 ══════════ -->
+<section class="module" id="scalars" data-module="graph-b-02">
+<header class="mod-head ppt-divider">
+  <div class="kicker">Module 2</div>
+  <h2>Scalar graphics</h2>
+  <p class="pt-sub">Mechanical breaths, one line at a time.</p>
+</header>
+
+<section class="beat" id="pt">
+  <h3 data-beat="see it">Pressure vs time</h3>
+  <figure class="sketch"><div id="scP"></div><figcaption>The shape you already know: PIP, PEEP, Ti and Te.</figcaption></figure>
+</section>
+
+<section class="beat" id="vt">
+  <h3 data-beat="see it">Volume vs time</h3>
+  <figure class="sketch"><div id="scV"></div><figcaption>Rises during inspiration, falls back to zero during expiration.</figcaption></figure>
+  <div class="tip step"><b>What to look for</b>The peak is the <span class="term" data-term="tidal-volume">tidal volume</span>. If the line doesn't come back to zero, gas went in but didn't come out: a leak.</div>
+</section>
+
+<section class="beat" id="ft">
+  <h3 data-beat="see it">Flow vs time</h3>
+  <figure class="sketch"><div id="scF"></div><figcaption>Above the line: gas going in. Below: gas coming out.</figcaption></figure>
+  <div class="tip step"><b>The most useful scalar</b>Expiratory flow must reach zero before the next breath. If it doesn't, the lung hasn't emptied: <span class="term" data-term="air-trapping">air trapping</span>.</div>
+</section>
+
+<section class="beat" id="play-scalars">
+  <h3 data-beat="play">What did that change do?</h3>
+  <p>Change one setting at a time and say out loud what moved on the screen.</p>
+  <div class="sim">
+    <div id="scr2"></div>
+    <div class="sim-row" style="margin-top:.8rem">
+      <div class="ctl"><label for="gPip">PIP <b id="gPipV">20</b></label><input type="range" id="gPip" min="12" max="30" value="20"></div>
+      <div class="ctl"><label for="gTi">Ti <b id="gTiV">0.35</b></label><input type="range" id="gTi" min="0.2" max="0.6" step="0.05" value="0.35"></div>
+      <div class="ctl"><label for="gRr">Rate <b id="gRrV">40</b></label><input type="range" id="gRr" min="20" max="70" step="5" value="40"></div>
+    </div>
+    <ul class="qa">
+      <li class="step">What effect did the change in Ti have? <em>(Too short: flow is cut off before it reaches zero, so volume falls.)</em></li>
+      <li class="step">What happened to volume when you raised PIP? <em>(Bigger breath, until the lung is over-stretched.)</em></li>
+    </ul>
+  </div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz2"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 3 ══════════ -->
+<section class="module" id="pv-loop" data-module="graph-b-03">
+<header class="mod-head">
+  <div class="kicker">Module 3</div>
+  <h2>Pressure–volume loop</h2>
+  <p>Pressure on the x-axis, volume on the y-axis. One breath draws one loop.</p>
+</header>
+
+<section class="beat" id="pv-parts">
+  <h3 data-beat="see it">Components of the P-V loop</h3>
+  <div class="loop-one">
+    <figure class="sketch"><div id="pvParts"></div></figure>
+    <div>
+      <p class="step">The loop starts at <b>PEEP</b> (bottom left) and climbs to <b>PIP</b> and <b>VT</b> (top right).</p>
+      <p class="step"><b class="c-purple">Inspiration</b> is the lower limb, <b class="c-maroon">expiration</b> the upper limb: on a machine breath the loop runs anticlockwise.</p>
+      <p class="step">The slope of the line joining the two ends is the <span class="term" data-term="compliance">compliance</span>. Steep = soft lung. Flat = stiff lung.</p>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="compliance">
+  <h3 data-beat="play">Lung compliance changes</h3>
+  <p>Same PIP, different lungs. The dashed loop is a healthy lung for comparison.</p>
+  <div class="sim">
+    <div class="presets prob-chips" id="cChips" style="margin:0 0 .6rem">
+      <button class="chip on" data-c="0.25">RDS: decreased</button><button class="chip" data-c="0.5">After surfactant</button><button class="chip" data-c="0.8">Increased</button>
+    </div>
+    <div class="loop-one">
+      <figure class="sketch" style="margin:0"><div id="cLoop"></div></figure>
+      <div>
+        <div class="ctl"><label for="cC">Compliance <b id="cCV">0.25</b></label><input type="range" id="cC" min="0.15" max="0.9" step="0.05" value="0.25"><small>mL/cmH₂O</small></div>
+        <div class="readouts" style="grid-template-columns:1fr 1fr"><div>Tidal volume<b id="cVt">–</b></div><div>Loop slope<b id="cSl">–</b></div></div>
+        <p class="tip purple" style="margin:.4rem 0 0"><b>After surfactant</b>The loop stands up: more volume for the same PIP. Wean PIP, or the next breath over-stretches the lung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="peep-pv">
+  <h3 data-beat="see it">PEEP and the P-V loop</h3>
+  <div class="mini-loops" style="grid-template-columns:1fr 1fr">
+    <figure class="sketch"><div id="peepLo"></div><figcaption>PEEP 3: alveoli collapse between breaths, so the loop starts low and lies flat.</figcaption></figure>
+    <figure class="sketch step"><div id="peepOk"></div><figcaption>PEEP 6: the lung stays open, so the loop starts higher and stands up.</figcaption></figure>
+  </div>
+</section>
+
+<section class="beat" id="beaking">
+  <h3 data-beat="see it">Over-distension (beaking)</h3>
+  <div class="loop-one">
+    <figure class="sketch"><div id="beakLoop"></div><figcaption>Dashed: normal. Solid: PIP 28 in the same lung.</figcaption></figure>
+    <div>
+      <p class="step">Paw rises with <b>little or no change in VT</b>. The top of the loop flattens into a beak.</p>
+      <p class="step">The lung is full. Extra pressure only stretches and injures it.</p>
+      <div class="tip step"><b>Fix</b>Lower the PIP until the beak disappears.</div>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="breath-type">
+  <h3 data-beat="see it">Type of breath on the P-V loop</h3>
+  <div class="mini-loops">
+    <figure class="sketch"><svg viewBox="0 0 200 180" width="200" role="img" aria-label="Controlled breath loop, anticlockwise, right of the axis">
+      <g fill="none" stroke-linecap="round"><path d="M40 10 V160 H195" stroke="#3b3b44" stroke-width="2"/>
+      <path class="draw" d="M40 158 C80 150 150 80 180 30 C150 40 70 110 40 158" stroke="#7b1e3a" stroke-width="3.5"/>
+      <path d="M110 112 l14 -10 m-14 10 l4 -14" stroke="#5e2b8c" stroke-width="3"/><path d="M118 62 l-14 10 m14 -10 l-3 14" stroke="#5e2b8c" stroke-width="3"/></g>
+      <text x="128" y="122" font-size="17" fill="#5e2b8c">I</text><text x="98" y="58" font-size="17" fill="#5e2b8c">E</text></svg><figcaption>Controlled</figcaption></figure>
+    <figure class="sketch step"><svg viewBox="0 0 200 180" width="200" role="img" aria-label="Assisted breath loop with a small tail to the left from the baby's trigger">
+      <g fill="none" stroke-linecap="round"><path d="M60 10 V160 H195" stroke="#3b3b44" stroke-width="2"/>
+      <path class="draw" d="M60 158 C50 160 40 152 48 146 C56 140 62 150 66 150 C100 140 160 80 185 30 C155 40 90 110 60 158" stroke="#7b1e3a" stroke-width="3.5"/>
+      <path d="M118 108 l14 -10 m-14 10 l4 -14" stroke="#5e2b8c" stroke-width="3"/></g>
+      <text x="22" y="140" font-size="15" fill="#c00000">trigger</text><text x="138" y="118" font-size="17" fill="#5e2b8c">I</text></svg><figcaption>Assisted: a little tail to the left</figcaption></figure>
+    <figure class="sketch step"><svg viewBox="0 0 200 180" width="200" role="img" aria-label="Spontaneous breath loop, clockwise, left of the axis">
+      <g fill="none" stroke-linecap="round"><path d="M130 10 V160 H195 M130 160 H20" stroke="#3b3b44" stroke-width="2"/>
+      <path class="draw" d="M130 158 C100 150 95 70 125 40 C150 60 150 130 130 158" stroke="#7b1e3a" stroke-width="3.5"/>
+      <path d="M106 108 l-2 -16 m2 16 l10 -12" stroke="#5e2b8c" stroke-width="3"/></g>
+      <text x="86" y="104" font-size="17" fill="#5e2b8c">I</text><text x="148" y="90" font-size="17" fill="#5e2b8c">E</text></svg><figcaption>Spontaneous: clockwise, left of zero</figcaption></figure>
+  </div>
+  <p class="note">I: inspiration · E: expiration. A baby breathing on its own makes negative pressure, so its loop sits left of the axis.</p>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz3"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 4 ══════════ -->
+<section class="module" id="fv-loop" data-module="graph-b-04">
+<header class="mod-head">
+  <div class="kicker">Module 4</div>
+  <h2>Flow–volume loop</h2>
+  <p>Volume on the x-axis, flow on the y-axis. Inspiration above the line, expiration below.</p>
+</header>
+
+<section class="beat" id="fv-parts">
+  <h3 data-beat="see it">Components of the flow-volume loop</h3>
+  <div class="loop-one">
+    <figure class="sketch"><div id="fvParts"></div></figure>
+    <div>
+      <p class="step"><b>FRC</b>: the breath starts and ends here (left end).</p>
+      <p class="step"><b>PIFR</b>: peak inspiratory flow, the top. <b>PEFR</b>: peak expiratory flow, the bottom.</p>
+      <p class="step"><b>VT</b>: the right end, where inspiration turns into expiration.</p>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="resist">
+  <h3 data-beat="see it">Increased airway resistance</h3>
+  <div class="loop-one">
+    <figure class="sketch"><div id="resLoop"></div><figcaption>Dashed: normal. Solid: high resistance.</figcaption></figure>
+    <div>
+      <p class="step">The expiratory limb is <b>"scooped out"</b> and <b>PEFR falls</b>: gas can't get out fast through a narrow pipe.</p>
+      <p class="step">Think: secretions, a kinked or small tube, meconium, BPD.</p>
+    </div>
+  </div>
+</section>
+
+<section class="beat">
+  <h3 data-beat="try it">Quick check</h3>
+  <div id="quiz4"></div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 5 ══════════ -->
+<section class="module" id="five-problems" data-module="graph-b-05">
+<header class="mod-head">
+  <div class="kicker">Module 5</div>
+  <h2>The five problems</h2>
+  <p>Leak, air trapping, secretions, beaking and compliance. Each has a signature on the screen.</p>
+</header>
+
+<section class="beat" id="detective">
+  <h3 data-beat="play">Problem viewer</h3>
+  <p>Pick a problem. Dashed loops show the normal breath for comparison.</p>
+  <div class="sim">
+    <div class="presets prob-chips" id="pChips" style="margin:0 0 .6rem">
+      <button class="chip on" data-p="normal">Normal</button><button class="chip" data-p="leak">1. Leak</button><button class="chip" data-p="trap">2. Air trapping</button>
+      <button class="chip" data-p="sec">3. Secretions</button><button class="chip" data-p="beak">4. Beaking</button><button class="chip" data-p="stiff">5. Low compliance</button><button class="chip" data-p="res">High resistance</button>
+    </div>
+    <div id="scr3"></div>
+    <div class="prob-say"><div><h4>What you see</h4><ul id="pSee"></ul></div><div><h4>What you do</h4><ul id="pDo"></ul></div></div>
+  </div>
+</section>
+
+<section class="beat">
+  <div class="pocket">
+    <h3>Pocket card: five problems, five signatures</h3>
+    <table class="vals" style="font-size:.88rem">
+      <tr><th>Problem</th><th>Screen sign</th><th>First action</th></tr>
+      <tr><td><b>Leak</b></td><td>Volume doesn't return to zero; loops don't close</td><td>Check tube position and size</td></tr>
+      <tr><td><b>Air trapping</b></td><td>Expiratory flow doesn't reach zero</td><td>Slower rate, longer Te</td></tr>
+      <tr><td><b>Secretions</b></td><td>Saw-tooth wiggles on flow and loops</td><td>Suction; check for water in the circuit</td></tr>
+      <tr><td><b>Beaking</b></td><td>P-V loop flattens at the top</td><td>Lower PIP</td></tr>
+      <tr><td><b>Compliance</b></td><td>P-V loop lies flat (stiff) or stands up (better)</td><td>Surfactant / wean PIP</td></tr>
+    </table>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<!-- ══════════ MODULE 6 ══════════ -->
+<section class="module" id="practice" data-module="graph-b-06">
+<header class="mod-head">
+  <div class="kicker">Module 6</div>
+  <h2>Practice: graphics detective</h2>
+  <p>A mystery screen. Name the problem.</p>
+</header>
+
+<section class="beat" id="mystery">
+  <h3 data-beat="try it">What is this baby telling you?</h3>
+  <div class="sim">
+    <div class="det-top"><span>Case <b id="dNo">1</b> of 8</span><span class="streak" id="dScore">0 right</span></div>
+    <div id="scr4"></div>
+    <div class="det-ans" id="dAns"></div>
+    <p class="det-why" id="dWhy"></p>
+    <button type="button" class="chip" id="dNext" style="display:none">Next case →</button>
+  </div>
+</section>
+
+<section class="beat" id="pearl">
+  <h3 data-beat="remember">One can learn a lot while watching graphics</h3>
+  <p class="pearl"><span class="step">Eyes see what the mind knows!</span><br><span class="step c-purple">Stimulate your brain to think about what the baby is telling you.</span>
+    <span class="red step">Do not forget to examine the patient, and avoid decisions based only on graphics!</span></p>
+</section>
+
+<section class="beat" id="summary">
+  <div class="pocket">
+    <h3>Summary</h3>
+    <ol>
+      <li>Scalars: pressure, volume and flow against time.</li>
+      <li>Loops: P-V (compliance, beaking) and flow-volume (resistance, leak).</li>
+      <li>Five problems: leak, air trapping, secretions, beaking, compliance.</li>
+      <li>Expiratory flow must reach zero before the next breath.</li>
+      <li>Treat the baby, not the screen.</li>
+    </ol>
+    <div class="sig">Dr. Vivek Kumar · vivekneoaiims.com</div>
+  </div>
+</section>
+</section>
+
+<section class="refs" id="sources">
+  Sources
+  <ol>
+    <li>Pulmonary graphics section of "Newborn: Ventilation", teaching slides, Dr. Vivek Kumar (2026).</li>
+    <li>Neonatal Ventilation Workbook 2026: time constants, air trapping and work of breathing.</li>
+    <li>Keszler M. Neoreviews 2006;7:e226 (pressure, flow and volume recordings).</li>
+    <li>Goldsmith JP, Karotkin EH, Keszler M, Suresh GK. Assisted Ventilation of the Neonate, 7th ed. Elsevier; 2022 (chapter on pulmonary graphics).</li>
+  </ol>
+  Waveforms on this page come from a simple teaching model, not from a real patient.<br>
+  Last reviewed: October 2026
+</section>
+
+</main>
+<script src="../../assets/registry.js?v=4"></script>
+<script src="../../assets/glossary.js?v=4"></script>
+<script src="../../assets/learn.js?v=4"></script>
+<script src="../../assets/vent.js?v=4"></script>
+<script>
+var NS = 'http://www.w3.org/2000/svg';
+function E(tag, at, parent, text) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+function O(base, extra) { var o = {}, k; for (k in base) o[k] = base[k]; for (k in extra || {}) o[k] = extra[k]; return o; }
+
+/* the teaching lungs */
+var NORM = { pip: 20, peep: 5, ti: 0.35, rr: 40, C: 0.5, R: 0.12 };
+var PROB = {
+  normal: { o: NORM, name: 'Normal',
+    see: ['Volume returns to zero every breath', 'Expiratory flow reaches zero before the next breath', 'Smooth, closed loops'], dof: ['Nothing. Keep watching the baby.'] },
+  leak: { o: O(NORM, { leak: 0.35 }), name: 'Leak',
+    see: ['Volume–time: doesn\'t return to zero, then drops straight down', 'P-V and flow-volume loops don\'t close', 'Alarm: low expiratory volume'], dof: ['Check tube position and fixation', 'Consider a bigger tube if the leak is large', 'Use expiratory VT, not inspiratory'] },
+  trap: { o: O(NORM, { R: 0.45, C: 0.6, rr: 60 }), name: 'Air trapping',
+    see: ['Flow–time: expiratory flow doesn\'t return to baseline', 'The next breath starts before the lung is empty', 'Rising CO₂ despite a higher rate'], dof: ['Slow the rate to lengthen Te', 'Shorten Ti if needed', 'Treat the cause: secretions, MAS, BPD'] },
+  sec: { o: O(NORM, { secretions: true, R: 0.2 }), name: 'Secretions / water in the circuit',
+    see: ['Saw-tooth wiggles on flow and pressure', 'Jagged loops, mostly on expiration', 'Coarse crackles; condensate in tubing'], dof: ['Suction the tube', 'Drain water from the circuit', 'Check humidifier temperature'] },
+  beak: { o: O(NORM, { overdist: true, pip: 28 }), name: 'Beaking (over-distension)',
+    see: ['P-V loop flattens into a beak at the top', 'Pressure rises with little or no extra volume', 'Often after surfactant, when PIP wasn\'t weaned'], dof: ['Lower PIP until the beak goes', 'Consider volume targeting'] },
+  stiff: { o: O(NORM, { C: 0.25 }), name: 'Low compliance (stiff lung)',
+    see: ['P-V loop lies flat (low slope)', 'Small tidal volume for the same PIP', 'RDS, pneumonia, pulmonary oedema'], dof: ['Optimise PEEP', 'Surfactant if RDS', 'Watch for the loop standing up after treatment'] },
+  res: { o: O(NORM, { R: 0.35 }), name: 'High airway resistance',
+    see: ['Flow-volume: expiratory limb scooped out', 'Lower peak expiratory flow (PEFR)', 'Wider P-V loop'], dof: ['Suction; check tube for kinks', 'Think of MAS, BPD, a small tube'] }
+};
+
+/* screen = live scalars + two loops with a moving dot */
+function screen(host, o, ref) {
+  host.innerHTML = '<div class="mon-wrap"><div class="mon-main"></div><div class="mon-loops"><figure><div class="lp"></div><figcaption>P-V loop</figcaption></figure><figure><div class="lf"></div><figcaption>flow-volume loop</figcaption></figure></div></div>';
+  var lp, lf, dp, df, mon;
+  function loops(o) {
+    var r = ref === undefined ? NORM : ref;
+    lp = VentSim.loop(host.querySelector('.lp'), o, 'pv', { ref: r === o ? null : r, w: 300, h: 220, xmax: 35, ymax: 15 });
+    lf = VentSim.loop(host.querySelector('.lf'), o, 'fv', { ref: r === o ? null : r, w: 300, h: 220, xmax: 15, ymax: 8 });
+    dp = lp.el('circle', { r: 6, fill: '#ffb547', stroke: '#5e2b8c', 'stroke-width': 2 });
+    df = lf.el('circle', { r: 6, fill: '#5fd4c6', stroke: '#5e2b8c', 'stroke-width': 2 });
+  }
+  loops(o);
+  mon = VentSim.monitor(host.querySelector('.mon-main'), o, {
+    stripH: 64, fix: { p: [0, 35], v: [0, 15], f: [-8, 8] },
+    onTick: function (i, d) {
+      dp.setAttribute('cx', lp.X(d.p[i])); dp.setAttribute('cy', lp.Y(d.v[i]));
+      df.setAttribute('cx', lf.X(d.v[i])); df.setAttribute('cy', lf.Y(d.f[i]));
+    }
+  });
+  return { set: function (o2) { loops(o2); mon.set(o2); } };
+}
+
+/* ══════════ MODULE 1 ══════════ */
+screen(document.getElementById('scr1'), NORM, null);
+Learn.quiz('quiz1', [
+  { q: 'Pressure, volume or flow plotted against time is called a…', o: ['Scalar', 'Loop', 'Trend'], a: 0, why: 'Scalars have time on the x-axis. Loops plot two of the variables against each other.' },
+  { q: 'Which graphic would show a tube leak most clearly?', o: ['Volume–time and the loops', 'Pressure–time only', 'SpO₂ trace'], a: 0, why: 'Gas goes in but doesn\'t come back, so volume doesn\'t return to zero and the loops stay open.' }
+]);
+
+/* ══════════ MODULE 2: annotated scalars ══════════ */
+(function scalars() {
+  var o = NORM, ti = o.ti, per = 60 / o.rr;
+  var p = VentSim.scalar(document.getElementById('scP'), o, 'p', { breaths: 2, ymax: 28, col: '#7b1e3a', h: 220 });
+  var g = p.el('g', { class: 'step' });
+  E('text', { x: p.X(ti) + 10, y: p.Y(o.pip) + 6, 'font-size': 18, fill: '#7b1e3a', 'font-weight': 700 }, g, 'PIP');
+  E('text', { x: p.X(ti + 0.25), y: p.Y(o.peep) - 8, 'font-size': 18, fill: '#7b1e3a', 'font-weight': 700 }, g, 'PEEP');
+  var g2 = p.el('g', { class: 'step', stroke: '#5e2b8c', 'stroke-width': 2.5, fill: 'none' });
+  E('path', { d: 'M' + p.X(0) + ' ' + (p.Y(o.pip) - 10) + ' H' + p.X(ti) }, g2); E('text', { x: p.X(ti / 2), y: p.Y(o.pip) - 16, 'text-anchor': 'middle', 'font-size': 17, fill: '#5e2b8c', stroke: 'none' }, g2, 'Ti');
+  E('path', { d: 'M' + p.X(ti + 0.05) + ' ' + (p.Y(11)) + ' H' + p.X(per - 0.05) }, g2); E('text', { x: p.X((ti + per) / 2), y: p.Y(11) - 6, 'text-anchor': 'middle', 'font-size': 17, fill: '#5e2b8c', stroke: 'none' }, g2, 'Te');
+  E('text', { x: p.X(0.05), y: p.Y(2), 'font-size': 15, fill: '#5e2b8c' }, p.svg, 'inspiration'); E('text', { x: p.X(ti + 0.6), y: p.Y(2), 'font-size': 15, fill: '#5e2b8c' }, p.svg, 'expiration');
+
+  var v = VentSim.scalar(document.getElementById('scV'), o, 'v', { breaths: 2, ymax: 12, col: '#5e2b8c', h: 200 });
+  var gv = v.el('g', { class: 'step' });
+  var d = v.data, s = d.start, mx = Math.max.apply(null, d.v.slice(s[2], s[3]));
+  E('path', { d: 'M' + v.X(ti) + ' ' + v.Y(mx) + ' h70', stroke: '#7b1e3a', 'stroke-width': 2, 'stroke-dasharray': '4 4' }, gv);
+  E('text', { x: v.X(ti) + 74, y: v.Y(mx) + 5, 'font-size': 17, fill: '#7b1e3a', 'font-weight': 700 }, gv, 'tidal volume');
+  E('text', { x: v.X(0.03), y: v.Y(1), 'font-size': 15, fill: '#5e2b8c' }, v.svg, 'inspiration'); E('text', { x: v.X(ti + 0.2), y: v.Y(mx * 0.45), 'font-size': 15, fill: '#5e2b8c' }, v.svg, 'expiration');
+
+  var f = VentSim.scalar(document.getElementById('scF'), o, 'f', { breaths: 2, ymax: 8, col: '#7b1e3a', h: 220 });
+  var gf = f.el('g', { class: 'step' });
+  E('text', { x: f.X(0.06), y: f.Y(6.5), 'font-size': 17, fill: '#5e2b8c', 'font-weight': 700 }, gf, 'inspiration ↑');
+  E('text', { x: f.X(ti + 0.06), y: f.Y(-6.5), 'font-size': 17, fill: '#7b1e3a', 'font-weight': 700 }, gf, 'expiration ↓');
+  E('text', { x: f.X(ti + 0.5), y: f.Y(0) - 10, 'font-size': 16, fill: '#2f8150' }, gf, 'back to zero ✓');
+})();
+(function playScalars() {
+  var ids = ['gPip', 'gTi', 'gRr'], scr;
+  function o() { return O(NORM, { pip: +gPip.value, ti: +gTi.value, rr: +gRr.value, C: 0.5, R: 0.25 }); }
+  var gPip = document.getElementById('gPip'), gTi = document.getElementById('gTi'), gRr = document.getElementById('gRr');
+  scr = screen(document.getElementById('scr2'), o(), null);
+  ids.forEach(function (id) { document.getElementById(id).addEventListener('input', function () { ids.forEach(function (k) { document.getElementById(k + 'V').textContent = document.getElementById(k).value; }); scr.set(o()); }); });
+})();
+Learn.quiz('quiz2', [
+  { q: 'On the flow–time graph, where is expiration?', o: ['Below the zero line', 'Above the zero line', 'On the zero line'], a: 0, why: 'Gas leaving the baby flows the opposite way, so it is drawn below zero.' },
+  { q: 'Expiratory flow is still well below zero when the next breath starts. What is happening?', o: ['Air trapping', 'A leak', 'Over-distension'], a: 0, why: 'The lung hadn\'t finished emptying. Lengthen Te (slow the rate).' },
+  { q: 'The volume–time line rises but never comes back to zero. Most likely?', o: ['Leak around the tube', 'Secretions', 'Low compliance'], a: 0, why: 'What went in didn\'t come back to the ventilator: it leaked out around the tube.' }
+]);
+
+/* ══════════ MODULE 3: P-V loop ══════════ */
+(function pv() {
+  var o = O(NORM, { R: 0.25 });
+  var L = VentSim.loop(document.getElementById('pvParts'), o, 'pv', { w: 380, h: 300, xmax: 32, ymax: 12 });
+  var b = VentSim.lastBreath(VentSim.run(o, 6)), vt = Math.max.apply(null, b.v);
+  var g = L.el('g', { class: 'step' });
+  E('text', { x: L.X(o.peep), y: L.Y(0) - 10, 'font-size': 17, fill: '#7b1e3a', 'font-weight': 700, 'text-anchor': 'middle' }, g, 'PEEP');
+  E('text', { x: L.X(o.pip) + 8, y: L.Y(vt) + 5, 'font-size': 17, fill: '#7b1e3a', 'font-weight': 700 }, g, 'PIP, VT');
+  var g2 = L.el('g', { class: 'step' });
+  E('text', { x: L.X(o.pip) + 8, y: L.Y(vt * 0.3), 'font-size': 18, fill: '#5e2b8c', 'font-weight': 700 }, g2, '← inspiration');
+  E('text', { x: L.X(8), y: L.Y(vt * 1.14), 'font-size': 18, fill: '#7b1e3a', 'font-weight': 700 }, g2, '← expiration');
+  var g3 = L.el('g', { class: 'step' });
+  E('path', { d: 'M' + L.X(o.peep) + ' ' + L.Y(0) + ' L' + L.X(o.pip) + ' ' + L.Y(vt), stroke: '#2f8150', 'stroke-width': 2.5, 'stroke-dasharray': '6 5' }, g3);
+  E('text', { x: L.X(13.6), y: L.Y(vt * 0.66), 'font-size': 16, fill: '#2f8150', 'text-anchor': 'end' }, g3, 'compliance');
+
+  var cC = document.getElementById('cC');
+  function comp() {
+    var c = +cC.value; document.getElementById('cCV').textContent = c;
+    var oo = O(NORM, { C: c });
+    var LL = VentSim.loop(document.getElementById('cLoop'), oo, 'pv', { ref: NORM, w: 340, h: 260, xmax: 25, ymax: 13 });
+    var bb = VentSim.lastBreath(VentSim.run(oo, 6)), v = Math.max.apply(null, bb.v);
+    document.getElementById('cVt').textContent = v.toFixed(1) + ' mL'; document.getElementById('cSl').textContent = (v / 15).toFixed(2);
+    VentSim.redraw(LL.svg);
+  }
+  cC.addEventListener('input', function () { document.querySelectorAll('#cChips .chip').forEach(function (x) { x.classList.remove('on'); }); comp(); });
+  document.querySelectorAll('#cChips .chip').forEach(function (ch) { ch.addEventListener('click', function () { document.querySelectorAll('#cChips .chip').forEach(function (x) { x.classList.toggle('on', x === ch); }); cC.value = ch.dataset.c; comp(); }); });
+  comp();
+
+  /* PEEP: a recruitable lung modelled as lower compliance when PEEP is low */
+  VentSim.loop(document.getElementById('peepLo'), { pip: 20, peep: 3, C: 0.3, R: 0.12, overdist: false }, 'pv', { w: 300, h: 220, xmax: 25, ymax: 12 });
+  VentSim.loop(document.getElementById('peepOk'), { pip: 20, peep: 6, C: 0.55, R: 0.12 }, 'pv', { w: 300, h: 220, xmax: 25, ymax: 12 });
+  VentSim.loop(document.getElementById('beakLoop'), PROB.beak.o, 'pv', { ref: NORM, w: 360, h: 280, xmax: 32, ymax: 12 });
+})();
+Learn.quiz('quiz3', [
+  { q: 'After surfactant, the P-V loop becomes steeper. This means…', o: ['Compliance improved', 'Resistance increased', 'There is a leak'], a: 0, why: 'More volume for the same pressure = better compliance. Wean PIP before the lung over-stretches.' },
+  { q: 'The top of the P-V loop flattens into a beak. What do you change?', o: ['Lower PIP', 'Raise PIP', 'Raise rate'], a: 0, why: 'Beaking means extra pressure gives no extra volume: the lung is over-distended.' },
+  { q: 'A loop drawn clockwise, left of the zero-pressure axis, is a…', o: ['Spontaneous breath', 'Controlled breath', 'Leak'], a: 0, why: 'The baby makes negative pressure to breathe in, so the loop sits left of zero and runs clockwise.' }
+]);
+
+/* ══════════ MODULE 4: flow-volume loop ══════════ */
+(function fv() {
+  var o = NORM;
+  var L = VentSim.loop(document.getElementById('fvParts'), o, 'fv', { w: 380, h: 300, xmax: 10, ymax: 8 });
+  var b = VentSim.lastBreath(VentSim.run(o, 6)), vt = Math.max.apply(null, b.v), pif = Math.max.apply(null, b.f), pef = Math.min.apply(null, b.f);
+  var vAtPif = b.v[b.f.indexOf(pif)], vAtPef = b.v[b.f.indexOf(pef)];
+  var g = L.el('g', { class: 'step' }); E('path', { d: 'M' + (L.X(0) + 4) + ' ' + (L.Y(0) + 4) + ' L' + (L.X(0) + 16) + ' ' + (L.Y(-5.6)), stroke: '#7b1e3a', 'stroke-width': 2 }, g); E('text', { x: L.X(0) + 8, y: L.Y(-6.4), 'font-size': 17, 'font-weight': 700, fill: '#7b1e3a' }, g, 'FRC');
+  var g2 = L.el('g', { class: 'step' });
+  E('text', { x: L.X(vAtPif) + 8, y: L.Y(pif) - 6, 'font-size': 17, 'font-weight': 700, fill: '#5e2b8c' }, g2, 'PIFR');
+  E('text', { x: L.X(vAtPef) - 8, y: L.Y(pef) + 22, 'font-size': 17, 'font-weight': 700, fill: '#5e2b8c', 'text-anchor': 'end' }, g2, 'PEFR');
+  var g3 = L.el('g', { class: 'step' }); E('text', { x: L.X(vt) + 8, y: L.Y(0) - 8, 'font-size': 17, 'font-weight': 700, fill: '#7b1e3a' }, g3, 'VT');
+  VentSim.loop(document.getElementById('resLoop'), PROB.res.o, 'fv', { ref: NORM, w: 360, h: 280, xmax: 10, ymax: 8 });
+})();
+Learn.quiz('quiz4', [
+  { q: 'On the flow-volume loop, a "scooped out" expiratory limb with a low PEFR means…', o: ['High airway resistance', 'Low compliance', 'Over-distension'], a: 0, why: 'Gas can\'t leave quickly through a narrowed airway or tube. Suction and check the tube.' },
+  { q: 'The flow-volume loop doesn\'t close: expiration ends before reaching the start point. Most likely?', o: ['Leak', 'Secretions', 'Beaking'], a: 0, why: 'Less volume came back than went in.' }
+]);
+
+/* ══════════ MODULE 5: problem viewer ══════════ */
+(function viewer() {
+  var scr = screen(document.getElementById('scr3'), NORM, NORM), cur = 'normal';
+  function show(k) {
+    cur = k; var P = PROB[k]; scr.set(P.o);
+    document.getElementById('pSee').innerHTML = P.see.map(function (x) { return '<li>' + x + '</li>'; }).join('');
+    document.getElementById('pDo').innerHTML = P.dof.map(function (x) { return '<li>' + x + '</li>'; }).join('');
+  }
+  document.querySelectorAll('#pChips .chip').forEach(function (ch) { ch.addEventListener('click', function () { document.querySelectorAll('#pChips .chip').forEach(function (x) { x.classList.toggle('on', x === ch); }); show(ch.dataset.p); }); });
+  show('normal');
+})();
+
+/* ══════════ MODULE 6: detective ══════════ */
+(function detective() {
+  var keys = ['leak', 'trap', 'sec', 'beak', 'stiff', 'res', 'normal'], order = ['trap', 'leak', 'beak', 'sec', 'stiff', 'normal', 'res', 'leak'], i = 0, right = 0, done = false;
+  var scr = screen(document.getElementById('scr4'), PROB[order[0]].o, NORM);
+  var ans = document.getElementById('dAns');
+  ans.innerHTML = keys.map(function (k) { return '<button type="button" data-k="' + k + '">' + PROB[k].name + '</button>'; }).join('');
+  function load() {
+    done = false; scr.set(PROB[order[i]].o);
+    document.getElementById('dNo').textContent = i + 1; document.getElementById('dWhy').textContent = '';
+    ans.querySelectorAll('button').forEach(function (b) { b.className = ''; });
+    document.getElementById('dNext').style.display = 'none';
+  }
+  ans.querySelectorAll('button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (done) return; done = true; var k = order[i], ok = b.dataset.k === k;
+      if (ok) right++;
+      b.classList.add(ok ? 'right' : 'wrong'); ans.querySelector('[data-k="' + k + '"]').classList.add('right');
+      document.getElementById('dWhy').innerHTML = (ok ? '<b>Yes.</b> ' : '<b>Not quite: it\'s ' + PROB[k].name.toLowerCase() + '.</b> ') + PROB[k].see[0] + '. ' + PROB[k].dof[0] + '.';
+      document.getElementById('dScore').textContent = right + ' right';
+      var nx = document.getElementById('dNext');
+      if (i < order.length - 1) nx.style.display = ''; else { nx.style.display = 'none'; document.getElementById('dWhy').innerHTML += ' <b>Finished: ' + right + ' of ' + order.length + '.</b>'; if (right >= 5) Learn.done('graph-b-06'); }
+    });
+  });
+  document.getElementById('dNext').addEventListener('click', function () { i++; load(); });
+})();
+</script>
+</body>
+</html>

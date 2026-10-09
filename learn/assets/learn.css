@@ -304,3 +304,71 @@ body.teach .presenter span { font: 400 1.1rem var(--sans); color: var(--ink-mid)
 
 .teach-cta { display: inline-block; margin-top: 1rem; font: 600 .92rem var(--sans); color: var(--lvl); border: 1.5px solid var(--lvl); border-radius: 22px; padding: .45rem 1rem; text-decoration: none; }
 .teach-cta:hover { background: var(--lvl); color: #fff; }
+
+/* ══════════ CLICK-TO-REVEAL BUILDS (teach mode only) ══════════ */
+body.teach .step { visibility: hidden; }
+body.teach .step.step-on { visibility: visible; animation: stepIn .45s ease-out both; }
+@keyframes stepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+body.teach.theme-mp .slide-on { animation: slideIn .35s ease-out both; }
+@keyframes slideIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ══════════ MAROON & PURPLE THEME (Ventilation, Pulmonary graphics) ══════════ */
+body.theme-mp {
+  --maroon: #7b1e3a; --maroon-light: #f6e5eb; --purple: #5e2b8c; --purple-light: #eee6f6;
+  --lvl: var(--maroon); --lvl-light: var(--maroon-light); --basics: var(--maroon); --basics-light: var(--maroon-light);
+  --gold: var(--purple); --accent: var(--purple);
+  --bg: #fbf8f9;
+}
+body.theme-mp .hook { border-left-color: var(--maroon); }
+body.theme-mp .hook::before { color: var(--maroon); }
+body.theme-mp .pocket { border-color: var(--purple); }
+body.theme-mp .print-btn { border-color: var(--purple); color: var(--purple); }
+body.theme-mp .tip.purple { background: var(--purple-light); } body.theme-mp .tip.purple b:first-child { color: var(--purple); }
+body.theme-mp .l-teach-btn, body.theme-mp .lvl-chip { background: var(--maroon); }
+body.theme-mp .t-prog i { background: linear-gradient(90deg, var(--maroon), var(--purple)); }
+.c-maroon { color: var(--maroon); } .c-purple { color: var(--purple); }
+
+/* ventilator screen + loop/scalar sketches */
+svg.vmon { display: block; width: 100%; height: auto; border-radius: 12px; }
+svg.vmon text, svg.vmon .sans { font-family: var(--sans); }
+svg.vloop, svg.vscalar { display: block; width: 100%; height: auto; }
+.mon-wrap { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.mon-loops { display: grid; gap: .6rem; }
+.mon-loops figure { margin: 0; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: .4rem; }
+.mon-loops figcaption { font: 600 1rem var(--hand); color: var(--ink-mid); text-align: center; }
+@media (max-width: 760px) { .mon-wrap { grid-template-columns: minmax(0, 1fr); } .mon-loops { grid-template-columns: 1fr 1fr; } }
+
+/* PowerPoint-style first slide, shown only in teach mode */
+.ppt-title { display: none; }
+body.teach .level-head.slide-on .ppt-title { display: flex; }
+body.teach main:has(.level-head.slide-on) { background: #fff; }
+body.teach .level-head.slide-on:has(.ppt-title) { max-width: none; height: 100%; margin: 0; display: flex; }
+.ppt-title { flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; min-height: 100%; font-family: 'Calibri Light', Calibri, 'Inter', system-ui, sans-serif; }
+.ppt-title .pt-main { flex: 1.15; display: flex; flex-direction: column; justify-content: flex-end; }
+.ppt-title h1 { font: 300 clamp(2.6rem, 6.2vw, 5.6rem)/1.1 'Calibri Light', Calibri, 'Inter', sans-serif !important; color: #000; margin: 0; letter-spacing: 0; }
+.ppt-title .pt-sub { font: 400 clamp(1.1rem, 2.1vw, 1.9rem) Calibri, 'Inter', sans-serif; color: #7030a0; margin: .9rem 0 0 4vw; }
+.ppt-title .pt-by { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 2vh; font: 400 clamp(.95rem, 1.45vw, 1.35rem)/1.45 Calibri, 'Inter', sans-serif; color: #000; }
+.ppt-title .pt-by .pt-name { color: #c00000; }
+.ppt-title .pt-by .pt-site { color: #000; }
+body.teach .level-head.slide-on:has(.ppt-title) > :not(.ppt-title) { display: none; }
+
+/* section-divider slide in the same PowerPoint style */
+.ppt-divider { text-align: center; }
+body.teach .mod-head.ppt-divider.slide-on { margin: auto 0; }
+body.teach .ppt-divider h2 { font: 300 4.2rem/1.1 'Calibri Light', Calibri, 'Inter', sans-serif; color: var(--maroon); }
+body.teach .ppt-divider .pt-sub { font: 400 1.6rem Calibri, 'Inter', sans-serif; color: #7030a0; max-width: none; }
+
+/* small helpers for the new pages */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .8rem; margin: 1rem 0; }
+.cards > div { background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--c, var(--maroon)); border-radius: 8px 8px 10px 10px; padding: .8rem 1rem; }
+.cards h4 { margin: 0 0 .3rem; font: 600 1.05rem var(--serif); color: var(--c, var(--maroon)); }
+.cards p, .cards ul { margin: 0; font-size: .92rem; color: var(--ink-mid); } .cards ul { padding-left: 1.1rem; }
+.cards .p { --c: var(--purple); }
+.quote { font: italic 1.15rem/1.5 var(--serif); color: var(--maroon); border-left: 3px solid var(--purple); padding: .3rem 0 .3rem 1rem; margin: 1.2rem 0; }
+.ticks td, .ticks th { text-align: center !important; } .ticks td:first-child, .ticks th:first-child { text-align: left !important; }
+.tk-yes { color: var(--ok); font-weight: 700; } .tk-no { color: var(--ink-light); }
+body.teach .cards h4 { font-size: 1.3rem; } body.teach .cards p, body.teach .cards ul { font-size: 1.1rem; }
+body.teach .quote { font-size: 1.5rem; }
+body.teach .mon-wrap svg.vmon { max-height: 52vh; }
+body.teach .mon-loops svg { max-height: 22vh; }
+body.teach table.vals { font-size: 1.05rem; }
